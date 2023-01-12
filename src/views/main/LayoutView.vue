@@ -1,53 +1,65 @@
 <template>
   <div class="common-layout full_height" >
-    <el-container  class="full_height"  v-bind:class="{ 'mask': maskEffective }">
-
+    <!-- 主体模块 -->
+    <el-container  class="full_height"  v-bind:class="{ 'mask': maskEffective }" style="background :url('@/assets/background-02.jpg' repeat;">
+        <!-- 头部模块 -->
         <transition
-          :duration="200"
-          enter-active-class="animate__animated animate__fadeInDown"
-          leave-active-class="animate__animated animate__fadeOutUp"
+          name="fade"
         >
-          <div v-if="!headerFlag" style="position:fixed;width:100%;z-index:4;background-color:green">hello2</div>
+          <div v-if="!headerFlag" class="top_header_div_transparent" >
+              <el-row class="top_header_div_row full_height">
+                <el-col :span="2" class="full_height"></el-col>
+                <el-col :span="9" class="full_height">
+                  <span class="cursor-font declare-font top_header_span" @click="declareClick">雷の博客</span>
+                </el-col>
+                <el-col :span="4" class="full_height"></el-col>
+                <el-col :span="7" class="full_height">
+                  <el-menu
+                    class="top_header_menu full_height declare-font"
+                    text-color="white"
+                    mode="horizontal"
+                    menu-trigger="click"
+                  >
+                    <el-menu-item index="1">归档</el-menu-item>
+                    <el-menu-item index="2">关于</el-menu-item>
+                    <el-menu-item index="3">友链</el-menu-item>
+                    <el-menu-item index="4">留言</el-menu-item>
+                    <el-menu-item index="5">About</el-menu-item>
+                  </el-menu>
+                </el-col>
+                <el-col :span="2" class="full_height" style="overflow: hidden;">
+                  <router-link class="common-routerlink" to="/login">管理员登陆</router-link>
+                </el-col>
+              </el-row>
+            
+          </div>
         </transition> 
-
-
-        <transition
-          :duration="200"
-          enter-active-class="animate__animated animate__fadeInDown"
-          leave-active-class="animate__animated animate__fadeOutUp"
-        >
-          <div v-if="headerFlag" style="position:fixed;width:100%;z-index:4;background-color:red">hello</div>
-        </transition>               
       <el-header class="main_header" height="150px" style="padding:0px;width:100%">
-
-
         <div class="main_header_div">
-          <span class="cursor-font declare-font" @click="declareClick">网站声明</span>
-          <router-link to="/boxOffice">boxofficeview</router-link>
+          
+          <!-- <router-link to="/boxOffice">boxofficeview</router-link> -->
           <!-- <router-link to="/MessageBoard">messageboard</router-link> -->
         </div>
-
-
-
-
-
         <div class="default_header_div">
           <!-- <router-link to="/MessageBoard">messageboard</router-link> -->
         </div>
 
       </el-header>
-      <el-container class="full_height" style="z-index:2">
-        <el-aside width="17%"></el-aside>
-        <el-container class="full_height white_background" style="padding-top:10px">
-        <el-main class="router_main el_main_first">
-        <!-- <router-view ref="routerViewRef"></router-view> -->
-        <router-view v-slot="{ Component }">
-            <component ref="order_view" :is="Component" />
-        </router-view>
+      <!-- 内容模块 -->
+      <el-container class="full_height main_container" style="z-index:2;">
+        <!-- 内容模块-左侧边 -->
+        <el-aside width="17%" class="layout_left_aside" style=""></el-aside>
+        <!-- 内容模块-主体 -->
+        <el-container class="full_height content_container" style="padding-top:10px;">
+            <el-main class="router_main el_main_first">
+            <router-view v-slot="{ Component }">
+                <component ref="order_view" :is="Component" />
+            </router-view>
 
-        </el-main>
+            </el-main>
         </el-container>
-        <el-aside width="37%"><Statement/></el-aside>
+        <!-- 内容模块-右侧边 -->
+        <el-aside width="32%" class="layout_right_aside"><Statement/></el-aside>
       </el-container>
       
     </el-container>
@@ -58,11 +70,26 @@
         <br/>
         <span>我是你爹</span>
     </div>
+
+    <!-- 辅助栏 -->
+    <el-card class="support_card"  shadow="hover">
+            <el-row>
+                  <el-col :span="24">
+                    <el-icon><ArrowUp /></el-icon>
+                  </el-col>
+                </el-row>
+                <el-divider style="margin: 13px 0px 13px 0px;"></el-divider>
+            <el-row>
+              <el-col :span="24">
+                  <el-icon><InfoFilled /></el-icon>
+              </el-col>
+            </el-row>              
+    </el-card>
 </template>
 
 <script lang="ts" setup>
 import Statement from '@/views/statement/statement_page.vue'
-import { ref ,reactive ,onMounted,onBeforeUnmount } from 'vue'
+import { ref ,onMounted,onBeforeUnmount } from 'vue'
 
 const headerFlag = ref(false);
 let order_view = ref()
@@ -77,22 +104,12 @@ onBeforeUnmount(() => {
 
 const sorlly= () => {
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    //  可视区域
-    let clientHeight = document.documentElement.clientHeight;
-    // 页面的高度
-    let scrollHeight = document.documentElement.scrollHeight;
-    //console.log(scrollTop +"+"+ clientHeight +"???"+ scrollHeight);
 
     if(scrollTop>144){
       headerFlag.value = true;
     }else{
       headerFlag.value = false;
     }
-    if (scrollTop + clientHeight >= scrollHeight) {
-        console.log("access");
-        order_view.value.sorlly();
-    }
-    
 }
 
 const initPageSize = () =>{
@@ -110,8 +127,14 @@ const declareClick = ()=>{
 const declareDialogClick = () => {
     maskEffective.value = false;
 }
+
+//辅助栏================================================================================
+const ICP_Filing_record = "皖ICP备2022015508号-1"
+const Public_security_record = "皖公网安备 34070202000554号"
+const copy_right = "Copyright © 2022 · Raysvivi"
+const declare_value = "任何反馈请联系[2105520190@qq.com]";
 </script>
-<style lang="scss">
+<style lang="less">
 .full_height{
   height:100%
 }
@@ -121,10 +144,16 @@ const declareDialogClick = () => {
 }
 
 .main_header_div {
-  background: url("@/assets/bearsInWinter.png") no-repeat center;
+  background: url("@/assets/animals_book_3.jpg") no-repeat center;
   background-size: cover;
     width: 100%;
-    height: 175%;  
+    height: 118%;  
+}
+
+.main_container{
+  // background-color : #E6E6E6;
+  background :url('@/assets/background-02.png') repeat;
+  background-size: contain;
 }
 
 .default_header_div{
@@ -133,7 +162,24 @@ const declareDialogClick = () => {
     background:red   
 }
 .el_main_first{
-  overflow-y:hidden
+    position: relative;
+    top: -45px;
+    // background-color: #E6E6E6;
+    padding-top: 12px;  
+    overflow-y:hidden;
+    border-radius: 7px;
+}
+
+.layout_left_aside{
+  //background :url('@/assets/background-02.jpg') repeat;
+}
+.layout_right_aside{
+    padding: 10px 10px 0px 10px;
+    margin-left: 10px;
+    position: relative;
+    top: -35px;
+    //background-color: #E6E6E6;
+    border-radius: 7px 0px 0px 0px;
 }
 
     .display-class{
@@ -150,23 +196,117 @@ const declareDialogClick = () => {
         height: 10%;
         width: 80%;
         border-radius: 1rem;
-        color: white;
         text-align: center;
         width: 100%;
     }    
 
     .mask{
         filter:blur(10px);
-		-webkit-filter:blur(10px);
-		-moz-filter:blur(10px);
-		-ms-filter:blur(10px);
-		-o-filter:blur(10px);
+        -webkit-filter:blur(10px);
+        -moz-filter:blur(10px);
+        -ms-filter:blur(10px);
+        -o-filter:blur(10px);
     }    
 
-    .white_background{
-      background-color:white;
+    .cursor-font {cursor:pointer}
+    .declare-font{
+      color:white;
+      font-family:"Consolas","Microsoft JhengHei","Apple LiGothic Medium,Microsoft YaHei","微软雅黑","Arial",sans-serif;
     }
 
-    .cursor-font {cursor:pointer}
-    .declare-font{color:white}
+
+//顶部栏样式==============================================
+    .top_header_div_transparent{
+      position:fixed;
+      width:100%;
+      z-index:4;
+      height: 50px;
+      backdrop-filter: blur(10px);
+      background-color:rgba(0, 0, 0, 0.3);
+    }
+
+    .top_header_span{
+      line-height:310%;
+    }
+    .top_header_menu{
+      background-color:transparent;
+      border: none;
+    }
+
+    .top_header_menu >.el-menu-item:hover,.top_header_menu >.el-menu-item.is-active {
+      background: rgba(255,255,255,0.2)!important;
+      color: #fff !important;
+    }
+
+    .el-menu--popup > .el-menu-item{
+      color:white!important;
+    }
+
+    .el-menu--popup-bottom-start > .el-menu-item ,.el-menu--popup-bottom-start{
+      background-color:transparent!important;
+    }
+
+    .el-popper.is-pure{
+      background-color:rgba(0, 0, 0, 0.3)!important;
+      border: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .el-menu--popup-container{
+      border: none;
+    }
+
+    .el-menu--horizontal>.el-sub-menu:focus, .el-menu--horizontal>.el-sub-menu:hover {
+      background-color:rgba(255,255,255,0.2)
+    }
+
+    .el-tooltip__trigger{
+      background-color: rgba(255,255,255,0.2)
+    }
+
+    .el-sub-menu__hide-arrow{
+      background-color:transparent;
+      transition: opacity .5s;
+    }
+    .el-menu--horizontal>.el-sub-menu.is-active{
+      background-color: transparent!important
+    }
+
+    .el-tooltip__trigger:hover{
+      background-color: rgba(255,255,255,0.2)!important
+    }    
+
+    .el-menu--popup-bottom-start > .el-menu-item:hover{
+      background-color: rgba(255,255,255,0.2)!important
+    }
+
+    .el-sub-menu__hide-arrow.is-active>.el-tooltip__trigger{
+      color:white!important;
+    }
+    .el-menu--popup-bottom-start > .el-menu-item.is-active{
+      background-color: rgba(255,255,255,0.2)!important
+    }    
+
+    // 过渡动画样式
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to  {
+      opacity: 0;
+    }    
+//辅助栏===================================================
+.declare_card{
+    font-size: xx-small;
+    color:#939393;
+}
+
+.support_card{
+    z-index: 2;
+    width:53px;
+    position: fixed;
+    right: 10px;
+    bottom: 20px;  
+}
+
+
 </style>

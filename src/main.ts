@@ -5,6 +5,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import store from './store'
 import 'animate.css/animate.min.css'
+import '@/style/global.less'
 
 import * as ElIconModules from '@element-plus/icons-vue'
 

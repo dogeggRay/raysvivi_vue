@@ -1,5 +1,5 @@
 <template>
-    <div class="login-box">
+    <div class="login-box" :style="{height:screenHeigth+'px'}">{{screen_heigth}}
         <el-container class="main-container" >
             <el-header>
                 <el-row class="top-row">
@@ -54,12 +54,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref ,reactive } from 'vue'
+import { ref ,reactive ,onMounted} from 'vue'
 import { useRouter } from "vue-router"
 import type { FormInstance, FormRules } from 'element-plus'
 
 const router = useRouter()
-
+const screenHeigth = ref(0)
 const maskEffective = ref(false)
 const ruleForm = reactive({
     username:"",
@@ -67,6 +67,10 @@ const ruleForm = reactive({
 })
 
 const ruleFormRef = ref<FormInstance>()
+
+onMounted(() => {
+  initOptions()
+})
 
 const declareClick = ()=>{
     maskEffective.value = true;
@@ -89,6 +93,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   })
 }
 
+const initOptions = () => {
+    //  可视区域
+    screenHeigth.value = document.documentElement.clientHeight-1;
+
+}
 const declareDialogClick = () => {
 
     maskEffective.value = false;
@@ -174,4 +183,5 @@ const declareDialogClick = () => {
     .undisplay-class{
         display:none;
     }
+
 </style>
