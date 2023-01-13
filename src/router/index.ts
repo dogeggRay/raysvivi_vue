@@ -8,19 +8,31 @@ const routes: Array<RouteRecordRaw> = [
   // }, 
   {
     path: '/',
+    name: 'root',
+    redirect:"/view/boxOffice",
+  }, 
+  {
+    path: '/view',
     name: 'Layout',
     component: () => import(/* webpackChunkName: "login" */ '@/views/main/LayoutView.vue'),
-    redirect:"/boxOffice",
+    redirect:"/view/boxOffice",
     children: [
       {
-        path: '/boxOffice',
+        path: '/view/boxOffice',
         name: 'BoxOfficeViewPage',
         component: () =>
           import(
             '@/views/spider/BoxOfficeView.vue'
           ),
+      },{
+        path: '/view/about',
+        name: 'aboutPage',
+        component: () =>
+          import(
+            '@/views/about/AboutView.vue'
+          ),
       }]
-  }, 
+  },   
   {
     path: '/MessageBoard',
     name: 'MessageBoardPage',

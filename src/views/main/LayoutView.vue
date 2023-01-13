@@ -9,7 +9,7 @@
           <div v-if="!headerFlag" class="top_header_div_transparent" >
               <el-row class="top_header_div_row full_height">
                 <el-col :span="2" class="full_height"></el-col>
-                <el-col :span="9" class="full_height">
+                <el-col :span="9" class="full_height main_header_middle">
                   <span class="cursor-font declare-font top_header_span" @click="declareClick">雷の博客</span>
                 </el-col>
                 <el-col :span="4" class="full_height"></el-col>
@@ -19,12 +19,12 @@
                     text-color="white"
                     mode="horizontal"
                     menu-trigger="click"
+                    router
                   >
-                    <el-menu-item index="1">归档</el-menu-item>
-                    <el-menu-item index="2">关于</el-menu-item>
+                    <el-menu-item index="/view">首页</el-menu-item>
+                    <el-menu-item index="/view/about">关于</el-menu-item>
                     <el-menu-item index="3">友链</el-menu-item>
                     <el-menu-item index="4">留言</el-menu-item>
-                    <el-menu-item index="5">About</el-menu-item>
                   </el-menu>
                 </el-col>
                 <el-col :span="2" class="full_height" style="overflow: hidden;">
@@ -152,8 +152,10 @@ const declare_value = "任何反馈请联系[2105520190@qq.com]";
 
 .main_container{
   // background-color : #E6E6E6;
-  background :url('@/assets/background-02.png') repeat;
+  background :url('@/assets/background-02.jpg') repeat;
   background-size: contain;
+  background-attachment:fixed;
+  background-repeat:repeat;
 }
 
 .default_header_div{
@@ -306,6 +308,7 @@ const declare_value = "任何反馈请联系[2105520190@qq.com]";
     position: fixed;
     right: 10px;
     bottom: 20px;  
+    text-align: center;
 }
 
 
