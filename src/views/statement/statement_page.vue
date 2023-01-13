@@ -58,7 +58,7 @@
                 <el-col :span="24" style="margin-top:10px;"><div class="fine-font small-font">{{declare_value}}</div>
                 </el-col>
                 </el-row>          
-              <el-row>
+              <!-- <el-row>
                 <el-col :span="24" style="margin-top:10px;">
                   
                   <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34070202000554" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
@@ -67,7 +67,7 @@
                     <p style="float:left;height:20px;line-height:20px;margin: 0px;" class="fine-font small-font">{{Public_security_record}}</p>
                   </a>
                 </el-col>
-              </el-row>
+              </el-row> -->
               <el-row>
                 <el-col :span="24">
                 <a target="_blank" href="https://beian.miit.gov.cn" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">

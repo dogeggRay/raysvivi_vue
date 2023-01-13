@@ -22,9 +22,9 @@
                     router
                   >
                     <el-menu-item index="/view">首页</el-menu-item>
+                    <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
+                    <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
-                    <el-menu-item index="3">友链</el-menu-item>
-                    <el-menu-item index="4">留言</el-menu-item>
                   </el-menu>
                 </el-col>
                 <el-col :span="2" class="full_height" style="overflow: hidden;">
@@ -129,10 +129,6 @@ const declareDialogClick = () => {
 }
 
 //辅助栏================================================================================
-const ICP_Filing_record = "皖ICP备2022015508号-1"
-const Public_security_record = "皖公网安备 34070202000554号"
-const copy_right = "Copyright © 2022 · Raysvivi"
-const declare_value = "任何反馈请联系[2105520190@qq.com]";
 </script>
 <style lang="less">
 .full_height{
@@ -156,6 +152,7 @@ const declare_value = "任何反馈请联系[2105520190@qq.com]";
   background-size: contain;
   background-attachment:fixed;
   background-repeat:repeat;
+  min-height: 800px;
 }
 
 .default_header_div{

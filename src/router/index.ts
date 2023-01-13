@@ -31,19 +31,30 @@ const routes: Array<RouteRecordRaw> = [
           import(
             '@/views/about/AboutView.vue'
           ),
-      }]
-  },   
-  {
-    path: '/MessageBoard',
-    name: 'MessageBoardPage',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-    import(
-      '@/views/messageBoard/MessageBoard.vue'
-    ),
-  },
+      }, 
+      {
+        path: '/view/messageBoard',
+        name: 'MessageBoardPage',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+        import(
+          '@/views/messageBoard/MessageBoard.vue'
+        ),
+      },   
+      {
+        path: '/view/friendlyLinks',
+        name: 'FriendlyLinks',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+        import(
+          '@/views/friendlyLinks/FriendlyLinksView.vue'
+        ),
+      },]
+  },  
   {
     path: '/Statement',
     name: 'StatementPage',
@@ -53,6 +64,17 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
     import(
       '@/views/statement/statement_page.vue'
+    ),
+  },  
+  {
+    path: '/comment',
+    name: 'CommentView',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+    import(
+      '@/views/comment/CommentView.vue'
     ),
   },  
   {
