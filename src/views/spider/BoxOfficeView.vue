@@ -15,10 +15,12 @@
 
 <script lang="ts" setup>
 import { ref ,reactive,onMounted ,defineProps,onBeforeUnmount,defineExpose} from 'vue'
+import request from '@/utils/request'
 const count = ref(10)
 
 onMounted(() => {
   window.addEventListener('scroll', sorlly)
+  demoFuncRequest(null)
 })
 
 onBeforeUnmount(() => {
@@ -43,6 +45,16 @@ const sorlly= () => {
 defineExpose({
   sorlly
 })
+
+//====================================接口测试===============================================
+//查询所有品牌
+const demoFuncRequest = (params) => {
+  return request({
+    url: '/demo/demo',
+    method: 'get',
+    params,
+  })
+}
 </script>
 
 <style>
