@@ -1,0 +1,61 @@
+.common-routerlink{
+    color:white;
+    font-family:"Consolas","Microsoft JhengHei","Apple LiGothic Medium,Microsoft YaHei","微软雅黑","Arial",sans-serif;
+    line-height: 47px;
+}
+
+a{
+    text-decoration: none;
+}
+.router-link-active {
+    text-decoration: none;
+}
+
+.el-input input::-webkit-input-placeholder,.fine-font{
+    font-family:"Consolas","Microsoft JhengHei","Apple LiGothic Medium,Microsoft YaHei","微软雅黑","Arial",sans-serif;
+    // font-family: "Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+}
+//font-family: Lato,PingFang SC,Microsoft YaHei,sans-serif;
+
+
+.small-font{
+    font-size: xx-small;
+    color: #939393;
+}
+//小屏配置
+@media screen
+and (max-device-width : 768px) {
+    .content_container{
+    //width:500px;
+        padding-left:10px;padding-right: 10px;
+    }
+    .layout_left_aside,.layout_right_aside{
+        display:none;
+    }   
+
+
+}
+
+//大屏配置
+@media screen
+and (min-device-width : 768px){
+    .content_container{
+        //width:999px;
+        
+    }
+
+    .layout_left_aside{
+        
+    }
+    .layout_right_aside{
+        display:block;
+    }     
+}
+
+.border_radius_normal{
+    border-radius: 7px;
+}
+
+.el-card__body{
+    padding:5px;
+}
