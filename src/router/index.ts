@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/view',
     name: 'Layout',
     component: () => import(/* webpackChunkName: "login" */ '@/views/main/LayoutView.vue'),
-    redirect:"/view/boxOffice",
+    redirect:"/view/blogList",
     children: [
       {
         path: '/view/boxOffice',
@@ -25,42 +25,60 @@ const routes: Array<RouteRecordRaw> = [
             '@/views/spider/BoxOfficeView.vue'
           ),
       },{
+        path: '/view/blogList',
+        name: 'blogList',
+        component: () =>
+          import(
+            '@/views/blog/list/blogList.vue'
+          ),
+        meta:{ keepAlive: true}
+      },{
+        path: '/view/blogDetail',
+        name: 'blogDetail',
+        component: () =>
+          import(
+            '@/views/blog/detail/blogDetail.vue'
+          ),
+        meta:{ keepAlive: true}
+      },{
         path: '/view/about',
         name: 'aboutPage',
         component: () =>
           import(
             '@/views/about/AboutView.vue'
           ),
+        meta:{ keepAlive: true}  
       }, 
       {
         path: '/view/messageBoard',
         name: 'MessageBoardPage',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () =>
         import(
           '@/views/messageBoard/MessageBoard.vue'
         ),
+        meta:{ keepAlive: true} 
       },   
       {
         path: '/view/friendlyLinks',
         name: 'FriendlyLinks',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () =>
         import(
-          '@/views/friendlyLinks/FriendlyLinksView.vue'
+          '@/views/friendlyLinks/friendlyLinksView.vue'
         ),
+        meta:{ keepAlive: true} 
+      },{
+        path: '/view/adminBlog',
+        name: 'adminBlog',
+        component: () =>
+        import(
+          '@/views/adminBlog/adminBlog.vue'
+        ),
+        meta:{ keepAlive: true} 
       },]
   },  
   {
     path: '/Statement',
     name: 'StatementPage',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
     import(
       '@/views/statement/statement_page.vue'
@@ -69,9 +87,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/comment',
     name: 'CommentView',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
     import(
       '@/views/comment/CommentView.vue'
@@ -80,9 +95,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
   }
 ]

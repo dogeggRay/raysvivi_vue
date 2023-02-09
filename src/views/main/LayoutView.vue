@@ -25,6 +25,7 @@
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
+                    <el-menu-item index="/view/adminBlog">写博客</el-menu-item>
                   </el-menu>
                 </el-col>
                 <el-col :span="2" class="full_height" style="overflow: hidden;">
@@ -52,8 +53,12 @@
         <!-- 内容模块-主体 -->
         <el-container class="full_height content_container" style="padding-top:10px;">
             <el-main class="router_main el_main_first">
+              
             <router-view v-slot="{ Component }">
+              <keep-alive>
                 <component ref="order_view" :is="Component" />
+              </keep-alive>
+                
             </router-view>
 
             </el-main>

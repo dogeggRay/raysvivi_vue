@@ -36,7 +36,7 @@ export default {
     onMounted(() => {
         setTimeout(() => {
           const toolbar = DomEditor.getToolbar(editorRef.value)
-          console.log(233333,toolbar.getConfig().toolbarKeys);
+          console.log(toolbar);
             valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
         }, 1500)
     })
@@ -62,7 +62,6 @@ export default {
 
     //对外暴露方法：获取html内容
     const getHtml = () => {
-      console.log(valueHtml)
       return valueHtml
     }
     return {
