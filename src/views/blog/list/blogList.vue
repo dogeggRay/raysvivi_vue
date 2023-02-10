@@ -4,10 +4,10 @@
         class="infinite-list inner-container"
         style="overflow: auto;"
       >
-        <el-card v-for="item in blog.list" :key="item"  class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always">
+        <el-card v-for="item in blog.list" :key="item"  class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always" @click="blogTouch(item.id)">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside width="200px" class="blog-list-aside">
-              <el-image style="width: 150px; height: 150px" src="https://persional-images.oss-cn-hangzhou.aliyuncs.com/headPortrait/2023-02-08601b9905b9f149f79b97938b49a628a8.webp" :fit="fit" />
+              <el-image style="width: 150px; height: 150px" :src="item.image" :fit="fit" />
             </el-aside>
             <el-container>
               <el-header class="blog-list-header title-font"><span>{{ item.title }}</span></el-header>
@@ -29,7 +29,7 @@
 <script lang="ts" setup>
 import { ref ,reactive,onMounted ,defineProps,onBeforeUnmount,defineExpose} from 'vue'
 import {getArtclePageList} from "@/js/blog.js"
-import request from '@/utils/request'
+import {useRouter} from 'vue-router'
 const count = ref(10)
 const blog = reactive({
   list:[]
@@ -57,9 +57,9 @@ const sorlly= () => {
 
     //console.log(scrollTop+"+"+clientHeight+"??"+scrollHeight);
     //如果触底就让index++
-    if (scrollTop + clientHeight >= scrollHeight-100) {
-      //console.log("sorlly");
-        count.value++;
+    if (scrollTop + clientHeight >= scrollHeight) {
+        console.log("sorlly");
+        //count.value++;
     }
 }    
 
@@ -71,6 +71,11 @@ const getBlogPages =() => {
         .catch((e) => {
           return
         })
+}
+
+const router=useRouter()
+const blogTouch = (blogId) =>{
+    router.push({path:"/view/blogDetail",query:{"blogId":blogId}})
 }
 defineExpose({
   sorlly

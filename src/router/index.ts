@@ -33,6 +33,14 @@ const routes: Array<RouteRecordRaw> = [
           ),
         meta:{ keepAlive: true}
       },{
+        path: '/blogDetail',
+        name: 'blogDetail',
+        component: () =>
+          import(
+            '@/views/blog/detail/blogDetail.vue'
+          ),
+        meta:{ keepAlive: false}
+      },{
         path: '/view/blogDetail',
         name: 'blogDetail',
         component: () =>

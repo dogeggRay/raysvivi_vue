@@ -43,7 +43,7 @@
         </el-row>
         <el-row>
           <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">拖延症晚期、DNFer、灵魂画手、减肥宅男、clearlove玩梗小王子</span></el-col>
+          <el-col :span="20"><span class="content">拖延症晚期、大乱斗小王子、DNFer、灵魂画手、减肥宅男</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
@@ -52,7 +52,7 @@
         </el-row>
         <el-row>
           <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">JAVA互联网(分布式)全家桶开发,VUE 2/3,MYSQL,REDIS,KAFKA,DOCKER,NGINX等的实战开发</span></el-col>
+          <el-col :span="20"><span class="content">JAVA互联网(分布式)全家桶开发,VUE 2/3,MYSQL,REDIS,KAFKA,DOCKER,NGINX实战开发</span></el-col>
         </el-row>    
 
         <el-row class="independent_row">

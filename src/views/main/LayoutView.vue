@@ -49,7 +49,7 @@
       <!-- 内容模块 -->
       <el-container class="full_height main_container" style="z-index:2;">
         <!-- 内容模块-左侧边 -->
-        <el-aside width="17%" class="layout_left_aside" style=""></el-aside>
+        <el-aside width="16%" class="layout_left_aside" style=""></el-aside>
         <!-- 内容模块-主体 -->
         <el-container class="full_height content_container" style="padding-top:10px;">
             <el-main class="router_main el_main_first">
@@ -64,7 +64,7 @@
             </el-main>
         </el-container>
         <!-- 内容模块-右侧边 -->
-        <el-aside width="32%" class="layout_right_aside"><Statement/></el-aside>
+        <el-aside width="30%" class="layout_right_aside"><Statement/></el-aside>
       </el-container>
       
     </el-container>

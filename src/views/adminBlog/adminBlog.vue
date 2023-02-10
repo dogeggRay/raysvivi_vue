@@ -1,5 +1,5 @@
 <template>
-  <div class = "inner-container">
+  <div class = "inner-container blog-write-div">
       <el-card class="about-card fine-font" shadow="always">
         
         <el-row>
@@ -17,7 +17,7 @@
           <el-row>
             <el-col :span="24">
                 <el-form-item label="摘要">
-                  <el-input v-model="blogForm.abstract" 
+                  <el-input v-model="blogForm.abstractInfo" 
                   :rows="2"
                   type="textarea"
                   resize = "none"
@@ -53,7 +53,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item label="正文">
-                <wangEditor ref="editorInstance"></wangEditor>
+                <wangEditor ref="editorInstance" style="height:500px"></wangEditor>
               </el-form-item>
             </el-col>
           </el-row>                    
@@ -79,7 +79,7 @@ import { ref ,reactive,onMounted,onBeforeUnmount } from 'vue'
 const htmlValue = "<p><span style=\"background-color: rgb(235, 144, 58);\">模拟 Ajax 异步设置内容</span></p>"
 const blogForm = reactive({
     title:"",
-    abstract:"",
+    abstractInfo:"",
     image:"",
     content:""
 })
@@ -108,16 +108,14 @@ const getHtmlImpl = () => {
 
 const submitHtml = () => {
   let richHtml = getHtmlImpl()
-  let requestbody = {
-    "title" : "我的第一篇blog",
-    "content" : richHtml.value,
-    "module" : "moduleTest",
-    "tag" : "tagTest",
-    "viewNum" : 0
-  }
-    submitRichHtml(requestbody)
-        .then((res) => {
-          return
+  blogForm.content = richHtml.value
+    submitRichHtml(blogForm)
+        .then((response) => {
+          if(response.code == "0"){
+            ElMessage.success('上传成功')
+          }else{
+            ElMessage.error(response.msg)
+          }
         })
         .catch((e) => {
           return
@@ -127,7 +125,6 @@ const submitHtml = () => {
 
 <style lang="less">
 .about-card{
-  height:800px;
   margin-left:10px;
   margin-right:10px;
 }

@@ -1,21 +1,25 @@
 <template>
   <div class = "inner-container">
       <el-card class="about-card fine-font" shadow="always">
-        
         <el-row>
           <el-col :span="24">关于</el-col>
         </el-row>
         <el-row>
-          <el-col :span="24">友情链接
-
-          </el-col>
+          <el-col :span="24">友情链接233</el-col>
         </el-row>
-        <!-- <el-button type="default" @click="getHtmlImpl"></el-button> -->
-        <!-- <wangEditor ref="editorInstance"></wangEditor> -->
-        <div v-html="htmlValue" class="introduction"/>
-         <el-button type="primary" @click="submitHtml">Primary</el-button>
-        <!-- <fileComponent></fileComponent>
-        <el-image style="width: 100px; height: 100px" src="https://persional-images.oss-cn-hangzhou.aliyuncs.com/headPortrait/2023-02-08601b9905b9f149f79b97938b49a628a8.webp" :fit="fit" /> -->
+   <div style="" class="blogDetailDiv">
+    <!-- 不知道为什么菜单栏自己消失了  good good-->
+              <Toolbar
+                :editor="editorRef"
+              />
+              <Editor
+                style="height: 80%; overflow-y: hidden;"
+                v-model="blog.content"
+                :defaultConfig="editorConfig"
+                :mode="mode"
+                @onCreated="handleCreated"
+              />
+            </div>
         <el-row>
           <el-col :span="24"></el-col>
         </el-row>        
@@ -25,44 +29,84 @@
 </template>
 
 <script lang="ts" setup>
-import wangEditor from "@/components/wangEditor/wangEditor.vue"
-import fileComponent from "@/components/file/fileComponent.vue"
-import {submitRichHtml} from "@/js/test.js"
-import { ref ,onMounted,onBeforeUnmount } from 'vue'
-const htmlValue = "<p><span style=\"background-color: rgb(235, 144, 58);\">模拟 Ajax 异步设置内容</span></p>"
-let content = ref('')
-const editorInstance = ref()
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { ref ,reactive,onMounted,onBeforeUnmount,shallowRef,nextTick } from 'vue'
+import { useRoute } from 'vue-router'
+import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
+import { ElMessage } from 'element-plus'
+import { Editor } from '@wangeditor/editor-for-vue'
+
+const blog = reactive({
+    content:"",
+    title:""
+})
+const route = useRoute()
+const htmlValue = ""
+const blogId = ref()
 function handleChange (item) {
     console.log('change', item)
 }
+onMounted(() => {
+  blogId.value = route.query.blogId
+  getBlog()
 
-const getHtmlImpl = () => {
-  let htmlval = editorInstance.value.getHtml()
-  return htmlval
-}
+})
 
-const submitHtml = () => {
-  let richHtml = getHtmlImpl()
-  let requestbody = {
-    "title" : "我的第一篇blog",
-    "content" : richHtml.value,
-    "module" : "moduleTest",
-    "tag" : "tagTest",
-    "viewNum" : 0
-  }
-    submitRichHtml(requestbody)
-        .then((res) => {
-          return
+const getBlog =() =>{
+      getBlogDetail({id:blogId.value}).then((resp) => {
+            if(resp.code == "0"){
+              blog.content = resp.data.content
+              initHtmlShow()
+            }else{
+                ElMessage.error(resp.msg)
+            }
         })
         .catch((e) => {
           return
         })
+} 
+
+const initHtmlShow = () =>{
+    return
 }
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+  return
+})
+
+//==========================================================================================
+const editorRef = shallowRef()
+    //工具栏不要：视频接入
+    const toolbarConfig = {
+      excludeKeys:[
+        "group-video","redo","undo"
+      ]
+    }
+    // 组件销毁时，也及时销毁编辑器
+    onBeforeUnmount(() => {
+        const editor = editorRef.value
+        if (editor == null) return
+        editor.destroy()
+    })
+
+    const handleCreated = (editor) => {
+      editorRef.value = editor // 记录 editor 实例，重要！
+      nextTick(() => {
+        editorRef.value = editor // 一定要用 Object.seal() ，否则会报错
+      })
+    }
+
+    const editorConfig = { 
+      placeholder: '请输入内容...' ,
+      readOnly : true,
+    }
 </script>
 
 <style lang="less">
+// .el_main_first{
+//   height:auto;
+// }
 .about-card{
-  height:800px;
   margin-left:10px;
   margin-right:10px;
 }
