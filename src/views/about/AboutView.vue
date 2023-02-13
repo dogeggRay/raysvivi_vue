@@ -15,26 +15,26 @@
           <el-col :span="20"><span class="title_level_2">姓名</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">Ray</span></el-col>
+          <el-col :span="3"></el-col>
+          <el-col :span="21"><span class="content">Ray</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="title_level_2">性别</span></el-col>
+          <el-col :span="22"><span class="title_level_2">性别</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">男</span></el-col>
+          <el-col :span="3"></el-col>
+          <el-col :span="21"><span class="content">男</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="title_level_2">从业时间</span></el-col>
+          <el-col :span="20"><span class="title_level_2">个人评价</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">2014.4</span></el-col>
+          <el-col :span="3"></el-col>
+          <el-col :span="21"><span class="content">一个脱离了高级趣味的人</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
@@ -42,8 +42,8 @@
           <el-col :span="20"><span class="title_level_2">个人标签</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">拖延症晚期、大乱斗小王子、DNFer、灵魂画手、减肥宅男</span></el-col>
+          <el-col :span="3"></el-col>
+          <el-col :span="21"><span class="content">拖延症晚期、大乱斗小王子、DNFer、灵魂画手、减肥宅男</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
@@ -51,8 +51,8 @@
           <el-col :span="20"><span class="title_level_2">技术特长</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">JAVA互联网(分布式)全家桶开发,VUE 2/3,MYSQL,REDIS,KAFKA,DOCKER,NGINX实战开发</span></el-col>
+          <el-col :span="3"></el-col>
+          <el-col :span="21"><span class="content">JAVA互联网(分布式)全家桶开发,VUE 2/3,MYSQL,REDIS,KAFKA,DOCKER,NGINX实战开发</span></el-col>
         </el-row>    
 
         <el-row class="independent_row">
@@ -60,12 +60,12 @@
           <el-col :span="20"><span class="title_level_2">建站初衷</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">写一个好康的个人博客 分享生活和技术 顺便拧拧拖延症</span></el-col>
+          <el-col :span="3"></el-col>
+          <el-col :span="21"><span class="content">写一个好康的个人博客 分享生活和技术 顺便拧拧拖延症</span></el-col>
         </el-row>  
         <el-row>
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="content">never too late</span></el-col>
+          <el-col :span="3"></el-col>
+          <el-col :span="21"><span class="content">never too late</span></el-col>
         </el-row>                   
 
         <el-row class="independent_row">
@@ -74,7 +74,7 @@
         </el-row>
         <el-row class="independent_row">
           <el-col :span="3"></el-col>
-          <el-col :span="19">
+          <el-col :span="21">
             <el-timeline>
               <el-timeline-item timestamp="2022-10-25" placement="top">
                 <el-card>

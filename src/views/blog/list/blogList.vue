@@ -4,6 +4,7 @@
         class="infinite-list inner-container"
         style="overflow: auto;"
       >
+      
         <el-card v-for="item in blog.list" :key="item"  class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always" @click="blogTouch(item.id)">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside width="200px" class="blog-list-aside">
@@ -130,7 +131,8 @@ defineExpose({
 .blog-list-footer{
   text-align: left;
   font-size: smaller;
-  padding-left:0px
+  padding-left:0px;
+  padding-right:0px
 }
 
 .gray-font{

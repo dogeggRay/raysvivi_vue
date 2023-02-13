@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'root',
-    redirect:"/view/boxOffice",
+    redirect:"/view/blogList",
   }, 
   {
     path: '/view',
