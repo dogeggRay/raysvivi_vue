@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { ref ,reactive,onMounted,onBeforeUnmount,shallowRef,nextTick } from 'vue'
+import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
 import { ElMessage } from 'element-plus'
@@ -46,7 +46,7 @@ const blogId = ref()
 function handleChange (item) {
     console.log('change', item)
 }
-onMounted(() => {
+onActivated(() => {
   blogId.value = route.query.blogId
   getBlog()
 

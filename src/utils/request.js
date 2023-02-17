@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store'
 import {baseURL} from '@/config'
 //import store from '@/store'
  

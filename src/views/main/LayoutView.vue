@@ -49,11 +49,11 @@
       <!-- 内容模块 -->
       <el-container class="full_height main_container" style="z-index:2;">
         <!-- 内容模块-左侧边 -->
-        <el-aside width="16%" class="layout_left_aside" style=""></el-aside>
+        <el-aside width="16%" class="layout_left_aside adapt_show_part" style=""></el-aside>
         <!-- 内容模块-主体 -->
         <el-container class="full_height content_container" style="padding-top:10px;">
+            <!-- <el-header class="adapt_hidden_part" ><Statement/></el-header>   -->
             <el-main class="router_main el_main_first">
-              
             <router-view v-slot="{ Component }">
               <keep-alive>
                 <component ref="order_view" :is="Component" />
@@ -64,7 +64,7 @@
             </el-main>
         </el-container>
         <!-- 内容模块-右侧边 -->
-        <el-aside width="30%" class="layout_right_aside"><Statement/></el-aside>
+        <el-aside width="30%" class="layout_right_aside adapt_show_part"><Statement/></el-aside>
       </el-container>
       
     </el-container>
@@ -77,19 +77,38 @@
     </div>
 
     <!-- 辅助栏 -->
-    <el-card class="support_card"  shadow="hover">
+    <el-card class="support_card" style="color: #939393;" shadow="hover">
             <el-row>
                   <el-col :span="24">
                     <el-icon><ArrowUp /></el-icon>
                   </el-col>
                 </el-row>
-                <el-divider style="margin: 13px 0px 13px 0px;"></el-divider>
+            <el-row>
+                  <el-col :span="24">
+                    <span>——</span>
+                  </el-col>
+                </el-row>                
+            <el-row class="adapt_hidden_part">
+              <el-col :span="24">
+                  <el-icon @click="statementShow"><Menu /></el-icon>
+              </el-col>
+            </el-row>    
+            <el-row class="adapt_hidden_part">
+                  <el-col :span="24">
+                    <span >——</span>
+                  </el-col>
+                </el-row>                
             <el-row>
               <el-col :span="24">
                   <el-icon><InfoFilled /></el-icon>
               </el-col>
-            </el-row>              
+            </el-row>                          
     </el-card>
+
+    <!--导航抽屉-->
+    <el-drawer direction="btt" size="80%" v-model="navigateDrawer" :with-header="false">
+      <Statement/>
+    </el-drawer>
 </template>
 
 <script lang="ts" setup>
@@ -98,6 +117,7 @@ import { ref ,onMounted,onBeforeUnmount } from 'vue'
 
 const headerFlag = ref(false);
 let order_view = ref()
+const navigateDrawer = ref(false);
 onMounted(() => {
   initPageSize()
   window.addEventListener('scroll', sorlly)
@@ -134,6 +154,9 @@ const declareDialogClick = () => {
 }
 
 //辅助栏================================================================================
+const statementShow = () => {
+  navigateDrawer.value = true;
+}
 </script>
 <style lang="less">
 .full_height{

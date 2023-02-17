@@ -11,14 +11,14 @@
                     <el-form ref="ruleFormRef"
                         :model="ruleForm"
                         label-width="120px">
-                        <el-form-item label="账号">
-                            <el-input v-model="ruleForm.username" />
+                        <el-form-item label="">
+                            <el-input v-model="ruleForm.username" placeholder="请输入管理员账号"/>
                         </el-form-item>
-                        <el-form-item label="密码">
-                            <el-input v-model="ruleForm.password" />
+                        <el-form-item label="">
+                            <el-input v-model="ruleForm.password" placeholder="请输入管理员密码"/>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="submitForm(ruleFormRef)">确定</el-button>
+                            <el-button color="#0D1F2F" style="width:100px" @click="submitForm()">确定</el-button>
                         </el-form-item>
                     </el-form>
 
@@ -55,8 +55,13 @@
 
 <script lang="ts" setup>
 import { ref ,reactive ,onMounted} from 'vue'
+import { useStore } from 'vuex'
+import {adminLogin} from "@/js/admin.js"
 import { useRouter } from "vue-router"
 import type { FormInstance, FormRules } from 'element-plus'
+import { Md5 } from 'ts-md5'
+
+let storeInstance = useStore()
 
 const router = useRouter()
 const screenHeigth = ref(0)
@@ -66,9 +71,10 @@ const ruleForm = reactive({
     password:""
 })
 
-const ruleFormRef = ref<FormInstance>()
+const ruleFormRef = ref()
 
 onMounted(() => {
+    
   initOptions()
 })
 
@@ -76,17 +82,28 @@ const declareClick = ()=>{
     maskEffective.value = true;
 }
 
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
-}
-
 const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate((valid, fields) => {
+    console.log(1233333,storeInstance)
+  if (!ruleFormRef.value) return
+  ruleFormRef.value.validate((valid, fields) => {
     if (valid) {
-      //console.log('submit!')
-      router.push("about");
+
+        storeInstance.dispatch('login',{username:ruleForm.username,password:Md5.hashStr(ruleForm.password)}).then(res => { 
+            console.log('返回来的值',res)
+        })
+        
+        //storeInstance.dispatch("login",{username:ruleForm.username,password:Md5.hashStr(ruleForm.password)})
+        // adminLogin({
+        //     username:ruleForm.username,
+        //     password:Md5.hashStr(ruleForm.password),
+        // })
+        //     .then((res) => {
+        //         console.log(res)
+        //     return
+        //     })
+        //     .catch((e) => {
+        //     return
+        //     })
     } else {
       console.log('error submit!', fields)
     }
@@ -122,7 +139,7 @@ const declareDialogClick = () => {
             width: 30rem;
             position: relative;
             top: 45%;
-            left: 56%;
+            left: 6%;
             border-radius: 8px;
             padding-right: 10rem;
             height: 54%;

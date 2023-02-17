@@ -4,7 +4,7 @@ import request from '@/utils/request'
 //提交富文本
 export function submitRichHtml(data) {
     return request({
-        url: '/api/article/saveArtcle',
+        url: '/api/tourist/article/saveArtcle',
         method: 'post',
         data,
     })
@@ -13,7 +13,7 @@ export function submitRichHtml(data) {
 //获取博客分页数据
 export function getArtclePageList(data) {
     return request({
-        url: '/api/article/getArtclePageList',
+        url: '/api/tourist/article/getArtclePageList',
         method: 'post',
         data,
     })
@@ -21,7 +21,7 @@ export function getArtclePageList(data) {
 
 export function getBlogDetail(data) {
     return request({
-        url: '/api/article/blogDetail',
+        url: '/api/tourist/article/blogDetail',
         method: 'post',
         data,
     })

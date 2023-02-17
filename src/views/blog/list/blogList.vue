@@ -7,8 +7,8 @@
       
         <el-card v-for="item in blog.list" :key="item"  class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always" @click="blogTouch(item.id)">
           <el-container style="height:100%;padding-right: 10px;">
-            <el-aside width="200px" class="blog-list-aside">
-              <el-image style="width: 150px; height: 150px" :src="item.image" :fit="fit" />
+            <el-aside class="blog-list-aside">
+              <el-image class="card_image" style="" :src="item.image" :fit="fit" />
             </el-aside>
             <el-container>
               <el-header class="blog-list-header title-font"><span>{{ item.title }}</span></el-header>

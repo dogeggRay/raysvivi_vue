@@ -33,10 +33,24 @@ and (max-device-width : 768px) {
     //width:500px;
         padding-left:10px;padding-right: 10px;
     }
-    .layout_left_aside,.layout_right_aside{
-        display:none;
-    }   
 
+    .adapt_show_part{
+        display:none;
+    }
+
+    .adapt_hidden_part{
+        display:block;
+    }
+    //blogList start==========================
+    .card_image{
+        width: 60px; 
+        height: 60px
+    }
+
+    .blog-list-aside{
+        width:100px;
+    }
+    //blogList end=============================
 
 }
 
@@ -48,12 +62,23 @@ and (min-device-width : 768px){
         
     }
 
-    .layout_left_aside{
-        
-    }
-    .layout_right_aside{
+    .adapt_show_part{
         display:block;
-    }     
+    }   
+    .adapt_hidden_part{
+        display:none;
+    }
+    //blogList start==========================
+    .card_image{
+        width: 150px; 
+        height: 150px
+    }
+
+    .blog-list-aside{
+        width:200px;
+    }
+    //blogList end=============================
+
 }
 
 .border_radius_normal{
