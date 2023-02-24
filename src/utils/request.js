@@ -1,19 +1,42 @@
 import axios from 'axios'
 import store from '@/store'
 import {baseURL} from '@/config'
+import router from '@/router'
+import { message } from 'ant-design-vue'
+import qs from 'qs'
 //import store from '@/store'
  
 const instance = axios.create({
   baseURL,	// 通过使用配置的proxy来解决跨域
   timeout: 5000
 });
- 
+
+/**
+ * @description 处理code异常
+ * @param {*} code
+ * @param {*} msg
+ */
+const handleCode = async (code, msg) => {
+  if(code==401){
+    console.log("handleCode error:need to login")
+      // await store.dispatch('user/logout')
+      // router.push('/login')
+  }else if(code == 403){
+      router.push({ path: '/401' }).catch((e) => {
+        console.log("handleCode 403",e)
+      })
+  }else{
+      message.error(msg || `后端接口${code}异常`)
+  }
+
+}
+
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
-  let token = localStorage.getItem("x-auth-token");
+  let token = store.getters['accessToken'];
   if (token) {
     config.headers = {
-      "x-auth-token": token
+      "Authorization": "Raysvivi " +token
     }
   }
   return config;
@@ -23,12 +46,43 @@ instance.interceptors.request.use(function (config) {
 });
  
 // 添加响应拦截器
-instance.interceptors.response.use(function (response) {
+instance.interceptors.response.use(response =>{
   // 对响应数据做点什么
-  return response.data;
-}, function (error) {
-  // 对响应错误做点什么
-  return Promise.reject(error);
+  const { data, config } = response
+  const { code, msg } = data
+    // 操作正常Code数组
+    const codeVerificationArray = ["0",0]
+    // 是否操作正常
+    if (codeVerificationArray.includes(code)) {
+      return Promise.resolve(data)
+    } else {
+      handleCode(code, msg)
+      return Promise.reject(
+        '请求异常拦截:' + JSON.stringify({ url: config.url, code, msg }) ||
+          'Error'
+      )
+    }
+}, error => {
+    const { response, message } = error
+    if (error.response && error.response.data) {
+      const { status, data } = response
+      handleCode(status, data.msg || message)
+      return Promise.reject(error)
+    } else {
+      let { message } = error
+      if (message === 'Network Error') {
+        message = '后端接口连接异常'
+      }
+      if (message.includes('timeout')) {
+        message = '后端接口请求超时'
+      }
+      if (message.includes('Request failed with status code')) {
+        const code = message.substr(message.length - 3)
+        message = '后端接口' + code + '异常'
+      }
+      message.error(message || `后端接口未知异常`)
+      return Promise.reject(error)
+    }
 });
 
 export function getForDownLoadFile(url, params) {
@@ -37,7 +91,7 @@ export function getForDownLoadFile(url, params) {
       .get(baseURL + url, {
         params: params,
         // headers: {
-        //   Authorization: 'Nla ' + store.getters['user/accessToken'],
+        //   Authorization: 'Raysvivi ' + store.getters['user/accessToken'],
         // },
         responseType: 'blob',
       })
@@ -100,7 +154,7 @@ export function get(url, params) {
       .get(baseURL + url, {
         params: params,
         headers: {
-          //Authorization: 'Nla ' + store.getters['user/accessToken'],
+          Authorization: 'Raysvivi ' + store.getters['accessToken'],
         },
       })
       .then((res) => {
@@ -118,9 +172,7 @@ export function get(url, params) {
  * @param {Object} params [请求时携带的参数]
  */
 export function post(url, params) {
-  alert(123)
   // console.log(contentType ? contentType: 'application/json')
-  console.log(url, params)
   return new Promise((resolve, reject) => {
     axios
       .post(baseURL + url, params, {

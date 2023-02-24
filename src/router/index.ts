@@ -55,7 +55,7 @@ const routes: Array<RouteRecordRaw> = [
           import(
             '@/views/about/AboutView.vue'
           ),
-        meta:{ keepAlive: true}  
+        meta:{ keepAlive: false}  
       }, 
       {
         path: '/view/messageBoard',
@@ -97,7 +97,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'CommentView',
     component: () =>
     import(
-      '@/views/comment/CommentView.vue'
+      '@/views/component/CommentView.vue'
     ),
   },  
   {

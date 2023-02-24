@@ -4,6 +4,7 @@ const setting = {
   baseURL: process.env.VUE_APP_BASE_URL,
   //token存储位置localStorage sessionStorage cookie
   storage: 'localStorage',
+  tokenName: 'token',
   //token在localStorage、sessionStorage、cookie存储的key的名称
   tokenTableName: 'accessToken',
 }

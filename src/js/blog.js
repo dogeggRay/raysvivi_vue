@@ -4,9 +4,9 @@ import request from '@/utils/request'
 //提交富文本
 export function submitRichHtml(data) {
     return request({
-        url: '/api/tourist/article/saveArtcle',
-        method: 'post',
-        data,
+      url: '/api/admin/article/saveArtcle',
+      method: 'post',
+      data,
     })
 }
 
@@ -22,6 +22,14 @@ export function getArtclePageList(data) {
 export function getBlogDetail(data) {
     return request({
         url: '/api/tourist/article/blogDetail',
+        method: 'post',
+        data,
+    })
+}
+
+export function demoTest(data) {
+    return request({
+        url: '/api/admin/demo',
         method: 'post',
         data,
     })

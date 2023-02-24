@@ -113,11 +113,11 @@
 </template>
 
 <script lang="ts" setup>
-import CommentView from '@/views/comment/CommentView.vue'
+import {CommentView} from '@/views/component/CommentView.vue'
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .about-card{
   height:1300px;
   margin-left:10px;

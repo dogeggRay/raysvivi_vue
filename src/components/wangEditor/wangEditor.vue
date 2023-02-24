@@ -87,7 +87,6 @@ export default {
           },     
           // 插入图片到富文本编辑器回显
           customInsert(res: any, insertFn: any) {
-            console.log(2333333,res)
             // res 即服务端的返回结果
             insertFn(res.data, '', res.data)
             // getPhotoUrl(res.data[0]).then((res) => {

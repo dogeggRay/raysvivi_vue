@@ -17,12 +17,18 @@ import { adminLogin } from '@/js/admin'
 // })
 
 const store = createStore({
+
     state() { 
         return {
           accessToken: getAccessToken(),
           username: '',
           avatar: '',
         }
+    },
+    getters:{
+      accessToken(state:any){
+        return state.accessToken
+      }
     },
     mutations: {
         /**
@@ -32,6 +38,7 @@ const store = createStore({
          * @param {*} accessToken
          */
           setAccessToken(state:any, accessToken) {
+            console.log("mutations.accessToken",accessToken)
             state.accessToken = accessToken
             setAccessToken(accessToken)
         },
@@ -125,12 +132,13 @@ const store = createStore({
            */
           async login({ commit }, userInfo) {
               const { data } = await adminLogin(userInfo)
-              console.log(4444,data)
               localStorage.setItem('USERID', data.user_id)
               localStorage.setItem('name_chn', data.name_chn)
-              localStorage.setItem('logintime', dateFormat(new Date()))
+              //localStorage.setItem('logintime', dateFormat(new Date()))
               localStorage.setItem('USERINFO', JSON.stringify(data))
+              console.log("tokenName",tokenName)
               const accessToken = data[tokenName]
+              console.log("accessToken",accessToken)
               const flag = data['flag']
               if (accessToken) {
                   commit('setAccessToken', accessToken)

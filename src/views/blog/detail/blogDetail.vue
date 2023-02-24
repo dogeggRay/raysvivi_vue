@@ -102,7 +102,7 @@ const editorRef = shallowRef()
     }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 // .el_main_first{
 //   height:auto;
 // }

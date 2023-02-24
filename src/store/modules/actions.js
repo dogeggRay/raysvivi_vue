@@ -124,7 +124,6 @@ const actions = {
          */
         async login({ commit }, userInfo) {
             const { data } = await login(userInfo)
-            console.log(23333,data)
             var time = dateFormat(new Date())
             localStorage.setItem('USERID', data.user_id)
             localStorage.setItem('name_chn', data.name_chn)

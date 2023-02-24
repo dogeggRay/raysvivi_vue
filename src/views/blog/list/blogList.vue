@@ -8,7 +8,7 @@
         <el-card v-for="item in blog.list" :key="item"  class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always" @click="blogTouch(item.id)">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside class="blog-list-aside">
-              <el-image class="card_image" style="" :src="item.image" :fit="fit" />
+              <el-image class="card_image" style="" :src="item.image" />
             </el-aside>
             <el-container>
               <el-header class="blog-list-header title-font"><span>{{ item.title }}</span></el-header>
@@ -22,6 +22,7 @@
             
         </el-card>
 
+         <div v-if="endFlag" class="fine-font " style="text-align:center;color: #939393;">再怎么翻也没有啦...</div>
          <!-- <div v-for="i in count" :key="i" class="infinite-list-item">{{ i }}</div> -->
       </div>
     </div>
@@ -29,12 +30,15 @@
 
 <script lang="ts" setup>
 import { ref ,reactive,onMounted ,defineProps,onBeforeUnmount,defineExpose} from 'vue'
-import {getArtclePageList} from "@/js/blog.js"
+import {getArtclePageList,demoTest} from "@/js/blog.js"
+import {isEmpty} from "@/utils/common.js"
 import {useRouter} from 'vue-router'
 const count = ref(10)
 const blog = reactive({
   list:[]
 })
+
+const endFlag = ref(false)
 const pageParam = reactive({
   startIndex:0,
   pageSize:5
@@ -59,19 +63,36 @@ const sorlly= () => {
     //console.log(scrollTop+"+"+clientHeight+"??"+scrollHeight);
     //如果触底就让index++
     if (scrollTop + clientHeight >= scrollHeight) {
-        console.log("sorlly");
+        pageParam.startIndex+=pageParam.pageSize
+        getBlogPages()
         //count.value++;
     }
 }    
 
 const getBlogPages =() => {
+    if(endFlag.value){
+      return
+    }
+
     getArtclePageList(pageParam)
         .then((res) => {
-          blog.list = {...res.data}
+          if(isEmpty(res.data)){
+              endFlag.value = true
+          }else{
+              blog.list=blog.list.concat(res.data)
+          }
+          
         })
         .catch((e) => {
           return
         })
+
+        // demoTest({}).then((res) => {
+        //   console.log(res)
+        // })
+        // .catch((e) => {
+        //   return
+        // })
 }
 
 const router=useRouter()

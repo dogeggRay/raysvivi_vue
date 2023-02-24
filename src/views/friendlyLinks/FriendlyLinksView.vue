@@ -26,7 +26,7 @@ function handleChange (item) {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .about-card{
   height:800px;
   margin-left:10px;

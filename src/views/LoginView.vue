@@ -1,5 +1,5 @@
 <template>
-    <div class="login-box" :style="{height:screenHeigth+'px'}">{{screen_heigth}}
+    <div class="login-box" :style="{height:screenHeigth+'px'}">
         <el-container class="main-container" >
             <el-header>
                 <el-row class="top-row">
@@ -83,14 +83,18 @@ const declareClick = ()=>{
 }
 
 const submitForm = async (formEl: FormInstance | undefined) => {
-    console.log(1233333,storeInstance)
   if (!ruleFormRef.value) return
-  ruleFormRef.value.validate((valid, fields) => {
-    if (valid) {
+    ruleFormRef.value.validate((valid, fields) => {
+        if (valid) {
 
-        storeInstance.dispatch('login',{username:ruleForm.username,password:Md5.hashStr(ruleForm.password)}).then(res => { 
-            console.log('返回来的值',res)
-        })
+        storeInstance.dispatch('login',{username:ruleForm.username,password:Md5.hashStr(ruleForm.password)}).then(
+            (response) => {
+              router.push('/')
+            },
+            (err) => {
+              console.log('ERR', err)
+            }
+          )
         
         //storeInstance.dispatch("login",{username:ruleForm.username,password:Md5.hashStr(ruleForm.password)})
         // adminLogin({
