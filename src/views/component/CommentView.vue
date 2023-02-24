@@ -2,7 +2,7 @@
   <div class = "inner-container">
      {{moduleId}}
     <el-input
-        v-model="textarea"
+        v-model="content"
         :rows="2"
         type="textarea"
         placeholder="Please input"
@@ -12,22 +12,42 @@
     
 <script lang="ts" setup>
 import { ref ,reactive,onMounted ,defineProps} from 'vue'
-defineProps({
-  moduleId: {
-    type: String,
-    required: true
+import { getCommentList ,addComment} from '@/js/comment.js'
+import { ElMessage } from 'element-plus'
+  const props = defineProps({
+    moduleId: {
+      type: String,
+      required: true
+    }
+  })
+
+  const commentBody = reactive({
+    moduleId:"",
+    commentList:""
+  })
+
+  const content = ref("")
+
+  onMounted(() => {
+      //console.log(props.moduleId)
+      initCommentList()
+  })
+
+  const initCommentList = () => {
+    let param = {
+      moduleId : props.moduleId,
+      relativeId : ""
+    }
+    getCommentList(param).then((resp:any) => {
+            if(resp.code == "0"){
+              commentBody.commentList = resp.data
+            }else{
+                ElMessage.error(resp.msg)
+            }
+        }).catch()
   }
-})
 </script>
 
 <style lang="less" scoped >
-.about-card{
-  height:800px;
-  margin-left:10px;
-  margin-right:10px;
-}
 
-.about-card >.el-card__body> .el-row{
-  margin-bottom:15px;
-}
 </style>

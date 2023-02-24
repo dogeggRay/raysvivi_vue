@@ -100,7 +100,7 @@
         
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
-          <el-col :span="20"><CommentView :moduleId="123"/></el-col>
+          <el-col :span="20"><CommentView :moduleId="'c855683d92914d21adf91cf63dcf85e3'"/></el-col>
           <el-col :span="2"></el-col>
         </el-row> 
 
