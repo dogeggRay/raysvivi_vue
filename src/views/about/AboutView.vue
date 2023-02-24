@@ -113,7 +113,7 @@
 </template>
 
 <script lang="ts" setup>
-import {CommentView} from '@/views/component/CommentView.vue'
+import CommentView from '@/views/component/CommentView.vue'
 
 </script>
 
