@@ -3,15 +3,16 @@
       <el-card class="about-card fine-font" shadow="always">
         
         <el-row>
-          <el-col :span="24">关于</el-col>
+          <el-col :span="24"></el-col>
+        </el-row>
+
+        <el-row class="independent_row">
+          <el-col :span="24" style="text-align: center;"><span class="title_level_1">友情链接</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="24">友情链接
-
-          </el-col>
-        </el-row><el-row>
-          <el-col :span="24"></el-col>
-        </el-row>        
+          <el-col :span="2"></el-col>
+          <el-col :span="22"><span class="content">没有友情链接</span></el-col>
+        </el-row>     
       </el-card>
 
     </div>

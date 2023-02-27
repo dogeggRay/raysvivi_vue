@@ -16,7 +16,7 @@
         </el-row>
         <el-row>
           <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">Ray</span></el-col>
+          <el-col :span="21"><span class="content">雷迪/Ray</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
@@ -78,7 +78,7 @@
             <el-timeline>
               <el-timeline-item timestamp="2022-10-25" placement="top">
                 <el-card>
-                  <p>阿里云服务器ECS/域名购置</p>
+                  <p>阿里云服务器ECS/域名适配</p>
                 </el-card>
               </el-timeline-item>
               <el-timeline-item timestamp="2022-11-7" placement="top">
@@ -100,7 +100,7 @@
         
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
-          <el-col :span="20"><CommentView :moduleId="'c855683d92914d21adf91cf63dcf85e3'"/></el-col>
+          <el-col :span="20"><CommentView :moduleId="'0bf1d489c53c4fa89b443af10422a214'"/></el-col>
           <el-col :span="2"></el-col>
         </el-row> 
 
@@ -119,7 +119,7 @@ import CommentView from '@/views/component/CommentView.vue'
 
 <style lang="less" scoped>
 .about-card{
-  height:1300px;
+  min-height:1300px;
   margin-left:10px;
   margin-right:10px;
 }
@@ -128,11 +128,4 @@ import CommentView from '@/views/component/CommentView.vue'
   margin-top:20px;
 }
 
-.title_level_1{
-  font-size: larger;
-  font-weight: bold;
-}
-.title_level_2{
-  font-weight:600;
-}
 </style>
