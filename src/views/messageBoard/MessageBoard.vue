@@ -1,16 +1,21 @@
 <template>
   <div class = "inner-container">
       <el-card class="about-card fine-font" shadow="always">
-        
         <el-row>
-          <el-col :span="24">关于</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">this is aboutPage</el-col>
+          <el-col :span="24"></el-col>
         </el-row>
 
+        <el-row class="independent_row">
+          <el-col :span="24" style="text-align: center;"><span class="title_level_1">留言板</span></el-col>
+        </el-row>
         <el-row>
-          <el-col :span="24"><CommentView/></el-col>
+          <el-col :span="2"></el-col>
+          <el-col :span="22"><span class="content">欢迎来到Ray的博客，可随意吐槽</span></el-col>
+        </el-row>
+        <el-row class="independent_row">
+          <el-col :span="2"></el-col>
+          <el-col :span="20"><CommentView :moduleId="'c855683d92914d21adf91cf63dcf85e3'"/></el-col>
+          <el-col :span="2"></el-col>
         </el-row>        
       </el-card>
 
@@ -18,6 +23,7 @@
 </template>
 
 <script lang="ts" setup>
+import CommentView from '@/views/component/CommentView.vue'
 </script>
 
 <style lang="less" scoped>
