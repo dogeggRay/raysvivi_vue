@@ -49,6 +49,7 @@
               :expand-on-click-node="false"
               :props="defaultProps" 
               style="border:none"
+              empty-text="没有留言 你是第一个 O_o"
               default-expand-all>
             <template #default="{ node }">
               <el-container>
@@ -330,5 +331,10 @@ and (max-device-width : 768px) {
       width:100%!important
     }
 
+}
+
+/deep/ .el-tree > .el-tree-node:not(:last-child){
+  padding-top:5px;
+  border-bottom: 1px solid #b1b3b8;
 }
 </style>

@@ -28,7 +28,7 @@ import CommentView from '@/views/component/CommentView.vue'
 
 <style lang="less" scoped>
 .about-card{
-  height:800px;
+  min-height:800px;
   margin-left:10px;
   margin-right:10px;
 }

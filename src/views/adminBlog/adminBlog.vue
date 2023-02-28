@@ -88,7 +88,7 @@ const uploadRef = ref()
 const uploadHeader = {
   "Authorization": "Raysvivi " +store.getters['accessToken']
 }
-const uploadUrl = baseURL+"/file/uploadFile"
+const uploadUrl = baseURL+"/api/file/uploadFile"
 const handleUploadSuccess =(v1,response,v3,)=> {
   debugger
   if(response.response.code == "0"){
