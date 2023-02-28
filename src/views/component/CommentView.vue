@@ -1,27 +1,28 @@
 <template>
   <div class = "inner-container">
+    <el-divider content-position="left">Leave your footprints<el-icon ><EditPen /></el-icon></el-divider>
      <el-row>
       <el-col :span="24"></el-col>
     </el-row> 
     <el-row style="margin-bottom:10px">
-      <el-col :span="8"  style="padding-right:10px">
+      <el-col :span="12"  style="padding-right:10px">
         <el-input
             v-model="commentBody.writerName"
             placeholder="你的昵称"
         />
       </el-col>
-      <el-col :span="8"  style="padding-right:10px">
+      <el-col :span="12"  style="padding-right:10px">
         <el-input
             v-model="commentBody.writerUrl"
             placeholder="你的个人主页URL(选填)"
         />
       </el-col>
-      <el-col :span="8">
+      <!-- <el-col :span="8">
         <el-input
             v-model="commentBody.writerEmail"
             placeholder="你的邮箱(选填)"
         />
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-row>
       <el-col :span="22" >
@@ -56,16 +57,17 @@
                   <el-row >
                     <el-col :span="24">
                       <span class="commentHeader">{{ node.data.writerName }}</span>
-                      <span class="commentExtend">&nbsp;&nbsp;{{ node.data.writerEmail }}</span>
+                      <!-- <span class="commentExtend">&nbsp;&nbsp;{{ node.data.writerEmail }}</span> -->
+                      <span v-if="node.data.writerUrl" >&nbsp;&nbsp;<a target="_blank" style="color: var(--el-tree-text-color);" :href="'http://'+node.data.writerUrl">{{node.data.writerUrl}}</a></span>
                       <el-icon v-if="store.getters['accessToken']" style="float:right" @click="pageDeleteComment(node.data.id)"><Close /></el-icon>
                     </el-col>
                   </el-row>
-                  <el-row class="commentExtend">
+                  <!-- <el-row class="commentExtend">
                     <el-col :span="6">
                       <span v-if="node.data.writerUrl" ><a target="_blank" style="color: var(--el-tree-text-color);" :href="'http://'+node.data.writerUrl">{{node.data.writerUrl}}</a></span>
-                      <!-- <span v-else>未填写个人站点</span> -->
+                      
                       </el-col>
-                  </el-row>
+                  </el-row> -->
                   <el-row class="commentExtend">
                     <el-col :span="6">{{ node.data.createTime }}</el-col>
                   </el-row>
@@ -97,24 +99,24 @@
           <el-col :span="24">评论</el-col>
         </el-row> 
         <el-row style="margin-bottom:10px">
-          <el-col :span="8"  style="padding-right:10px">
+          <el-col :span="12"  style="padding-right:10px">
             <el-input
                 v-model="replyCommentBody.writerName"
                 placeholder="你的昵称"
             />
           </el-col>
-          <el-col :span="8"  style="padding-right:10px">
+          <el-col :span="12"  style="padding-right:10px">
             <el-input
                 v-model="replyCommentBody.writerUrl"
                 placeholder="你的个人主页URL(选填)"
             />
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-input
                 v-model="replyCommentBody.writerEmail"
                 placeholder="你的邮箱(选填)"
             />
-          </el-col>
+          </el-col> -->
         </el-row>
         <el-row>
           <el-col :span="22" >
@@ -189,10 +191,8 @@ import store from '@/store'
     initCommentList()
     
     commentBody.writerName = getStorageValue("writerName")==null?"":getStorageValue("writerName")+""
-    commentBody.writerEmail = getStorageValue("writerEmail")==null?"":getStorageValue("writerEmail")+""
     commentBody.writerUrl = getStorageValue("writerUrl")==null?"":getStorageValue("writerUrl")+""
     replyCommentBody.writerName = getStorageValue("writerName")==null?"":getStorageValue("writerName")+""
-    replyCommentBody.writerEmail = getStorageValue("writerEmail")==null?"":getStorageValue("writerEmail")+""
     replyCommentBody.writerUrl = getStorageValue("writerUrl")==null?"":getStorageValue("writerUrl")+""
   })
 

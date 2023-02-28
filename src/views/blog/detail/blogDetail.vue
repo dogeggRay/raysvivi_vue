@@ -1,12 +1,24 @@
 <template>
   <div class = "inner-container">
       <el-card class="about-card fine-font" shadow="always">
+        <!-- blog.title = resp.data.title
+              blog.id = resp.data.id
+              blog.createTime = resp.data.createTime
+              blog.image = resp.data.image
+              blog.content = resp.data.content -->
         <el-row>
-          <el-col :span="24">关于</el-col>
+          <el-col :span="24"></el-col>
         </el-row>
-        <el-row>
-          <el-col :span="24">友情链接233</el-col>
+        <el-row class="independent_row">
+          <el-col :span="24" style="text-align: left;"><span class="title_level_1">{{blog.title}}</span></el-col>
         </el-row>
+        
+        <el-row class="independent_row">
+          <el-col :span="24"><span></span></el-col>
+        </el-row>
+
+
+        <el-divider content-position="left">{{blog.createTime}}</el-divider>
    <div style="" class="blogDetailDiv">
     <!-- 不知道为什么菜单栏自己消失了  good good-->
               <Toolbar
@@ -47,7 +59,10 @@ import CommentView from '@/views/component/CommentView.vue'
 
 const blog = reactive({
     content:"",
-    title:""
+    title:"",
+    createTime:"",
+    id:"",
+    image:""
 })
 const route = useRoute()
 const htmlValue = ""
@@ -64,6 +79,10 @@ onActivated(() => {
 const getBlog =() =>{
       getBlogDetail({id:blogId.value}).then((resp:any) => {
             if(resp.code == "0"){
+              blog.title = resp.data.title
+              blog.id = resp.data.id
+              blog.createTime = resp.data.createTime
+              blog.image = resp.data.image
               blog.content = resp.data.content
               initHtmlShow()
             }else{
