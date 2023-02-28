@@ -3,7 +3,6 @@ import {createStore} from 'vuex'
 import {getAccessToken,setAccessToken,removeAccessToken} from '@/utils/accessToken'
 import { tokenName } from '@/config'
 import { message } from 'ant-design-vue'
-import dateFormat from '@/utils/dateTime'
 import { adminLogin } from '@/js/admin'
 // import state from "./modules/state";
 // import mutations from "./modules/mutations.js";
@@ -21,13 +20,16 @@ const store = createStore({
     state() { 
         return {
           accessToken: getAccessToken(),
-          username: '',
+          touristName: '',
           avatar: '',
         }
     },
     getters:{
       accessToken(state:any){
         return state.accessToken
+      },
+      touristName(state:any){
+        return state.touristName
       }
     },
     mutations: {
@@ -47,10 +49,10 @@ const store = createStore({
          * @author chuzhixin 1204505056@qq.com
          * @description 设置用户名
          * @param {*} state
-         * @param {*} username
+         * @param {*} touristName
          */
-        setUsername(state:any, username) {
-            state.username = username
+        setTouristname(state:any, touristName) {
+            state.touristName = touristName
         },
         /**
          * @author chuzhixin 1204505056@qq.com
@@ -71,7 +73,7 @@ const store = createStore({
             setVirtualRoles({ commit, dispatch }) {
               dispatch('acl/setFull', true, { root: true })
               commit('setAvatar', 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif')
-              commit('setUsername', 'admin(未开启登录拦截)')
+              commit('setTourist', 'admin(未开启登录拦截)')
           },
 
           async simulationLogin({ commit }, userInfo) {

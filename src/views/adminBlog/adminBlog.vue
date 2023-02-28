@@ -86,7 +86,7 @@ const blogFormRef = ref()
 
 const uploadRef = ref()
 const uploadHeader = {
-  "Authorization":'Raysvivi '
+  "Authorization": "Raysvivi " +store.getters['accessToken']
 }
 const uploadUrl = baseURL+"/file/uploadFile"
 const handleUploadSuccess =(v1,response,v3,)=> {

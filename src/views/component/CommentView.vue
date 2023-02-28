@@ -1,6 +1,5 @@
 <template>
   <div class = "inner-container">
-    
      <el-row>
       <el-col :span="24"></el-col>
     </el-row> 
@@ -49,8 +48,7 @@
               :expand-on-click-node="false"
               :props="defaultProps" 
               style="border:none"
-              default-expand-all
-              @node-click="treeNodeClick">
+              default-expand-all>
             <template #default="{ node }">
               <el-container>
                 <el-aside width="50px"><el-avatar :size="30"> <el-icon><Avatar /></el-icon> </el-avatar></el-aside>
@@ -71,7 +69,7 @@
                   <el-row class="commentExtend">
                     <el-col :span="6">{{ node.data.createTime }}</el-col>
                   </el-row>
-                  <div class="commentContent">{{ node.label }}</div>
+                  <div class="commentContent" @click="treeNodeClick(node)">{{ node.label }}</div>
                 </el-main>
               </el-container>
 
@@ -93,6 +91,7 @@
         :title="drawerTitle"
         :direction="direction"
         :before-close="handleClose"
+        custom-class="commentReplyDrawer"
       >
         <el-row>
           <el-col :span="24">评论</el-col>
@@ -138,14 +137,19 @@
 </template>
     
 <script lang="ts" setup>
-import { ref ,reactive,onMounted ,defineProps} from 'vue'
+import { ref ,reactive,onMounted ,defineProps ,onUpdated} from 'vue'
 import { getCommentList ,addComment ,deleteComment} from '@/js/comment.js'
 import { ElMessage } from 'element-plus'
-import {isEmpty} from "@/utils/common.js"
+import {isEmpty,setStorageObject,getStorageValue} from "@/utils/common.js"
 import store from '@/store'
   const props = defineProps({
     moduleId: {
       type: String,
+      required: true
+    },
+    relativeId: {
+      type: String,
+      default:"",
       required: true
     }
   })
@@ -160,7 +164,7 @@ import store from '@/store'
   const replyCommentBody = reactive({
     moduleId:props.moduleId,
     parentId:"-1",
-    relativeId:null,
+    relativeId:props.relativeId,
     writerName:"",
     writerEmail:"",
     writerUrl:"",
@@ -170,7 +174,7 @@ import store from '@/store'
   const commentBody = reactive({
     moduleId:props.moduleId,
     parentId:"-1",
-    relativeId:null,
+    relativeId:props.relativeId,
     writerName:"",
     writerEmail:"",
     writerUrl:"",
@@ -182,14 +186,25 @@ import store from '@/store'
   const direction = ref('rtl')
 
   onMounted(() => {
-      //console.log(props.moduleId)
-      initCommentList()
+    initCommentList()
+    
+    commentBody.writerName = getStorageValue("writerName")==null?"":getStorageValue("writerName")+""
+    commentBody.writerEmail = getStorageValue("writerEmail")==null?"":getStorageValue("writerEmail")+""
+    commentBody.writerUrl = getStorageValue("writerUrl")==null?"":getStorageValue("writerUrl")+""
+    replyCommentBody.writerName = getStorageValue("writerName")==null?"":getStorageValue("writerName")+""
+    replyCommentBody.writerEmail = getStorageValue("writerEmail")==null?"":getStorageValue("writerEmail")+""
+    replyCommentBody.writerUrl = getStorageValue("writerUrl")==null?"":getStorageValue("writerUrl")+""
   })
 
+  onUpdated(() => {
+    initCommentList()
+  })  
+
   const initCommentList = () => {
+    
     let param = {
       moduleId : props.moduleId,
-      relativeId : ""
+      relativeId : props.relativeId
     }
     getCommentList(param).then((resp:any) => {
             if(resp.code == "0"){
@@ -203,8 +218,8 @@ import store from '@/store'
   }
 
   const treeNodeClick = (node)=>{
-    replyCommentBody.parentId = node.id
-    drawerTitle.value="回复："+node.content
+    replyCommentBody.parentId = node.data.id
+    drawerTitle.value="回复："+node.data.content
     replyCommentBody.content = "";
     commentDrawer.value = true
   }
@@ -214,16 +229,20 @@ import store from '@/store'
     replyCommentBody.parentId = "-1"
   }
   const submitNew = ()=>{
+    commentBody.relativeId = props.relativeId
     submit(commentBody)
   }
   const submitReply = ()=>{
+    replyCommentBody.relativeId = props.relativeId
     submit(replyCommentBody)
   }  
   const submit = (body) =>{
+    
     if(isEmpty(body.writerName)){
         ElMessage.error("请填写昵称!")
         return
     }
+    setStorageObject(body)
     addComment(body).then((resp:any) => {
             if(resp.code == "0"){
               ElMessage.success("评论成功")
@@ -289,5 +308,27 @@ import store from '@/store'
   font-family: PingFang SC,Hiragino Sans GB,Microsoft YaHei,STHeiti,WenQuanYi Micro Hei,Helvetica,Arial,sans-serif;
   font-size: 13px;
   color:black
+}
+
+/deep/ .el-drawer__header{
+  padding-top: 60px
+}
+
+//大屏配置
+@media screen
+and (min-device-width : 768px){
+    /deep/ .commentReplyDrawer{
+      width:32%!important
+    }
+
+}
+
+//小屏配置
+@media screen
+and (max-device-width : 768px) {
+    /deep/ .commentReplyDrawer{
+      width:100%!important
+    }
+
 }
 </style>

@@ -22,9 +22,17 @@
             </div>
         <el-row>
           <el-col :span="24"></el-col>
-        </el-row>        
+        </el-row>    
+
+        <el-row class="independent_row">
+          <el-col :span="2"></el-col>
+          <el-col :span="20"><CommentView :moduleId="'9b918bf55b084d649625149a84ea8826'" :relativeId="blogId"/></el-col>
+          <el-col :span="2"></el-col>
+        </el-row>      
       </el-card>
 
+
+         
     </div>
 </template>
 
@@ -35,6 +43,7 @@ import { useRoute } from 'vue-router'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
 import { ElMessage } from 'element-plus'
 import { Editor } from '@wangeditor/editor-for-vue'
+import CommentView from '@/views/component/CommentView.vue'
 
 const blog = reactive({
     content:"",
@@ -53,7 +62,7 @@ onActivated(() => {
 })
 
 const getBlog =() =>{
-      getBlogDetail({id:blogId.value}).then((resp) => {
+      getBlogDetail({id:blogId.value}).then((resp:any) => {
             if(resp.code == "0"){
               blog.content = resp.data.content
               initHtmlShow()
