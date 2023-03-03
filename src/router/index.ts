@@ -31,15 +31,8 @@ const routes: Array<RouteRecordRaw> = [
           import(
             '@/views/blog/list/blogList.vue'
           ),
-        meta:{ keepAlive: true}
-      },{
-        path: '/blogDetail',
-        name: 'blogDetail',
-        component: () =>
-          import(
-            '@/views/blog/detail/blogDetail.vue'
-          ),
-        meta:{ keepAlive: false}
+        meta:{ keepAlive: true,
+          module:"blogList"}
       },{
         path: '/view/blogDetail',
         name: 'blogDetail',
@@ -47,7 +40,8 @@ const routes: Array<RouteRecordRaw> = [
           import(
             '@/views/blog/detail/blogDetail.vue'
           ),
-        meta:{ keepAlive: true}
+        meta:{ keepAlive: true,
+        module:"blogDetail"}
       },{
         path: '/view/about',
         name: 'aboutPage',
@@ -55,7 +49,8 @@ const routes: Array<RouteRecordRaw> = [
           import(
             '@/views/about/AboutView.vue'
           ),
-        meta:{ keepAlive: false}  
+        meta:{ keepAlive: false,
+          module:"about"}  
       }, 
       {
         path: '/view/messageBoard',
@@ -64,7 +59,8 @@ const routes: Array<RouteRecordRaw> = [
         import(
           '@/views/messageBoard/MessageBoard.vue'
         ),
-        meta:{ keepAlive: true} 
+        meta:{ keepAlive: true,
+          module:"messageBoard"} 
       },   
       {
         path: '/view/friendlyLinks',
@@ -73,7 +69,8 @@ const routes: Array<RouteRecordRaw> = [
         import(
           '@/views/friendlyLinks/friendlyLinksView.vue'
         ),
-        meta:{ keepAlive: true} 
+        meta:{ keepAlive: true,
+          module:"friendlyLinks"} 
       },{
         path: '/view/adminBlog',
         name: 'adminBlog',

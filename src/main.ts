@@ -14,8 +14,7 @@ for (const [key, component] of Object.entries(ElIconModules)) {
     app.component(key, component)
 }
 router.afterEach((to, from, next) => {
-    console.log(to)
     //pv记录
-    indicatorRecords(to.fullPath);
+    indicatorRecords(to);
 })
 app.use(store).use(ElementPlus).use(router).mount('#app')

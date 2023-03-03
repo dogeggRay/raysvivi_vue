@@ -68,7 +68,7 @@ function handleChange (item) {
     console.log('change', item)
 }
 onActivated(() => {
-  console.log( window.location.pathname+window.location.search)
+  //console.log( window.location.pathname+window.location.search)
   blogId.value = route.query.relativeId
   getBlog()
 })

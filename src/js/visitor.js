@@ -2,6 +2,7 @@ import {isEmpty} from "@/utils/common.js"
 import request from '@/utils/request'
 
 const visitFlag = "visitHistory"
+
 // PV/UV统计
 // export function indicatorRecords(fullpath) {
 //     let histories = sessionStorage.getItem(visitFlag)
@@ -21,9 +22,14 @@ const visitFlag = "visitHistory"
 // }
 
 export function indicatorRecords(data){
-    // return request({
-    //     url: '/api/admin/article/saveArtcle',
-    //     method: 'post',
-    //     data,
-    // })
+    let body = {
+        moduleName:data.meta.module,
+        relativeId:isEmpty(data.query.relativeId)?"-1":data.query.relativeId
+    }
+    console.log(body)
+    return request({
+        url: '/api/tourist/record/footstepRecord',
+        method: 'post',
+        data:body,
+    })
 }

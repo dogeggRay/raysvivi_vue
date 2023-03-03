@@ -102,6 +102,8 @@ const items = ref<Array<Item>>([
 const SearchKey = ref("")
 const fix_flag = ref(false)
 onMounted(() => {
+  //alert("statement")
+  //查询初始信息
   window.addEventListener('scroll', sorlly)
 })
 
