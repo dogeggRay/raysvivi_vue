@@ -10,7 +10,7 @@
               <el-row class="top_header_div_row full_height">
                 <el-col :span="2" class="full_height"></el-col>
                 <el-col :span="9" class="full_height main_header_middle">
-                  <span class="cursor-font declare-font top_header_span" @click="declareClick">雷の博</span>
+                  <span class="cursor-font declare-font top_header_span" @click="declareClick">小雷童鞋</span>
                 </el-col>
                 <el-col :span="4" class="full_height"></el-col>
                 <el-col :span="7" class="full_height">
@@ -106,7 +106,7 @@
     </el-card>
 
     <!--导航抽屉-->
-    <el-drawer direction="btt" size="80%" v-model="navigateDrawer" :with-header="false">
+    <el-drawer custom-class="statementDrawer" direction="btt" size="80%" v-model="navigateDrawer" :with-header="false">
       <Statement/>
     </el-drawer>
 </template>
@@ -159,7 +159,7 @@ const statementShow = () => {
   navigateDrawer.value = true;
 }
 </script>
-<style lang="less">
+<style lang="less" >
 .full_height{
   height:100%
 }
@@ -336,6 +336,4 @@ const statementShow = () => {
     bottom: 20px;  
     text-align: center;
 }
-
-
 </style>

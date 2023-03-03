@@ -100,7 +100,7 @@
         
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
-          <el-col :span="20"><CommentView :moduleId="'0bf1d489c53c4fa89b443af10422a214'" :relativeId="''"/></el-col>
+          <el-col :span="20"><CommentView :key="componentTime" :moduleId="'0bf1d489c53c4fa89b443af10422a214'" :relativeId="''"/></el-col>
           <el-col :span="2"></el-col>
         </el-row> 
 
@@ -114,7 +114,7 @@
 
 <script lang="ts" setup>
 import CommentView from '@/views/component/CommentView.vue'
-
+const componentTime = Date.now()
 </script>
 
 <style lang="less" scoped>

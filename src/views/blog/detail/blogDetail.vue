@@ -21,14 +21,10 @@
         <el-divider content-position="left">{{blog.createTime}}</el-divider>
    <div style="" class="blogDetailDiv">
     <!-- 不知道为什么菜单栏自己消失了  good good-->
-              <Toolbar
-                :editor="editorRef"
-              />
               <Editor
                 style="height: 80%; overflow-y: hidden;"
                 v-model="blog.content"
                 :defaultConfig="editorConfig"
-                :mode="mode"
                 @onCreated="handleCreated"
               />
             </div>
@@ -38,7 +34,7 @@
 
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
-          <el-col :span="20"><CommentView :moduleId="'9b918bf55b084d649625149a84ea8826'" :relativeId="blogId"/></el-col>
+          <el-col :span="20"><CommentView :key="componentKey" :moduleId="'9b918bf55b084d649625149a84ea8826'" :relativeId="blogId"/></el-col>
           <el-col :span="2"></el-col>
         </el-row>      
       </el-card>
@@ -57,6 +53,7 @@ import { ElMessage } from 'element-plus'
 import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
 
+const componentKey = Date.now()
 const blog = reactive({
     content:"",
     title:"",
@@ -71,9 +68,9 @@ function handleChange (item) {
     console.log('change', item)
 }
 onActivated(() => {
-  blogId.value = route.query.blogId
+  console.log( window.location.pathname+window.location.search)
+  blogId.value = route.query.relativeId
   getBlog()
-
 })
 
 const getBlog =() =>{

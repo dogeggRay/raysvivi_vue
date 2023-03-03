@@ -123,7 +123,7 @@
           <el-col :span="22" >
             <el-input
                 v-model="replyCommentBody.content"
-                :rows="2"
+                :rows="3"
                 resize="none"
                 type="textarea"
                 :maxlength="500"
@@ -140,7 +140,7 @@
 </template>
     
 <script lang="ts" setup>
-import { ref ,reactive,onMounted ,defineProps ,onUpdated} from 'vue'
+import { ref ,reactive,onMounted ,defineProps ,watch,onUpdated} from 'vue'
 import { getCommentList ,addComment ,deleteComment} from '@/js/comment.js'
 import { ElMessage } from 'element-plus'
 import {isEmpty,setStorageObject,getStorageValue} from "@/utils/common.js"
@@ -152,11 +152,14 @@ import store from '@/store'
     },
     relativeId: {
       type: String,
-      default:"",
-      required: true
+      default:"-1"
     }
   })
 
+  // const props = defineProps<{
+  //   visible: string,required: true;
+  //   relativeId: string
+  // }>()
   const commentTreeRef = ref()
   const defaultProps = {
     label:"content",
@@ -188,21 +191,26 @@ import store from '@/store'
   const commentDrawer = ref(false)
   const direction = ref('rtl')
 
+  onUpdated(() => {
+        initCommentList()
+  })
+
   onMounted(() => {
-    initCommentList()
-    
+    setTimeout(() => {
+        initCommentList()
+    }, 500);
     commentBody.writerName = getStorageValue("writerName")==null?"":getStorageValue("writerName")+""
     commentBody.writerUrl = getStorageValue("writerUrl")==null?"":getStorageValue("writerUrl")+""
     replyCommentBody.writerName = getStorageValue("writerName")==null?"":getStorageValue("writerName")+""
     replyCommentBody.writerUrl = getStorageValue("writerUrl")==null?"":getStorageValue("writerUrl")+""
   })
 
-  onUpdated(() => {
-    initCommentList()
-  })  
+  // watch(() => props, (newValue, oldValue) => {
+  //   alert("watch:"+props.relativeId)
+    
+  // });
 
   const initCommentList = () => {
-    
     let param = {
       moduleId : props.moduleId,
       relativeId : props.relativeId

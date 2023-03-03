@@ -8,9 +8,9 @@
         <el-card v-for="item in blog.list" :key="item"  class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always" @click="blogTouch(item.id)">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside class="blog-list-aside">
-              <el-image class="card_image" style="" :src="item.image" />
+              <el-image class="card_image" :src="item.image" />
             </el-aside>
-            <el-container>
+            <el-container class="blog-list-container">
               <el-header class="blog-list-header title-font"><span>{{ item.title }}</span></el-header>
               <el-main class="blog-list-main">{{ item.abstractInfo }}</el-main>
               <el-footer height="37px" class="blog-list-footer">
@@ -97,7 +97,7 @@ const getBlogPages =() => {
 
 const router=useRouter()
 const blogTouch = (blogId) =>{
-    router.push({path:"/view/blogDetail",query:{"blogId":blogId}})
+    router.push({path:"/view/blogDetail",query:{"relativeId":blogId}})
 }
 defineExpose({
   sorlly
@@ -107,7 +107,7 @@ defineExpose({
 
 </script>
 
-<style>
+<style lang="less" scoped >
 .infinite-list {
   padding: 0;
   margin: 0;
@@ -117,8 +117,6 @@ defineExpose({
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 210px;
-  /* background: var(--el-color-primary-light-9); */
   background-color:white;
   margin: 0px 10px 10px 10px;
   cursor:pointer;
@@ -127,7 +125,9 @@ defineExpose({
   margin-bottom: 10px;
 }
 
-.blog-list-card > .el-card__body {
+/deep/ .blog-list-card > .el-card__body {
+  margin: 0px;  
+  padding:0px;
   width:100%;
   height:100%
 }
@@ -165,8 +165,41 @@ defineExpose({
   top: 4px;
   font-size: medium;
 }
+
+    .card_image{
+      width: 100%;
+      height: 100%;
+    }
+    .blog-list-aside{
+      height:100%;
+      overflow: hidden
+    }
+    .blog-list-container{
+      padding-left:1rem;
+    }
 /* .inner-container::-webkit-scrollbar{
   display:none;
 } */
+//小屏配置
+@media screen
+and (max-device-width : 768px) {
+    /deep/ .blog-list-main{
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+      text-overflow: ellipsis;
+    }
 
+    .blog-list-card{
+      height:140px
+    }
+}
+
+@media screen
+and (min-device-width : 768px){
+  .blog-list-card{
+      height: 210px;
+    }
+}
 </style>

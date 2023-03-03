@@ -6,13 +6,16 @@ import 'element-plus/dist/index.css'
 import store from './store'
 import 'animate.css/animate.min.css'
 import '@/style/global.less'
-
+import { indicatorRecords} from '@/js/visitor.js'
 import * as ElIconModules from '@element-plus/icons-vue'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElIconModules)) {
     app.component(key, component)
 }
-
-app.use(ElementPlus).use(router).mount('#app')
-app.use(store)
+router.afterEach((to, from, next) => {
+    console.log(to)
+    //pv记录
+    indicatorRecords(to.fullPath);
+})
+app.use(store).use(ElementPlus).use(router).mount('#app')

@@ -99,6 +99,7 @@ const routes: Array<RouteRecordRaw> = [
     import(
       '@/views/component/CommentView.vue'
     ),
+    meta:{ keepAlive: false}
   },  
   {
     path: '/login',

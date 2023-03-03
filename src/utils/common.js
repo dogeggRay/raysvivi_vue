@@ -1,5 +1,5 @@
 export function getStorageValue(key) {
-  return localStorage.getItem(key)
+  return sessionStorage.getItem(key)
 }
 
 export function setStorageObject(object) {
@@ -7,7 +7,7 @@ export function setStorageObject(object) {
     let obj = {}
     keys.forEach((item) => {
       console.log(item,object[item])
-      localStorage.setItem(item, object[item])
+      sessionStorage.setItem(item, object[item])
     })
   return
 }
