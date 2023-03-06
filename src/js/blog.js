@@ -19,11 +19,11 @@ export function getArtclePageList(data) {
     })
 }
 
-export function getBlogDetail(data) {
+export function getBlogDetail(params) {
     return request({
         url: '/api/tourist/article/blogDetail',
-        method: 'post',
-        data,
+        method: 'get',
+        params,
     })
 }
 

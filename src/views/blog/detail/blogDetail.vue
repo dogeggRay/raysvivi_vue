@@ -49,6 +49,7 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
+import { pageExtendInfo} from "@/js/visitor.js"
 import { ElMessage } from 'element-plus'
 import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
@@ -71,10 +72,11 @@ onActivated(() => {
   //console.log( window.location.pathname+window.location.search)
   blogId.value = route.query.relativeId
   getBlog()
+  initPageExtendInfo()
 })
 
 const getBlog =() =>{
-      getBlogDetail({id:blogId.value}).then((resp:any) => {
+      getBlogDetail({aritcleInfoId:blogId.value}).then((resp:any) => {
             if(resp.code == "0"){
               blog.title = resp.data.title
               blog.id = resp.data.id
@@ -91,6 +93,19 @@ const getBlog =() =>{
         })
 } 
 
+const initPageExtendInfo =() =>{
+  let body = {"moduleName":"blogDetail","relativeId":blogId.value}
+  pageExtendInfo(body).then((resp:any) => {
+        if(resp.code == "0"){
+          console.log(resp)
+        }else{
+            ElMessage.error(resp.msg)
+        }
+    })
+    .catch((e) => {
+      return
+    })
+}
 const initHtmlShow = () =>{
     return
 }

@@ -26,10 +26,18 @@ export function indicatorRecords(data){
         moduleName:data.meta.module,
         relativeId:isEmpty(data.query.relativeId)?"-1":data.query.relativeId
     }
-    console.log(body)
     return request({
         url: '/api/tourist/record/footstepRecord',
         method: 'post',
         data:body,
+    })
+}
+
+export function pageExtendInfo(data){
+    
+    return request({
+        url: '/api/tourist/record/pageExtendInfo',
+        method: 'get',
+        params:data,
     })
 }
