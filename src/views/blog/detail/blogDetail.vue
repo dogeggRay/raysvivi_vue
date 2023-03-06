@@ -17,8 +17,13 @@
           <el-col :span="24"><span></span></el-col>
         </el-row>
 
+        <el-row class="independent_row">
+          <el-col :span="24">
+            <el-icon class="headerTipIcon"><Clock /></el-icon><span class="headerTipSpan">{{blog.createTime.substring(0,11)}}</span>&nbsp;&nbsp;  
+            <el-icon class="headerTipIcon"><View /></el-icon><span class="headerTipSpan">{{ extendInfo.viewNum }}次浏览</span></el-col>
+        </el-row>
 
-        <el-divider content-position="left">{{blog.createTime}}</el-divider>
+        <el-divider content-position="left"></el-divider>
    <div style="" class="blogDetailDiv">
     <!-- 不知道为什么菜单栏自己消失了  good good-->
               <Editor
@@ -62,6 +67,10 @@ const blog = reactive({
     id:"",
     image:""
 })
+
+const extendInfo = reactive({
+  viewNum:0
+})
 const route = useRoute()
 const htmlValue = ""
 const blogId = ref()
@@ -97,7 +106,8 @@ const initPageExtendInfo =() =>{
   let body = {"moduleName":"blogDetail","relativeId":blogId.value}
   pageExtendInfo(body).then((resp:any) => {
         if(resp.code == "0"){
-          console.log(resp)
+          extendInfo.viewNum = resp.data.viewNumber
+          
         }else{
             ElMessage.error(resp.msg)
         }
@@ -154,4 +164,5 @@ const editorRef = shallowRef()
 .about-card >.el-card__body> .el-row{
   margin-bottom:15px;
 }
+
 </style>
