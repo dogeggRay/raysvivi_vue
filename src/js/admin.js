@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 import { tokenName } from '@/config'
 import { get, post } from '../utils/request'
+import store from '@/store'
 //登录
 export function adminLogin(data) {
     return request({
@@ -30,4 +31,12 @@ export async function refreshToken() {
       url: '/v1/common/logout',
       method: 'post',
     })
+  }
+
+  export function getTags() {
+      return request({
+        url: '/api/constants/getTagEnums',
+        method: 'get',
+        params:null,
+      })
   }

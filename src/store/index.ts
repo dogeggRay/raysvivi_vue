@@ -3,7 +3,7 @@ import {createStore} from 'vuex'
 import {getAccessToken,setAccessToken,removeAccessToken} from '@/utils/accessToken'
 import { tokenName } from '@/config'
 import { message } from 'ant-design-vue'
-import { adminLogin } from '@/js/admin'
+import { adminLogin ,getTags } from '@/js/admin'
 // import state from "./modules/state";
 // import mutations from "./modules/mutations.js";
 // import actions from "./modules/actions";
@@ -22,6 +22,7 @@ const store = createStore({
           accessToken: getAccessToken(),
           touristName: '',
           avatar: '',
+          tagMap:null
         }
     },
     getters:{
@@ -30,7 +31,10 @@ const store = createStore({
       },
       touristName(state:any){
         return state.touristName
-      }
+      },
+      tagMap(state:any){
+        return state.tagMap
+      },
     },
     mutations: {
         /**
@@ -43,6 +47,10 @@ const store = createStore({
             console.log("mutations.accessToken",accessToken)
             state.accessToken = accessToken
             setAccessToken(accessToken)
+        },
+
+        setTagMap(state:any,tagMap) {
+          state.tagMap = tagMap
         },
 
         /**
@@ -134,8 +142,8 @@ const store = createStore({
            */
           async login({ commit }, userInfo) {
               const { data } = await adminLogin(userInfo)
-              localStorage.setItem('USERID', data.user_id)
-              localStorage.setItem('name_chn', data.name_chn)
+              // localStorage.setItem('USERID', data.user_id)
+              // localStorage.setItem('name_chn', data.name_chn)
               //localStorage.setItem('logintime', dateFormat(new Date()))
               localStorage.setItem('USERINFO', JSON.stringify(data))
               console.log("tokenName",tokenName)
@@ -148,6 +156,18 @@ const store = createStore({
                   message.error(`登录接口异常，未正确返回${tokenName}...`)
               }
           },
+
+          async initTag({ commit }) {
+            const {data} = await getTags()
+          debugger
+            const tempMap = new Map()
+            if (data) {
+              data.forEach(element => {
+                    tempMap.set(element.value,element.name)
+              });
+              commit('setTagMap', tempMap)
+            }
+          }
     },
     modules:{}
 })

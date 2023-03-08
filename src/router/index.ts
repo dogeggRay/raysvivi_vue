@@ -67,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'FriendlyLinks',
         component: () =>
         import(
-          '@/views/friendlyLinks/FriendlyLinksView.vue'
+          '@/views/friendlyLinks/friendlyLinksView.vue'
         ),
         meta:{ keepAlive: true,
           module:"friendlyLinks"} 

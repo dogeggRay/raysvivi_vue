@@ -114,13 +114,17 @@
 <script lang="ts" setup>
 import Statement from '@/views/statement/statement_page.vue'
 import { ref ,onMounted,onBeforeUnmount } from 'vue'
-    import store from '@/store'
+import {initTags} from '@/js/admin'
+import store from '@/store'
+import { useStore } from 'vuex'
+
+let storeInstance = useStore()
 
 const headerFlag = ref(false);
 let order_view = ref()
 const navigateDrawer = ref(false);
 onMounted(() => {
-  initPageSize()
+  initDatas()
   window.addEventListener('scroll', sorlly)
 })
 
@@ -138,7 +142,15 @@ const sorlly= () => {
     }
 }
 
-const initPageSize = () =>{
+const initDatas = () =>{
+  storeInstance.dispatch('initTag').then(
+            (response) => {
+              console.log('OK')
+            },
+            (err) => {
+              console.log('ERR', err)
+            }
+          )
   //alert(document.body.clientHeight)
   //alert(document.getElementsByClassName('router_main')[0].clientHeight)
   //  document.getElementsByClassName('inner-container')[0].style.height;

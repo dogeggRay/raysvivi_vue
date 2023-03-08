@@ -4,18 +4,33 @@
         class="infinite-list inner-container"
         style="overflow: auto;"
       >
-      
-        <el-card v-for="item in blog.list" :key="item"  class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always" @click="blogTouch(item.id)">
+        <el-card v-for="item in blog.list" :key="item" class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside class="blog-list-aside">
-              <el-image class="card_image" :src="item.image" />
+              <el-image class="card_image" :src="item.image"  @click="blogTouch(item.id)" />
             </el-aside>
-            <el-container class="blog-list-container">
-              <el-header class="blog-list-header title-font"><span>{{ item.title }}</span></el-header>
-              <el-main class="blog-list-main">{{ item.abstractInfo }}</el-main>
-              <el-footer height="37px" class="blog-list-footer">
-              <el-icon class="icon-in-card-footer"><Clock /></el-icon>
-                {{ item.createTime }}
+            <el-container class="blog-list-container" >
+              <el-header class="blog-list-header title-font"  @click="blogTouch(item.id)"><span>{{ item.title }}</span></el-header>
+              <el-main class="blog-list-main"  @click="blogTouch(item.id)">{{ item.abstractInfo }}</el-main>
+              <el-footer height="50px" class="blog-list-footer">
+              <el-row>
+                <el-col span="24"> 
+                  <template v-if="store.getters['tagMap']">
+                    <el-tag style="margin-right:5px" size="small" v-for="(tag,index) in item.tags" class="ml-2" type="info" :key="index">
+                    {{store.getters['tagMap'].get(tag)}}</el-tag>
+                  </template>
+                  <template v-else><el-tag style="margin-right:5px" size="small" v-for="(tag,index) in item.tags" class="ml-2" type="info" :key="index">
+                    {{tag}}</el-tag></template>
+                  
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col span="24">
+                  <el-icon class="icon-in-card-footer"><Clock /></el-icon>
+                  {{ item.createTime }}
+                </el-col>
+              </el-row>
+              
               </el-footer>
             </el-container>
           </el-container>
@@ -29,15 +44,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref ,reactive,onMounted ,defineProps,onBeforeUnmount,defineExpose} from 'vue'
+import { ref ,reactive,watch,onMounted ,defineProps,onBeforeUnmount,defineExpose} from 'vue'
 import {getArtclePageList,demoTest} from "@/js/blog.js"
 import {isEmpty} from "@/utils/common.js"
+import store from '@/store'
 import {useRouter} from 'vue-router'
 const count = ref(10)
 const blog = reactive({
   list:[]
 })
 
+const tagsInStore = store.getters['tags']
 const endFlag = ref(false)
 const pageParam = reactive({
   startIndex:0,
@@ -47,7 +64,9 @@ const pageParam = reactive({
 onMounted(() => {
   window.addEventListener('scroll', sorlly)
   getBlogPages()
+  
 })
+
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', sorlly)
@@ -68,6 +87,7 @@ const sorlly= () => {
         //count.value++;
     }
 }    
+
 
 const getBlogPages =() => {
     if(endFlag.value){

@@ -22,6 +22,9 @@ const visitFlag = "visitHistory"
 // }
 
 export function indicatorRecords(data){
+    if(isEmpty(data.meta.module)){
+        return;
+    }
     let body = {
         moduleName:data.meta.module,
         relativeId:isEmpty(data.query.relativeId)?"-1":data.query.relativeId

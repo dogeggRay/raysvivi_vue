@@ -37,16 +37,14 @@
               </el-input>
             </el-card>
           <!-- 标签框 -->
+          
+
             <el-card class="card_search"  shadow="hover">
-                    <el-tag
-                      v-for="item in items"
-                      :key="item.label"
-                      :type="item.type"
-                      class="mx-1 tag_node"
-                      effect="dark"
-                    >
-                      {{ item.label }}
-                    </el-tag>
+              <el-tag size="small" class="ml-2 tag_node" effect="dark" type="info"
+                  v-for="(tag,index) in store.getters['tagMap']"  :key="index" @click="alert(tag.value)">
+                  {{tag[1]}}
+              </el-tag>
+
             </el-card>
 
             <!-- 声明框 -->
@@ -85,13 +83,14 @@
 
 import { ref ,onMounted,onBeforeUnmount } from 'vue'
 import type { TagProps } from 'element-plus'
+import store from '@/store'
 type Item = { type: TagProps['type']; label: string }
 
 const ICP_Filing_record = "皖ICP备2022015508号-1"
 const Public_security_record = "皖公网安备 34070202000554号"
 const copy_right = "Copyright © 2023 · Raysvivi"
 const declare_value = "任何反馈请联系[2105520190@qq.com]";
-const items = ref<Array<Item>>([
+const tagsExample = ref<Array<Item>>([
   { type: '', label: 'Tag 1' },
   { type: 'success', label: 'Tag 2' },
   { type: 'info', label: 'Tag 3' },
@@ -195,7 +194,8 @@ const sorlly= () => {
 
 .tag_node{
   margin-left:5px;
-  margin-bottom:5px
+  margin-bottom:5px;
+  cursor: pointer
 }
 
 .fix_now{

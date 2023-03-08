@@ -107,7 +107,6 @@ const initPageExtendInfo =() =>{
   pageExtendInfo(body).then((resp:any) => {
         if(resp.code == "0"){
           extendInfo.viewNum = resp.data.viewNumber
-          
         }else{
             ElMessage.error(resp.msg)
         }

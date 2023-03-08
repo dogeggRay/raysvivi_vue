@@ -28,6 +28,16 @@
           </el-row>
           <el-row>
             <el-col :span="24">
+                <el-form-item label="标签">
+                  <el-select v-model="blogForm.tags" multiple multiple-limit="5">
+                    <el-option key="Game" label="游戏" value="Game"></el-option>
+                    <el-option key="EldenRing" label="艾尔登法环" value="EldenRing"></el-option>
+                  </el-select>
+                </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24">
                 <el-form-item label="展示图片">
                     <el-upload
                       style="float:left;margin-left: 12px;"
@@ -78,6 +88,7 @@ import store from '@/store'
 const blogForm = reactive({
     title:"",
     abstractInfo:"",
+    tags:[],
     image:"",
     content:""
 })
