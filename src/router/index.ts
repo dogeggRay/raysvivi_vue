@@ -78,7 +78,7 @@ const routes: Array<RouteRecordRaw> = [
         import(
           '@/views/adminBlog/adminBlog.vue'
         ),
-        meta:{ keepAlive: true} 
+        meta:{ keepAlive: false} 
       },]
   },  
   {

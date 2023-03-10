@@ -40,3 +40,11 @@ export async function refreshToken() {
         params:null,
       })
   }
+
+  export function getBloggerParameters() {
+      return request({
+        url: '/api/constants/getBloggerParameters',
+        method: 'get',
+        params:null,
+      })
+  }

@@ -6,7 +6,7 @@
                     <div class="normal_header"></div>
                     <div class="normal_main">
                         <div class="my_head"></div>
-                        <div class="normal_main_title fine-font">下路一直叫我去 我怎么去啊</div>
+                        <div class="normal_main_title fine-font">{{bloggerInfo.remarks}}</div>
                     </div>
                     <div class="normal_footer">
                       <el-row>
@@ -15,9 +15,9 @@
                         <el-col :span="8" style="text-align:center"><span class="fine-font">浏览</span></el-col>
                       </el-row>
                       <el-row>
-                        <el-col :span="8" style="text-align:center"><span class="fine-font">0</span></el-col>
-                        <el-col :span="8" style="text-align:center"><span class="fine-font">0</span></el-col>
-                        <el-col :span="8" style="text-align:center"><span class="fine-font">0</span></el-col>
+                        <el-col :span="8" style="text-align:center"><span class="fine-font">{{bloggerInfo.aritcleNum}}</span></el-col>
+                        <el-col :span="8" style="text-align:center"><span class="fine-font">{{bloggerInfo.commentNum}}</span></el-col>
+                        <el-col :span="8" style="text-align:center"><span class="fine-font">{{bloggerInfo.viewNum}}</span></el-col>
                       </el-row>
                     </div>
                   </div>
@@ -56,16 +56,17 @@
                 <el-col :span="24" style="margin-top:10px;"><div class="fine-font small-font">{{declare_value}}</div>
                 </el-col>
                 </el-row>          
-              <!-- <el-row>
+              <el-row>
                 <el-col :span="24" style="margin-top:10px;">
                   
-                  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34070202000554" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                  <!-- <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34070202000554" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"> -->
+                  <a target="_blank" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
                   <img alt="Vue logo" src="@/img/beianguohui.png"/>
                   <img src="" style="float:left;"/>
                     <p style="float:left;height:20px;line-height:20px;margin: 0px;" class="fine-font small-font">{{Public_security_record}}</p>
                   </a>
                 </el-col>
-              </el-row> -->
+              </el-row>
               <el-row>
                 <el-col :span="24">
                 <a target="_blank" href="https://beian.miit.gov.cn" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
@@ -81,8 +82,9 @@
 
 <script lang="ts" setup>
 
-import { ref ,onMounted,onBeforeUnmount } from 'vue'
+import { ref,reactive ,onMounted,onBeforeUnmount } from 'vue'
 import type { TagProps } from 'element-plus'
+import {getBloggerParameters} from '@/js/admin'
 import store from '@/store'
 type Item = { type: TagProps['type']; label: string }
 
@@ -98,10 +100,17 @@ const tagsExample = ref<Array<Item>>([
   { type: 'warning', label: 'Tag 5' },
 ])
 
+const bloggerInfo = reactive({
+    aritcleNum:0,
+    commentNum:0,
+    viewNum:0,
+    remarks:"下路一直叫我去 我怎么去啊",
+})
+
 const SearchKey = ref("")
 const fix_flag = ref(false)
 onMounted(() => {
-  //alert("statement")
+  initBloggerParameters()
   //查询初始信息
   window.addEventListener('scroll', sorlly)
 })
@@ -123,6 +132,21 @@ const sorlly= () => {
     //如果触底就让index++
     
 }    
+
+const initBloggerParameters = () =>{
+    getBloggerParameters().then((resp:any) => {
+            if(resp.code == "0"){
+              bloggerInfo.aritcleNum=resp.data.aritcleNum
+              bloggerInfo.commentNum=resp.data.commentNum
+              bloggerInfo.viewNum=resp.data.viewNum
+            }else{
+                //ElMessage.error(resp.msg)
+            }
+        })
+        .catch((e) => {
+          return
+        })
+}
 </script>
 
 <style lang="less">

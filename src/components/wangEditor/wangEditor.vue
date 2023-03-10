@@ -19,14 +19,17 @@
 <script lang="ts">
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
-import { onBeforeUnmount, ref, shallowRef, onMounted, nextTick } from 'vue'
+import { onBeforeUnmount, ref, shallowRef, onMounted, nextTick, defineProps,watch } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { DomEditor } from '@wangeditor/editor'
 import {baseURL} from '@/config'
+import store from '@/store'
+
 
 export default {
   components: { Editor, Toolbar },
   setup() {
+      const outSideHtmlValue = ref()
     // 编辑器实例，必须用 shallowRef
     const editorRef = shallowRef()
 
@@ -54,7 +57,7 @@ export default {
       MENU_CONF: {
         // 配置上传图片
         uploadImage: {
-          server: baseURL+'/file/uploadFile', // 配置图片上传地址
+          server: baseURL+'/api/file/uploadFile', // 配置图片上传地址
           maxFileSize: 5 * 1024 * 1024, // 5M  图片大小限制
           fieldName: 'file', // 上传名字
           allowedFileTypes: [], // 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
@@ -63,10 +66,10 @@ export default {
           //   file_type: "1",
           // },
           // 自定义设置请求头，比如添加token之类的
-          // headers: {
-          //     Accept: 'text/x-json',
-          //     otherKey: 'xxx'
-          // },
+          headers: {
+              "Authorization": "Raysvivi " +store.getters['accessToken']
+          },
+          
           // 上传进度的回调函数，可以用来显示进度条
           onProgress(progress: any) {
             // progress 是 0-100 的数字
@@ -97,18 +100,24 @@ export default {
             //   insertFn(url, alt, href)
             // })
           },                  
-        }
+        },
+        lineHeight:{
+            lineHeightList: ['0.5','1', '1.5', '2', '2.5','3']
+          },
       }
       
     }
     
     // 组件销毁时，也及时销毁编辑器
     onBeforeUnmount(() => {
-        const editor = editorRef.value
-        if (editor == null) return
-        editor.destroy()
+        handleDestory()
     })
 
+    const handleDestory=()=>{
+      const editor = editorRef.value
+        if (editor == null) return
+        editor.destroy()
+    }
     const handleCreated = (editor) => {
       editorRef.value = editor // 记录 editor 实例，重要！
       nextTick(() => {
@@ -120,6 +129,10 @@ export default {
     const getHtml = () => {
       return valueHtml
     }
+
+    const setHtml = (htmlVal) => {
+      valueHtml.value = htmlVal
+    }
     return {
       editorRef,
       valueHtml,
@@ -127,7 +140,9 @@ export default {
       toolbarConfig,
       editorConfig,
       getHtml,
-      handleCreated
+      setHtml,
+      handleCreated,
+      handleDestory
     };
   }
 }

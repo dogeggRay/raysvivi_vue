@@ -47,9 +47,15 @@ instance.interceptors.request.use(function (config) {
  
 // 添加响应拦截器
 instance.interceptors.response.use(response =>{
+
   // 对响应数据做点什么
   const { data, config } = response
   const { code, msg } = data
+  if(response.status==200&&response.data==""){
+    //void接口直接成功
+    return Promise.resolve(data)
+  }
+
     // 操作正常Code数组
     const codeVerificationArray = ["0",0]
     // 是否操作正常

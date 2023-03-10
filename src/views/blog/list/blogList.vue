@@ -219,7 +219,7 @@ and (max-device-width : 768px) {
 @media screen
 and (min-device-width : 768px){
   .blog-list-card{
-      height: 210px;
+      height: 190px;
     }
 }
 </style>

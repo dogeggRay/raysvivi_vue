@@ -20,7 +20,11 @@
         <el-row class="independent_row">
           <el-col :span="24">
             <el-icon class="headerTipIcon"><Clock /></el-icon><span class="headerTipSpan">{{blog.createTime.substring(0,11)}}</span>&nbsp;&nbsp;  
-            <el-icon class="headerTipIcon"><View /></el-icon><span class="headerTipSpan">{{ extendInfo.viewNum }}次浏览</span></el-col>
+            <el-icon class="headerTipIcon"><View /></el-icon><span class="headerTipSpan">{{ extendInfo.viewNum }}次浏览</span>
+            <span v-if="store.getters['accessToken']" style="float:right" @click="blogEdit">编辑</span>
+            </el-col>
+
+            
         </el-row>
 
         <el-divider content-position="left"></el-divider>
@@ -34,12 +38,14 @@
               />
             </div>
         <el-row>
-          <el-col :span="24"></el-col>
+          <el-col :span="24">
+            
+          </el-col>
         </el-row>    
 
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
-          <el-col :span="20"><CommentView :key="componentKey" :moduleId="'9b918bf55b084d649625149a84ea8826'" :relativeId="blogId"/></el-col>
+          <el-col :span="20"><CommentView :key="componentKey" :moduleId="'blogDetail'" :relativeId="blogId"/></el-col>
           <el-col :span="2"></el-col>
         </el-row>      
       </el-card>
@@ -52,9 +58,10 @@
 <script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick } from 'vue'
-import { useRoute } from 'vue-router'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
 import { pageExtendInfo} from "@/js/visitor.js"
+import store from '@/store'
+import {useRouter,useRoute} from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
@@ -83,6 +90,11 @@ onActivated(() => {
   getBlog()
   initPageExtendInfo()
 })
+
+const router=useRouter()
+const blogEdit =() =>{
+    router.push({path:"/view/adminBlog",query:{"relativeId":blogId.value}})
+}
 
 const getBlog =() =>{
       getBlogDetail({aritcleInfoId:blogId.value}).then((resp:any) => {
@@ -164,4 +176,7 @@ const editorRef = shallowRef()
   margin-bottom:15px;
 }
 
+/deep/ .w-e-text-container [data-slate-editor] p{
+  margin:0px!important
+}
 </style>

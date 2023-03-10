@@ -159,7 +159,6 @@ const store = createStore({
 
           async initTag({ commit }) {
             const {data} = await getTags()
-          debugger
             const tempMap = new Map()
             if (data) {
               data.forEach(element => {

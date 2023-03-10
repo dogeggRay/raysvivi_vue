@@ -61,7 +61,7 @@
         </el-row>
         <el-row>
           <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">写一个好康的个人博客 分享生活和技术 顺便拧拧拖延症</span></el-col>
+          <el-col :span="21"><span class="content">写一个好康的个人博客 分享生活和技术 拧拧拖延症</span></el-col>
         </el-row>  
         <el-row>
           <el-col :span="3"></el-col>
@@ -100,7 +100,7 @@
         
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
-          <el-col :span="20"><CommentView :key="componentTime" :moduleId="'0bf1d489c53c4fa89b443af10422a214'" :relativeId="''"/></el-col>
+          <el-col :span="20"><CommentView :key="componentTime" :moduleId="'about'" :relativeId="''"/></el-col>
           <el-col :span="2"></el-col>
         </el-row> 
 
