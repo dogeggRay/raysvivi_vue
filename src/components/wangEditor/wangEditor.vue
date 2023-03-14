@@ -147,3 +147,8 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+/deep/ .w-e-text-container [data-slate-editor] p{
+  margin:0px!important
+}
+</style>

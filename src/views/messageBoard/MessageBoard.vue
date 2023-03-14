@@ -10,7 +10,7 @@
         </el-row>
         <el-row>
           <el-col :span="2"></el-col>
-          <el-col :span="22"><span class="content">欢迎来到Ray的博客，可随意吐槽</span></el-col>
+          <el-col :span="22"><span class="content">欢迎来到Ray的博客</span></el-col>
         </el-row>
         <el-row class="independent_row">
           <el-col :span="2"></el-col>

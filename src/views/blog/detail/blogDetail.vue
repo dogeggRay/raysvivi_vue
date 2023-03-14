@@ -1,11 +1,14 @@
 <template>
   <div class = "inner-container">
-      <el-card class="about-card fine-font" shadow="always">
-        <!-- blog.title = resp.data.title
-              blog.id = resp.data.id
-              blog.createTime = resp.data.createTime
-              blog.image = resp.data.image
-              blog.content = resp.data.content -->
+      <el-card class="about-card " shadow="always">
+        
+        <div class="fine-font breadcrumb">
+          <el-breadcrumb :separator-icon="ArrowRight">
+            <el-breadcrumb-item :to="{ path: '/view' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>正文</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
         <el-row>
           <el-col :span="24"></el-col>
         </el-row>
@@ -14,13 +17,24 @@
         </el-row>
         
         <el-row class="independent_row">
-          <el-col :span="24"><span></span></el-col>
+          <el-col :span="24">
+            
+          </el-col>
         </el-row>
 
         <el-row class="independent_row">
-          <el-col :span="24">
+          <el-col :span="24" style="line-height: 33px;">
             <el-icon class="headerTipIcon"><Clock /></el-icon><span class="headerTipSpan">{{blog.createTime.substring(0,11)}}</span>&nbsp;&nbsp;  
-            <el-icon class="headerTipIcon"><View /></el-icon><span class="headerTipSpan">{{ extendInfo.viewNum }}次浏览</span>
+            <el-icon class="headerTipIcon"><View /></el-icon><span class="headerTipSpan">{{ extendInfo.viewNum }}次浏览</span>&nbsp;&nbsp;  
+          
+            <template v-if="store.getters['tagMap']">
+              <el-icon class="headerTipIcon"><PriceTag /></el-icon>
+                    <el-tag style="margin-right:5px;cursor:pointer" v-for="(tag,index) in blog.tags" class="ml-2" type="info" :key="index">
+                    {{store.getters['tagMap'].get(tag)}}</el-tag>
+                  </template>
+                  <template v-else><el-tag style="margin-right:5px" v-for="(tag,index) in blog.tags" class="ml-2" type="info" :key="index">
+                    {{tag}}</el-tag></template>
+
             <span v-if="store.getters['accessToken']" style="float:right" @click="blogEdit">编辑</span>
             </el-col>
 
@@ -28,7 +42,7 @@
         </el-row>
 
         <el-divider content-position="left"></el-divider>
-   <div style="" class="blogDetailDiv">
+   <div style="" class="blogDetailDiv fine-font">
     <!-- 不知道为什么菜单栏自己消失了  good good-->
               <Editor
                 style="height: 80%; overflow-y: hidden;"
@@ -65,13 +79,15 @@ import {useRouter,useRoute} from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
-
+//import {switchSideBar} from "@/js/common.js"
+import { ArrowRight } from '@element-plus/icons-vue'
 const componentKey = Date.now()
 const blog = reactive({
     content:"",
     title:"",
     createTime:"",
     id:"",
+    tags:[],
     image:""
 })
 
@@ -87,6 +103,7 @@ function handleChange (item) {
 onActivated(() => {
   //console.log( window.location.pathname+window.location.search)
   blogId.value = route.query.relativeId
+  //switchSideBar(false)
   getBlog()
   initPageExtendInfo()
 })
@@ -103,6 +120,7 @@ const getBlog =() =>{
               blog.id = resp.data.id
               blog.createTime = resp.data.createTime
               blog.image = resp.data.image
+              blog.tags = resp.data.tags
               blog.content = resp.data.content
               initHtmlShow()
             }else{
@@ -178,5 +196,9 @@ const editorRef = shallowRef()
 
 /deep/ .w-e-text-container [data-slate-editor] p{
   margin:0px!important
+}
+
+/deep/ .w-e-text-container .w-e-scroll{
+  overflow-y:hidden!important
 }
 </style>

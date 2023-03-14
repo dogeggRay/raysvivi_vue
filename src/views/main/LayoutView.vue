@@ -25,6 +25,7 @@
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
+                    <el-menu-item index="/view/structure">总览</el-menu-item>
                     <el-menu-item v-if="store.getters['accessToken']&&store.getters['accessToken'].length>0" :route="{ path: '/view/adminBlog', query: { relativeId: '' } }">写博客</el-menu-item>
                   </el-menu>
                 </el-col>
@@ -35,7 +36,7 @@
             
           </div>
         </transition> 
-      <el-header class="main_header" height="150px" style="padding:0px;width:100%">
+      <el-header class="main_header" height="170px" style="padding:0px;width:100%">
         <div class="main_header_div">
           
           <!-- <router-link to="/boxOffice">boxofficeview</router-link> -->
@@ -49,7 +50,7 @@
       <!-- 内容模块 -->
       <el-container class="full_height main_container" style="z-index:2;">
         <!-- 内容模块-左侧边 -->
-        <el-aside width="16%" class="layout_left_aside adapt_show_part" style=""></el-aside>
+        <el-aside width="13%" class="layout_left_aside adapt_show_part" style=""></el-aside>
         <!-- 内容模块-主体 -->
         <el-container class="full_height content_container" style="padding-top:10px;">
             <!-- <el-header class="adapt_hidden_part" ><Statement/></el-header>   -->
@@ -64,7 +65,8 @@
             </el-main>
         </el-container>
         <!-- 内容模块-右侧边 -->
-        <el-aside width="30%" class="layout_right_aside adapt_show_part"><Statement/></el-aside>
+        <el-aside v-if="store.getters['sideBarShow']" width="30%" class="layout_right_aside adapt_show_part"><Statement/></el-aside>
+        <el-aside v-else width="13%"></el-aside>
       </el-container>
       
     </el-container>
@@ -127,6 +129,11 @@ onMounted(() => {
   initDatas()
   window.addEventListener('scroll', sorlly)
 })
+
+// watch(() => store.getters['sideBarShow'], (newValue, oldValue) => {
+//   alert("watch:"+newValue)
+  
+// });
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', sorlly)

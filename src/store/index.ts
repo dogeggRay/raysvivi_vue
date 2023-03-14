@@ -22,7 +22,8 @@ const store = createStore({
           accessToken: getAccessToken(),
           touristName: '',
           avatar: '',
-          tagMap:null
+          tagMap:null,
+          sideBarShow:true
         }
     },
     getters:{
@@ -34,6 +35,9 @@ const store = createStore({
       },
       tagMap(state:any){
         return state.tagMap
+      },
+      sideBarShow(state:any){
+        return state.sideBarShow
       },
     },
     mutations: {
@@ -51,6 +55,9 @@ const store = createStore({
 
         setTagMap(state:any,tagMap) {
           state.tagMap = tagMap
+        },
+        setSideBarShow(state:any,sideBarShow) {
+          state.sideBarShow = sideBarShow
         },
 
         /**

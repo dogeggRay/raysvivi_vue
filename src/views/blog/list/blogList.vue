@@ -27,7 +27,7 @@
               <el-row>
                 <el-col span="24">
                   <el-icon class="icon-in-card-footer"><Clock /></el-icon>
-                  {{ item.createTime }}
+                  {{ item.createTime.substring(0,11) }}
                 </el-col>
               </el-row>
               
@@ -44,11 +44,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref ,reactive,watch,onMounted ,defineProps,onBeforeUnmount,defineExpose} from 'vue'
+import { ref ,reactive,watch,onMounted ,defineProps,onBeforeUnmount,defineExpose,onActivated} from 'vue'
 import {getArtclePageList,demoTest} from "@/js/blog.js"
 import {isEmpty} from "@/utils/common.js"
 import store from '@/store'
 import {useRouter} from 'vue-router'
+import {switchSideBar} from "@/js/common.js"
 const count = ref(10)
 const blog = reactive({
   list:[]
@@ -64,7 +65,10 @@ const pageParam = reactive({
 onMounted(() => {
   window.addEventListener('scroll', sorlly)
   getBlogPages()
-  
+})
+
+onActivated(() => {
+  switchSideBar(true)
 })
 
 

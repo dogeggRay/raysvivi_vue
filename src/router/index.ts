@@ -79,7 +79,13 @@ const routes: Array<RouteRecordRaw> = [
           '@/views/adminBlog/adminBlog.vue'
         ),
         meta:{ keepAlive: false} 
-      },]
+      },{
+        path: '/view/structure',
+        name: 'structure',component: () =>
+        import(
+          '@/views/structure/structure_page.vue'
+        )
+      }]
   },  
   {
     path: '/Statement',
