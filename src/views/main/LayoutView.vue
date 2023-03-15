@@ -1,5 +1,11 @@
 <template>
   <div class="common-layout full_height" >
+
+    <el-card v-if="store.getters['tagMap']&&store.getters['currentTag']" class="blogList_tag_notice fine-font">
+      当前标签:
+      <el-tag style="position: relative;bottom: 0.1rem;" class="ml-2" type="info" closable @close="tagClose">{{store.getters['tagMap'].get(store.getters['currentTag'])}}</el-tag> 
+    </el-card> 
+
     <!-- 主体模块 -->
     <el-container  class="full_height"  v-bind:class="{ 'mask': maskEffective }" style="background :url('@/assets/background-02.jpg' repeat;">
         <!-- 头部模块 -->
@@ -26,7 +32,7 @@
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
                     <el-menu-item index="/view/structure">总览</el-menu-item>
-                    <el-menu-item v-if="store.getters['accessToken']&&store.getters['accessToken'].length>0" :route="{ path: '/view/adminBlog', query: { relativeId: '' } }">写博客</el-menu-item>
+                    <el-menu-item v-if="store.getters['accessToken']" :route="{ path: '/view/adminBlog', query: { relativeId: '' } }">写博客</el-menu-item>
                   </el-menu>
                 </el-col>
                 <el-col :span="2" class="full_height" style="overflow: hidden;">
@@ -37,6 +43,9 @@
           </div>
         </transition> 
       <el-header class="main_header" height="170px" style="padding:0px;width:100%">
+        <!-- <div class="commonTips">
+          当前标签：{{store.getters['currentTag']}}
+        </div> -->
         <div class="main_header_div">
           
           <!-- <router-link to="/boxOffice">boxofficeview</router-link> -->
@@ -177,7 +186,13 @@ const declareDialogClick = () => {
 const statementShow = () => {
   navigateDrawer.value = true;
 }
+
+const tagClose = () =>{
+  storeInstance.commit('setCurrentTag',"")
+}
 </script>
+
+
 <style lang="less" >
 .full_height{
   height:100%
@@ -354,5 +369,16 @@ const statementShow = () => {
     right: 10px;
     bottom: 20px;  
     text-align: center;
+}
+
+.blogList_tag_notice{
+    position: fixed;
+    top: 6rem;
+    left: -1rem;
+    padding-left: 1rem;
+    width: 14rem;  
+    height: 2.5rem;
+    line-height: 2rem;
+    z-index: 3;    
 }
 </style>

@@ -12,20 +12,20 @@
             <el-container class="blog-list-container" >
               <el-header class="blog-list-header title-font"  @click="blogTouch(item.id)"><span>{{ item.title }}</span></el-header>
               <el-main class="blog-list-main"  @click="blogTouch(item.id)">{{ item.abstractInfo }}</el-main>
-              <el-footer height="50px" class="blog-list-footer">
+              <el-footer height="60px" class="blog-list-footer">
               <el-row>
-                <el-col span="24"> 
+                <el-col :span="24"> 
                   <template v-if="store.getters['tagMap']">
-                    <el-tag style="margin-right:5px" size="small" v-for="(tag,index) in item.tags" class="ml-2" type="info" :key="index">
+                    <el-tag style="margin-right:5px;cursor:pointer;" v-for="(tag,index) in item.tags" class="ml-2" type="info" :key="index" @click="tagChange(tag)">
                     {{store.getters['tagMap'].get(tag)}}</el-tag>
                   </template>
-                  <template v-else><el-tag style="margin-right:5px" size="small" v-for="(tag,index) in item.tags" class="ml-2" type="info" :key="index">
+                  <template v-else><el-tag style="margin-right:5px;cursor:pointer" v-for="(tag,index) in item.tags" class="ml-2" type="info" :key="index">
                     {{tag}}</el-tag></template>
                   
                 </el-col>
               </el-row>
               <el-row>
-                <el-col span="24">
+                <el-col :span="24">
                   <el-icon class="icon-in-card-footer"><Clock /></el-icon>
                   {{ item.createTime.substring(0,11) }}
                 </el-col>
@@ -44,33 +44,40 @@
 </template>
 
 <script lang="ts" setup>
-import { ref ,reactive,watch,onMounted ,defineProps,onBeforeUnmount,defineExpose,onActivated} from 'vue'
+import { ref ,reactive,watch,onMounted ,onBeforeUnmount,defineExpose,onActivated,getCurrentInstance} from 'vue'
 import {getArtclePageList,demoTest} from "@/js/blog.js"
 import {isEmpty} from "@/utils/common.js"
 import store from '@/store'
+import { useStore } from 'vuex'
 import {useRouter} from 'vue-router'
 import {switchSideBar} from "@/js/common.js"
+const storeInstance = useStore()
 const count = ref(10)
 const blog = reactive({
   list:[]
 })
 
-const tagsInStore = store.getters['tags']
 const endFlag = ref(false)
 const pageParam = reactive({
   startIndex:0,
-  pageSize:5
+  pageSize:5,
+  tag:""
 })
 
 onMounted(() => {
   window.addEventListener('scroll', sorlly)
-  getBlogPages()
+  getBlogPages(true)
 })
 
 onActivated(() => {
   switchSideBar(true)
 })
 
+watch(() => store.getters['currentTag'] ,(newValue, oldValue) => {
+  pageParam.startIndex=0
+  pageParam.tag = newValue
+  getBlogPages(true)
+});
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', sorlly)
@@ -87,25 +94,32 @@ const sorlly= () => {
     //如果触底就让index++
     if (scrollTop + clientHeight >= scrollHeight) {
         pageParam.startIndex+=pageParam.pageSize
-        getBlogPages()
+        getBlogPages(false)
         //count.value++;
     }
 }    
 
+const tagChange =(value) =>{
+    storeInstance.commit('setCurrentTag',value)
+}
 
-const getBlogPages =() => {
-    if(endFlag.value){
+const getBlogPages =(isRefresh) => {
+    if(endFlag.value&&!isRefresh){
       return
     }
-
     getArtclePageList(pageParam)
         .then((res) => {
-          if(isEmpty(res.data)){
-              endFlag.value = true
+          if(isRefresh){
+                blog.list=res.data
+                endFlag.value = false
           }else{
+            if(isEmpty(res.data)){
+                endFlag.value = true
+            }else{
               blog.list=blog.list.concat(res.data)
+              endFlag.value = false
+            }
           }
-          
         })
         .catch((e) => {
           return
@@ -143,7 +157,6 @@ defineExpose({
   justify-content: center;
   background-color:white;
   margin: 0px 10px 10px 10px;
-  cursor:pointer;
 }
 .infinite-list .infinite-list-item + .list-item {
   margin-bottom: 10px;
@@ -170,7 +183,8 @@ defineExpose({
 .blog-list-main{
   text-align: left;
   font-size: smaller;
-  padding-top:15px
+  padding-top:15px;
+  overflow: hidden;
 }
 
 .blog-list-footer{
@@ -226,4 +240,6 @@ and (min-device-width : 768px){
       height: 190px;
     }
 }
+
+
 </style>

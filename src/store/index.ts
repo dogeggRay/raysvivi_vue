@@ -23,7 +23,8 @@ const store = createStore({
           touristName: '',
           avatar: '',
           tagMap:null,
-          sideBarShow:true
+          sideBarShow:true,
+          currentTag:""
         }
     },
     getters:{
@@ -39,6 +40,9 @@ const store = createStore({
       sideBarShow(state:any){
         return state.sideBarShow
       },
+      currentTag(state:any){
+        return state.currentTag
+      }
     },
     mutations: {
         /**
@@ -58,6 +62,9 @@ const store = createStore({
         },
         setSideBarShow(state:any,sideBarShow) {
           state.sideBarShow = sideBarShow
+        },
+        setCurrentTag(state:any,currentTag){
+          state.currentTag = currentTag
         },
 
         /**

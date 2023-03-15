@@ -41,7 +41,7 @@
 
             <el-card class="card_search"  shadow="hover">
               <el-tag size="small" class="ml-2 tag_node" effect="dark" type="info"
-                  v-for="(tag,index) in store.getters['tagMap']"  :key="index" @click="alert(tag.value)">
+                  v-for="(tag,index) in store.getters['tagMap']"  :key="index" @click="tagChange(tag)">
                   {{tag[1]}}
               </el-tag>
 
@@ -84,6 +84,9 @@
 
 import { ref,reactive ,onMounted,onBeforeUnmount } from 'vue'
 import type { TagProps } from 'element-plus'
+import {useRouter} from 'vue-router'
+
+import { useStore } from 'vuex'
 import {getBloggerParameters} from '@/js/admin'
 import store from '@/store'
 type Item = { type: TagProps['type']; label: string }
@@ -92,6 +95,9 @@ const ICP_Filing_record = "皖ICP备2022015508号-1"
 const Public_security_record = "皖公网安备 34070202000554号"
 const copy_right = "Copyright © 2023 · Raysvivi"
 const declare_value = "任何反馈请联系[2105520190@qq.com]";
+const storeInstance = useStore()
+
+const router=useRouter()
 const tagsExample = ref<Array<Item>>([
   { type: '', label: 'Tag 1' },
   { type: 'success', label: 'Tag 2' },
@@ -119,6 +125,10 @@ onBeforeUnmount(() => {
   window.removeEventListener('scroll', sorlly)
 })
 
+const tagChange = (tag) =>{
+    storeInstance.commit('setCurrentTag',tag[0])
+    router.push({path:"/view/blogList"})
+}
 const sorlly= () => {
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 

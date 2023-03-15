@@ -29,7 +29,7 @@
           
             <template v-if="store.getters['tagMap']">
               <el-icon class="headerTipIcon"><PriceTag /></el-icon>
-                    <el-tag style="margin-right:5px;cursor:pointer" v-for="(tag,index) in blog.tags" class="ml-2" type="info" :key="index">
+                    <el-tag style="margin-right:5px;cursor:pointer" v-for="(tag,index) in blog.tags" class="ml-2" type="info" :key="index" @click="tagClick(tag)">
                     {{store.getters['tagMap'].get(tag)}}</el-tag>
                   </template>
                   <template v-else><el-tag style="margin-right:5px" v-for="(tag,index) in blog.tags" class="ml-2" type="info" :key="index">
@@ -75,12 +75,14 @@ import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick } from 'v
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
 import { pageExtendInfo} from "@/js/visitor.js"
 import store from '@/store'
+import { useStore } from 'vuex'
 import {useRouter,useRoute} from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
 //import {switchSideBar} from "@/js/common.js"
 import { ArrowRight } from '@element-plus/icons-vue'
+const storeInstance = useStore()
 const componentKey = Date.now()
 const blog = reactive({
     content:"",
@@ -178,6 +180,11 @@ const editorRef = shallowRef()
     const editorConfig = { 
       placeholder: '请输入内容...' ,
       readOnly : true,
+    }
+
+    const tagClick = (tag) =>{
+        storeInstance.commit('setCurrentTag',tag)
+        router.push({path:"/view/blogList"})
     }
 </script>
 

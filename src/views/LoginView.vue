@@ -15,7 +15,7 @@
                             <el-input v-model="ruleForm.username" placeholder="请输入管理员账号"/>
                         </el-form-item>
                         <el-form-item label="">
-                            <el-input v-model="ruleForm.password" placeholder="请输入管理员密码"/>
+                            <el-input v-model="ruleForm.password" type="password" placeholder="请输入管理员密码"/>
                         </el-form-item>
                         <el-form-item>
                             <el-button color="#0D1F2F" style="width:100px" @click="submitForm()">确定</el-button>
