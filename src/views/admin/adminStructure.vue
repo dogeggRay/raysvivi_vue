@@ -1,37 +1,34 @@
 <template>
-  <div class = "inner-container">
-    <el-card class="about-card fine-font" shadow="always">
+  <div class = "inner-container fine-font">
+        <!-- <div style="display: flex; padding: 10px;" v-if="store.getters['accessToken']"> -->
+          <div style="display: flex; padding: 10px;">
+            <div style="margin-right: 10px"><el-switch v-model="horizontal"></el-switch> 横向</div>
+            <div style="margin-right: 10px"><el-switch v-model="collapsable"></el-switch> 可收起</div>
+            <div style="margin-right: 10px"><el-switch v-model="disaledFlag"></el-switch> 禁止编辑</div>
+            <div style="margin-right: 10px"><el-switch v-model="onlyOneNode"></el-switch> 仅拖动当前节点</div>
+            <div style="margin-right: 10px"><el-switch v-model="cloneNodeDrag"></el-switch> 拖动节点副本</div>
 
 
-    <div class="fine-font breadcrumb">
-      <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item :to="{ path: '/view' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>大纲</el-breadcrumb-item>
-      </el-breadcrumb>
+            <div style="margin-right: 10px"><el-button @click="addData">新增</el-button> </div>
+            <div style="margin-right: 10px"><el-button @click="updateData">更新</el-button> </div>
+        </div>
+    <div style="padding: 0 10px 10px">
+      背景色：<el-color-picker v-model="labelstyle.background" size="small"></el-color-picker>&nbsp;
+      文字颜色：<el-color-picker v-model="labelstyle.color" size="small"></el-color-picker>&nbsp;
     </div>
-
-        <el-row>
-          <el-col :span="24">&nbsp;</el-col>
-        </el-row>
-        <el-row class="independent_row">
-          <el-col :span="24" style="text-align: left;"><span class="title_level_1">{{structureBody.name}}</span></el-col>
-        </el-row>
-
-<el-divider content-position="left" ></el-divider>
-      <div style="height: 35rem;">
+      <div style="height: 600px;">
         <vue3-tree-org
-          :default-expand-level="99"
+          :default-expand-level="1"
           :data="structureBody.value"
-          :disabled="true"
-          :node-draggable="false"
+          :disabled="disaledFlag"
           :center="false"
           :scalable="false"
-          :horizontal="true"
-          :collapsable="true"
+          :horizontal="horizontal"
+          :collapsable="collapsable"
           :label-style="labelstyle"
+          :only-one-node="onlyOneNode"
           :clone-node-drag="cloneNodeDrag"
           :before-drag-end="beforeDragEnd"
-          :props="props"
           @on-node-drag="nodeDragMove"
           @on-node-drag-end="nodeDragEnd"
           @on-contextmenu="onMenus"
@@ -40,15 +37,6 @@
           @on-node-click="onNodeClick"
         />
       </div>
-
-<el-divider content-position="left"></el-divider>
-        <el-row class="independent_row">
-          <el-col :span="24" style="text-align: left;">
-            <span class="fine-font small-font" style="float:right">结构图支撑：vue3-tree-org</span>
-          </el-col>
-        </el-row>
-
-    </el-card>
     </div>
 </template>
 
@@ -59,9 +47,14 @@ import { ref,onMounted,reactive } from 'vue'
 import { getNameList,queryOneStruc,updateStruc,addStruc} from "@/js/structure.js"
 import store from '@/store'
 
-const cloneNodeDrag = ref(false)
+const cloneNodeDrag = ref(true)
 
-const props = reactive({id: 'id', pid: 'pid', label: 'label', expand: 'expand',children: 'children' })
+const horizontal= ref(true)
+const collapsable=ref(true)
+const onlyOneNode=ref(false)
+const expandAll=ref(true)
+const disaledFlag=ref(true)
+
 const structureBody = reactive({
   name:"demo",
   value:{
@@ -73,9 +66,7 @@ const structureBody = reactive({
                   "children":[
                       {"id":6,"pid":2,"label":"禁止编辑节点","disabled":true},
                       {"id":8,"pid":2,"label":"禁止拖拽节点","noDragging":true},
-                      {"id":10,"pid":2,"label":"测试",
-                      "children":[{"id":11,"pid":3,"label":"客服一部222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222"}]
-                      }
+                      {"id":10,"pid":2,"label":"测试"}
                   ]
               },
               {
@@ -121,6 +112,6 @@ const addData = () =>{
 }
 </script>
 
-<style  lang="less" scoped>
+<style>
 
 </style>

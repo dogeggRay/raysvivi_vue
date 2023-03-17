@@ -72,14 +72,6 @@ const routes: Array<RouteRecordRaw> = [
         meta:{ keepAlive: true,
           module:"friendlyLinks"} 
       },{
-        path: '/view/adminBlog',
-        name: 'adminBlog',
-        component: () =>
-        import(
-          '@/views/adminBlog/adminBlog.vue'
-        ),
-        meta:{ keepAlive: false} 
-      },{
         path: '/view/structure',
         name: 'structure',component: () =>
         import(
@@ -108,6 +100,31 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
+  },
+  {
+    path: '/admin',
+    name: 'adminMain',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/admin/adminMain.vue'),
+    redirect:"/admin/adminBlog",
+    children: [
+      {
+        path: '/admin/adminBlog',
+        name: 'adminBlog',
+        component: () =>
+          import(
+            '@/views/admin/adminBlog.vue'
+          ),
+          meta:{ keepAlive: false} 
+      },{
+        path: '/admin/adminStructure',
+        name: 'adminStructure',
+        component: () =>
+          import(
+            '@/views/admin/adminStructure.vue'
+          ),
+          meta:{ keepAlive: false} 
+      }
+    ]
   }
 ]
 

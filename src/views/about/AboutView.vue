@@ -124,8 +124,6 @@ const componentTime = Date.now()
   margin-right:10px;
 }
 
-.about-card >.el-card__body> .el-row.independent_row{
-  margin-top:20px;
-}
+
 
 </style>

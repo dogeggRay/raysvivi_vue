@@ -5,7 +5,7 @@
         <div class="fine-font breadcrumb">
           <el-breadcrumb :separator-icon="ArrowRight">
             <el-breadcrumb-item :to="{ path: '/view' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>正文</el-breadcrumb-item>
+            <el-breadcrumb-item>博客正文</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
 
@@ -22,7 +22,7 @@
           </el-col>
         </el-row>
 
-        <el-row class="independent_row">
+        <el-row >
           <el-col :span="24" style="line-height: 33px;">
             <el-icon class="headerTipIcon"><Clock /></el-icon><span class="headerTipSpan">{{blog.createTime.substring(0,11)}}</span>&nbsp;&nbsp;  
             <el-icon class="headerTipIcon"><View /></el-icon><span class="headerTipSpan">{{ extendInfo.viewNum }}次浏览</span>&nbsp;&nbsp;  
@@ -34,14 +34,12 @@
                   </template>
                   <template v-else><el-tag style="margin-right:5px" v-for="(tag,index) in blog.tags" class="ml-2" type="info" :key="index">
                     {{tag}}</el-tag></template>
-
-            <span v-if="store.getters['accessToken']" style="float:right" @click="blogEdit">编辑</span>
             </el-col>
 
             
         </el-row>
 
-        <el-divider content-position="left"></el-divider>
+        <el-divider content-position="left" ></el-divider>
    <div style="" class="blogDetailDiv fine-font">
     <!-- 不知道为什么菜单栏自己消失了  good good-->
               <Editor
@@ -111,9 +109,6 @@ onActivated(() => {
 })
 
 const router=useRouter()
-const blogEdit =() =>{
-    router.push({path:"/view/adminBlog",query:{"relativeId":blogId.value}})
-}
 
 const getBlog =() =>{
       getBlogDetail({aritcleInfoId:blogId.value}).then((resp:any) => {

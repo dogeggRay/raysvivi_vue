@@ -40,6 +40,9 @@
           
 
             <el-card class="card_search"  shadow="hover">
+              <el-tag size="small" class="ml-2 tag_node" effect="dark" type="info" @click="tagChange([''])">
+                  全部
+              </el-tag>
               <el-tag size="small" class="ml-2 tag_node" effect="dark" type="info"
                   v-for="(tag,index) in store.getters['tagMap']"  :key="index" @click="tagChange(tag)">
                   {{tag[1]}}

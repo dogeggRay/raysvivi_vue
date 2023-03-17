@@ -32,7 +32,7 @@
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
                     <el-menu-item index="/view/structure">总览</el-menu-item>
-                    <el-menu-item v-if="store.getters['accessToken']" :route="{ path: '/view/adminBlog', query: { relativeId: '' } }">写博客</el-menu-item>
+                    <el-menu-item v-if="store.getters['accessToken']" :route="{ path: '/admin'}">写博客</el-menu-item>
                   </el-menu>
                 </el-col>
                 <el-col :span="2" class="full_height" style="overflow: hidden;">
@@ -194,9 +194,6 @@ const tagClose = () =>{
 
 
 <style lang="less" >
-.full_height{
-  height:100%
-}
 
 .el-main{
   padding:0px;
@@ -225,7 +222,7 @@ const tagClose = () =>{
 }
 .el_main_first{
     position: relative;
-    top: -45px;
+    top: -70px;
     // background-color: #E6E6E6;
     padding-top: 12px;  
     overflow-y:hidden;
@@ -239,7 +236,7 @@ const tagClose = () =>{
     padding: 10px 10px 0px 10px;
     margin-left: 10px;
     position: relative;
-    top: -35px;
+    top: -57px;
     //background-color: #E6E6E6;
     border-radius: 7px 0px 0px 0px;
 }
@@ -376,7 +373,7 @@ const tagClose = () =>{
     top: 6rem;
     left: -1rem;
     padding-left: 1rem;
-    width: 14rem;  
+    width: auto;  
     height: 2.5rem;
     line-height: 2rem;
     z-index: 3;    

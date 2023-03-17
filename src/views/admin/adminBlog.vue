@@ -1,7 +1,6 @@
 <template>
-  <div class = "inner-container blog-write-div">
-      <el-card class="about-card fine-font" shadow="always">
-        <el-row>
+  <div class = "inner-container blog-write-div about-card fine-font">
+    <el-row>
           <el-col :span="24">博客撰写</el-col>
         </el-row>
         <el-form :model="blogForm" label-width="120px" ref="blogFormRef">
@@ -67,8 +66,7 @@
         </el-form>
          <el-button type="primary" @click="submitHtml">提交</el-button><el-row>
           <el-col :span="24"></el-col>
-        </el-row>        
-      </el-card>
+        </el-row>      
 
     </div>
 </template>
