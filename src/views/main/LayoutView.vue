@@ -18,8 +18,8 @@
                 <el-col :span="9" class="full_height main_header_middle">
                   <span class="cursor-font declare-font top_header_span" @click="declareClick">小雷童鞋</span>
                 </el-col>
-                <el-col :span="4" class="full_height"></el-col>
-                <el-col :span="7" class="full_height">
+                <el-col :span="2" class="full_height"></el-col>
+                <el-col :span="9" class="full_height">
                   <el-menu
                     class="top_header_menu full_height declare-font"
                     text-color="white"

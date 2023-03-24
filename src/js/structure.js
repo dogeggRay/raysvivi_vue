@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 
-export function getNameList(params) {
+export function getStrucNameList(params) {
     return request({
       url: '/api/tourist/structure/getNameList',
       method: 'get',

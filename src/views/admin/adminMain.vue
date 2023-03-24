@@ -14,8 +14,6 @@
                     :unique-opened="true"
                     text-color="#fff"
                     router
-                    @open="handleOpen"
-                    @close="handleClose"
                 >
                     <el-menu-item index="adminBlog">
                         <template #title>

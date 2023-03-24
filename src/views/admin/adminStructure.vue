@@ -1,51 +1,121 @@
 <template>
   <div class = "inner-container fine-font">
-        <!-- <div style="display: flex; padding: 10px;" v-if="store.getters['accessToken']"> -->
-          <div style="display: flex; padding: 10px;">
-            <div style="margin-right: 10px"><el-switch v-model="horizontal"></el-switch> 横向</div>
-            <div style="margin-right: 10px"><el-switch v-model="collapsable"></el-switch> 可收起</div>
-            <div style="margin-right: 10px"><el-switch v-model="disaledFlag"></el-switch> 禁止编辑</div>
-            <div style="margin-right: 10px"><el-switch v-model="onlyOneNode"></el-switch> 仅拖动当前节点</div>
-            <div style="margin-right: 10px"><el-switch v-model="cloneNodeDrag"></el-switch> 拖动节点副本</div>
+    <el-container>
+      <el-header height="40px">
+            <el-row>
+                <el-col :span="4"> 
+                    <el-select style="margin-right: 10px;float:left" v-model="currentStructure" @change="structureChange">
+                      <el-option v-for="item in structureList" :key="item" :value="item" :label="item" />
+                    </el-select>
+                </el-col>
+                <el-col :span="7"> 
+                    <div style="margin-right: 10px;float:left"><el-button @click="addData">新增</el-button> </div>
+                    <div style="margin-right: 10px;float:left"><el-button @click="updateData">更新</el-button> </div>
+                </el-col>
+            </el-row>
+        
+            
+      </el-header>
+      <el-main>
+                <!-- <div style="display: flex; padding: 10px;" v-if="store.getters['accessToken']"> -->
+                  <!-- <div style="display: flex; padding: 10px;">
+                    <div style="margin-right: 10px"><el-switch v-model="horizontal"></el-switch> 横向</div>
+                    <div style="margin-right: 10px"><el-switch v-model="collapsable"></el-switch> 可收起</div>
+                    <div style="margin-right: 10px"><el-switch v-model="disaledFlag"></el-switch> 禁止编辑</div>
+                    <div style="margin-right: 10px"><el-switch v-model="onlyOneNode"></el-switch> 仅拖动当前节点</div>
+                    <div style="margin-right: 10px"><el-switch v-model="cloneNodeDrag"></el-switch> 拖动节点副本</div>
 
+                    
+                </div>
+            <div style="padding: 0 10px 10px">
+              背景色：<el-color-picker v-model="labelstyle.background" size="small"></el-color-picker>&nbsp;
+              文字颜色：<el-color-picker v-model="labelstyle.color" size="small"></el-color-picker>&nbsp;
+            </div> -->
+            
+            <el-row>
+                <el-col :span="10"> 
+                    <el-input v-model="structureBody.name"></el-input>
+                </el-col>
+            </el-row>
+            <el-divider content-position="left" style="margin:15px 0px">正文</el-divider>
 
-            <div style="margin-right: 10px"><el-button @click="addData">新增</el-button> </div>
-            <div style="margin-right: 10px"><el-button @click="updateData">更新</el-button> </div>
-        </div>
-    <div style="padding: 0 10px 10px">
-      背景色：<el-color-picker v-model="labelstyle.background" size="small"></el-color-picker>&nbsp;
-      文字颜色：<el-color-picker v-model="labelstyle.color" size="small"></el-color-picker>&nbsp;
-    </div>
-      <div style="height: 600px;">
-        <vue3-tree-org
-          :default-expand-level="1"
-          :data="structureBody.value"
-          :disabled="disaledFlag"
-          :center="false"
-          :scalable="false"
-          :horizontal="horizontal"
-          :collapsable="collapsable"
-          :label-style="labelstyle"
-          :only-one-node="onlyOneNode"
-          :clone-node-drag="cloneNodeDrag"
-          :before-drag-end="beforeDragEnd"
-          @on-node-drag="nodeDragMove"
-          @on-node-drag-end="nodeDragEnd"
-          @on-contextmenu="onMenus"
-          @on-expand="onExpand"
-          @on-node-dblclick="onNodeDblclick"
-          @on-node-click="onNodeClick"
-        />
-      </div>
+              <div style="height: 600px;">
+                <vue3-tree-org
+                  :default-expand-level="99"
+                  :data="structureBody.value"
+                  :disabled="disaledFlag"
+                  :center="false"
+                  :scalable="false"
+                  :horizontal="horizontal"
+                  :collapsable="collapsable"
+                  :label-style="labelstyle"
+                  :define-menus="menus"
+                  :only-one-node="onlyOneNode"
+                  :clone-node-drag="cloneNodeDrag"
+                  @on-contextmenu="onMenus"
+                  @on-node-click="onNodeClick"
+                >
+                <template v-slot="{node}">
+                    <div class="tree-org-node__text node-label node" @contextmenu.prevent="terFun(node)">
+                      {{ node.label.split("_")[0]}}
+                      <div v-if=" node.open" class="late" id="lateId">
+                        <el-input placeholder="请输入label" style="padding-bottom:5px" v-model="node.label"/>
+                        <div @click="closeEdit(node)" class="onCloseCss">确定</div>
+                      </div>
+                    </div>
+                  </template>
+                  <!-- 自定义展开按钮 -->
+                  <!-- <template v-slot:expand="{node}">
+                    <div>{{ node.children.length }}</div>
+                  </template> -->
+                </vue3-tree-org>
+              </div>
+      </el-main>
+    </el-container>
+
+    <el-drawer
+      v-model="showDetail"
+      title="I am the title"
+      direction="rtl"
+      size="60%"
+      :before-close="detailHandleClose"
+      @opened="openDrawer"
+    >
+      <BlogDetail ref="structureBlog" :key="componentTime"/>
+    </el-drawer>
+
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ElSwitch, ElColorPicker, ElMessage } from 'element-plus'
+import { ElSwitch, ElColorPicker, ElMessage,ElMessageBox  } from 'element-plus'
+import BlogDetail from '@/views/blog/detail/blogDetail.vue'
+import {isEmpty} from "@/utils/common.js"
 import 'vue3-tree-org/lib/vue3-tree-org.css'
-import { ref,onMounted,reactive } from 'vue'
-import { getNameList,queryOneStruc,updateStruc,addStruc} from "@/js/structure.js"
+import { ref,onMounted,reactive ,nextTick ,getCurrentInstance,ComponentInternalInstance} from 'vue'
+import { getStrucNameList,queryOneStruc,updateStruc,addStruc} from "@/js/structure.js"
 import store from '@/store'
+
+const {proxy} = getCurrentInstance() as ComponentInternalInstance
+let cardOne = reactive({
+  label:"",
+  moduleId:"",
+  relativeId:""
+})
+const cardTwo = reactive({
+  label:"",
+  children:[],
+  id:"",
+  pid:"",
+  expand:"",
+  isLeaf:true,
+  extention:{
+    moduleId:"",
+    relativeId:""
+  }
+})
+
+const menus=[{ name: '复制文本', command: 'copy' }, { name: '新增节点', command: 'add' }, { name: '编辑节点', command: 'newEdit' }, { name: '删除节点', command: 'delete' }]
 
 const cloneNodeDrag = ref(true)
 
@@ -53,31 +123,20 @@ const horizontal= ref(true)
 const collapsable=ref(true)
 const onlyOneNode=ref(false)
 const expandAll=ref(true)
-const disaledFlag=ref(true)
+const disaledFlag=ref(false)
 
+const showDetail = ref(false)
+
+const structureList = ref([])
+const currentRelativeId = ref("")
+const currentStructure = ref("")
 const structureBody = reactive({
   name:"demo",
   value:{
-          "id":1,"label":"xxx科技有限公司",
-          "children":[
-              {
-                  "id":2,"pid":1,"label":"产品研发部",
-                  "style":{"color":"#fff","width": "max-content","background":"#108ffe"},
-                  "children":[
-                      {"id":6,"pid":2,"label":"禁止编辑节点","disabled":true},
-                      {"id":8,"pid":2,"label":"禁止拖拽节点","noDragging":true},
-                      {"id":10,"pid":2,"label":"测试"}
-                  ]
-              },
-              {
-                  "id":3,"pid":1,"label":"客服部",
-                  "children":[
-                      {"id":11,"pid":3,"label":"客服一部"},
-                      {"id":12,"pid":3,"label":"客服二部"}
-                  ]
-              },
-              {"id":4,"pid":1,"label":"业务部"}
-          ]
+          id:1,
+          label:"第一个节点",
+          moduleId:"1",
+          relativeId:"2"
       }
 })
 const labelstyle = reactive({
@@ -86,16 +145,59 @@ const labelstyle = reactive({
     color: "#5e6d82",
     cursor:"pointer"
 })
-
-
+const componentTime = Date.now()
+const structureBlog = ref<any>()
 
 
 onMounted(() => {
-  console.log("hello")
+  getStructureNameList();
 })
 
 const onNodeClick = (event,node) =>{
-  console.log(node)
+  let tempRelativeId = node.label.split("_")[1];
+  if(isEmpty(tempRelativeId)){
+      return
+  }  
+  showDetail.value = true;
+  currentRelativeId.value = tempRelativeId
+  
+  nextTick(() => {
+    structureBlog.value.blogRefresh(currentRelativeId.value)
+  }) 
+}
+
+const openDrawer=()=>{
+  // alert("open")
+  // console.log(structureBlog)
+  // nextTick(() => {
+  //   console.log(structureBlog)
+  // })  
+}
+const structureChange = () =>{
+  queryOneStruc({"name":currentStructure.value}).then((resp:any) => {
+        if(resp.code == "0"){
+          structureBody.name = resp.data.name
+          structureBody.value = resp.data.value
+          collapsable.value = true
+        }else{
+            ElMessage.error(resp.msg)
+        }
+    })
+    .catch((e) => {
+      return
+    })
+}
+const getStructureNameList =() =>{
+  getStrucNameList().then((resp:any) => {
+        if(resp.code == "0"){
+          structureList.value = resp.data
+        }else{
+            ElMessage.error(resp.msg)
+        }
+    })
+    .catch((e) => {
+      return
+    })
 }
 
 const addData = () =>{
@@ -110,8 +212,58 @@ const addData = () =>{
       return
     })
 }
+
+const detailHandleClose = () =>{
+  showDetail.value = false
+  currentRelativeId.value = ""
+  console.log("detailHandleClose")
+}
+const updateData = () =>{
+  return
+}
+
+const onMenus = ({ node, command }) => {
+  console.log(222222,node, command)
+  if (command === 'newEdit'){
+    node.open = true
+    // ElMessageBox.prompt('Please input your e-mail', 'Tip', {
+    //   confirmButtonText: 'OK',
+    //   cancelButtonText: 'Cancel'
+    // })
+    //   .then(({ value }) => {
+    //     let extention = {
+    //       moduleId:"",
+    //       relativeId:""
+    //     }
+    //     console.log(1111,value)
+    //     console.log(2222,value.split("|")[0])
+    //     console.log(3333,value.split("|")[1])
+    //     console.log(4444,value.split("|")[2])
+    //     extention.moduleId = value.split("|")[1]
+    //     extention.relativeId = value.split("|")[2]
+    //     node.label = value.split("|")[0]
+    //     node.extention = extention
+    //     console.log(5555,node)
+    //   })
+    //   .catch(() => {
+    //     ElMessage({
+    //       type: 'info',
+    //       message: 'Input canceled',
+    //     })
+    //   })
+  }
+ 
+
+}
+
+ const closeEdit = (node) => {
+  node.open = false
+}
+
 </script>
 
-<style>
-
+<style lang="less" scoped>
+/deep/ .el-drawer__body{
+  padding:0px!important
+}
 </style>

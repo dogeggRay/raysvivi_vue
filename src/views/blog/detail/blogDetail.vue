@@ -2,7 +2,7 @@
   <div class = "inner-container">
       <el-card class="about-card " shadow="always">
         
-        <div class="fine-font breadcrumb">
+        <div v-if="otherShow" class="fine-font breadcrumb">
           <el-breadcrumb :separator-icon="ArrowRight">
             <el-breadcrumb-item :to="{ path: '/view' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>博客正文</el-breadcrumb-item>
@@ -55,7 +55,7 @@
           </el-col>
         </el-row>    
 
-        <el-row class="independent_row">
+        <el-row v-if="otherShow" class="independent_row">
           <el-col :span="2"></el-col>
           <el-col :span="20"><CommentView :key="componentKey" :moduleId="'blogDetail'" :relativeId="blogId"/></el-col>
           <el-col :span="2"></el-col>
@@ -69,7 +69,7 @@
 
 <script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick } from 'vue'
+import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick,defineExpose } from 'vue'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
 import { pageExtendInfo} from "@/js/visitor.js"
 import store from '@/store'
@@ -80,6 +80,8 @@ import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
 //import {switchSideBar} from "@/js/common.js"
 import { ArrowRight } from '@element-plus/icons-vue'
+
+const otherShow = ref(true)
 const storeInstance = useStore()
 const componentKey = Date.now()
 const blog = reactive({
@@ -181,6 +183,17 @@ const editorRef = shallowRef()
         storeInstance.commit('setCurrentTag',tag)
         router.push({path:"/view/blogList"})
     }
+
+    const blogRefresh = (str: string) =>{
+      otherShow.value = false
+      blogId.value = str
+      getBlog()
+    }
+
+
+defineExpose({
+  blogRefresh
+})    
 </script>
 
 <style lang="less" scoped>

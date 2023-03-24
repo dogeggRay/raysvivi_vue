@@ -30,15 +30,23 @@
           :collapsable="true"
           :label-style="labelstyle"
           :clone-node-drag="cloneNodeDrag"
-          :before-drag-end="beforeDragEnd"
           :props="props"
-          @on-node-drag="nodeDragMove"
-          @on-node-drag-end="nodeDragEnd"
-          @on-contextmenu="onMenus"
-          @on-expand="onExpand"
-          @on-node-dblclick="onNodeDblclick"
           @on-node-click="onNodeClick"
-        />
+        >
+                <template v-slot="{node}">
+                    <div class="tree-org-node__text node-label node" @contextmenu.prevent="terFun(node)">
+                      {{ node.label.split("_")[0]}}
+                      <div v-if=" node.open" class="late" id="lateId">
+                        <el-input placeholder="请输入label" style="padding-bottom:5px" v-model="node.label"/>
+                        <div @click="closeEdit(node)" class="onCloseCss">确定</div>
+                      </div>
+                    </div>
+                  </template>
+                  <!-- 自定义展开按钮 -->
+                  <!-- <template v-slot:expand="{node}">
+                    <div>{{ node.children.length }}</div>
+                  </template> -->
+                </vue3-tree-org>
       </div>
 
 <el-divider content-position="left"></el-divider>
@@ -49,45 +57,47 @@
         </el-row>
 
     </el-card>
+
+
+
+<!-- 明细弹框     -->
+    <el-dialog
+      v-model="showDetail"
+      destroy-on-close
+      show-close
+      width="70%"
+      :before-close="detailHandleClose"
+    ><template #header="{}">
+      <span class="fine-font small-font">{{structureBody.name}}</span>
+      <!-- <span @click="openBlog" style="font-size:larger;cursor:pointer">打开正文>>></span> -->
+      <router-link style="float:right" target="_blank" :to="{name:'blogDetail',query:{relativeId:currentRelativeId}}">打开正文&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;</router-link>   
+      </template>
+      <BlogDetail ref="structureBlog" :key="componentTime"/>
+    </el-dialog>
+
     </div>
 </template>
 
 <script lang="ts" setup>
 import { ElSwitch, ElColorPicker, ElMessage } from 'element-plus'
 import 'vue3-tree-org/lib/vue3-tree-org.css'
-import { ref,onMounted,reactive } from 'vue'
+import BlogDetail from '@/views/blog/detail/blogDetail.vue'
+import { ref,onMounted,reactive, nextTick } from 'vue'
+import {isEmpty} from "@/utils/common.js"
 import { getNameList,queryOneStruc,updateStruc,addStruc} from "@/js/structure.js"
 import store from '@/store'
 
+const componentTime = Date.now()
+const structureBlog = ref<any>()
+
+const showDetail = ref(false)
+const currentRelativeId = ref("")
 const cloneNodeDrag = ref(false)
 
 const props = reactive({id: 'id', pid: 'pid', label: 'label', expand: 'expand',children: 'children' })
 const structureBody = reactive({
   name:"demo",
-  value:{
-          "id":1,"label":"xxx科技有限公司",
-          "children":[
-              {
-                  "id":2,"pid":1,"label":"产品研发部",
-                  "style":{"color":"#fff","width": "max-content","background":"#108ffe"},
-                  "children":[
-                      {"id":6,"pid":2,"label":"禁止编辑节点","disabled":true},
-                      {"id":8,"pid":2,"label":"禁止拖拽节点","noDragging":true},
-                      {"id":10,"pid":2,"label":"测试",
-                      "children":[{"id":11,"pid":3,"label":"客服一部222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222"}]
-                      }
-                  ]
-              },
-              {
-                  "id":3,"pid":1,"label":"客服部",
-                  "children":[
-                      {"id":11,"pid":3,"label":"客服一部"},
-                      {"id":12,"pid":3,"label":"客服二部"}
-                  ]
-              },
-              {"id":4,"pid":1,"label":"业务部"}
-          ]
-      }
+  value:{"children":[{"children":[],"id":"1679555182623","label":"11111_acb05a3c1b44860ed4d8cf218342e6e8","pid":"1"}],"id":"1","label":"第一个节点"}
 })
 const labelstyle = reactive({
     background: "#fff",
@@ -104,23 +114,33 @@ onMounted(() => {
 })
 
 const onNodeClick = (event,node) =>{
-  console.log(node)
+  let tempRelativeId = node.label.split("_")[1];
+  if(isEmpty(tempRelativeId)){
+      return
+  }  
+    showDetail.value = true;
+    currentRelativeId.value = tempRelativeId
+    
+    nextTick(() => {
+      structureBlog.value.blogRefresh(currentRelativeId.value)
+    }) 
 }
 
-const addData = () =>{
-  addStruc(structureBody).then((resp:any) => {
-        if(resp.code == "0"){
-          return
-        }else{
-            ElMessage.error(resp.msg)
-        }
-    })
-    .catch((e) => {
-      return
-    })
+
+const openBlog = () =>{
+  return
+}
+
+const detailHandleClose = () =>{
+  showDetail.value = false
+  currentRelativeId.value = ""
+  console.log("detailHandleClose")
 }
 </script>
 
 <style  lang="less" scoped>
 
+/deep/ .el-dialog__body{
+  padding:0px
+}
 </style>

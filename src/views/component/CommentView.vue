@@ -1,6 +1,6 @@
 <template>
   <div class = "inner-container">
-    <el-divider content-position="left">Leave your footprints<el-icon ><EditPen /></el-icon></el-divider>
+    <el-divider class="comment-divider" content-position="left">Leave your footprints<el-icon ><EditPen /></el-icon></el-divider>
      <el-row>
       <el-col :span="24"></el-col>
     </el-row> 
@@ -344,5 +344,9 @@ and (max-device-width : 768px) {
 /deep/ .el-tree > .el-tree-node:not(:last-child){
   padding-top:5px;
   border-bottom: 1px solid #b1b3b8;
+}
+
+.comment-divider{
+  margin-bottom:15px;
 }
 </style>
