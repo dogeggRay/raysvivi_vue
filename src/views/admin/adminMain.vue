@@ -76,6 +76,24 @@
 
 <script lang="ts" setup>
 import { ref ,onMounted,onBeforeUnmount } from 'vue'
+import {initTags} from '@/js/admin'
+import { useStore } from 'vuex'
+
+onMounted(() => {
+  initDatas()
+})
+
+let storeInstance = useStore()
+const initDatas = () =>{
+  storeInstance.dispatch('initTag').then(
+            (response) => {
+              console.log('OK')
+            },
+            (err) => {
+              console.log('ERR', err)
+            }
+          )
+}
 </script>
 
 

@@ -32,8 +32,7 @@
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
                     <el-menu-item index="/view/structure">总览</el-menu-item>
-                    <el-menu-item v-if="store.getters['accessToken']" :route="{ path: '/admin'}">写博客</el-menu-item>
-                  </el-menu>
+                   </el-menu>
                 </el-col>
                 <el-col :span="2" class="full_height" style="overflow: hidden;">
                   <router-link class="common-routerlink" to="/login">管理员登陆</router-link>

@@ -27,6 +27,14 @@ export function getBlogDetail(params) {
     })
 }
 
+export function blogsSimpleList(params) {
+    return request({
+        url: '/api/admin/article/blogsSimpleList',
+        method: 'get',
+        params,
+    })
+}
+
 export function demoTest(data) {
     return request({
         url: '/api/admin/demo',

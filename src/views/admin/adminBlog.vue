@@ -1,7 +1,31 @@
 <template>
   <div class = "inner-container blog-write-div about-card fine-font">
     <el-row>
-          <el-col :span="24">博客撰写</el-col>
+          <el-col :span="24">管理员博客模块</el-col>{{store.getters['tagMap']}}
+        </el-row>
+        <br/>
+         <el-row>
+          <el-col :span="1">
+            </el-col>
+          <el-col :span="2">
+            博客列表
+            </el-col>
+            <el-col :span="10">
+            <el-select v-model="relativeId" clearable class="m-2" placeholder="Select" @change="blogListChange">
+              <el-option
+                v-for="item in blogList"
+                :key="item.id"
+                :label="item.title"
+                :value="item.id"
+              />
+            </el-select>
+          </el-col>
+        </el-row>
+         <el-row>
+          <el-col :span="24">&nbsp;</el-col>
+        </el-row>
+         <el-row>
+          <el-col :span="24">&nbsp;</el-col>
         </el-row>
         <el-form :model="blogForm" label-width="120px" ref="blogFormRef">
           <el-row>
@@ -74,7 +98,7 @@
 <script lang="ts" setup>
 import wangEditor from "@/components/wangEditor/wangEditor.vue"
 import fileComponent from "@/components/file/fileComponent.vue"
-import { getBlogDetail,submitRichHtml} from "@/js/blog.js"
+import { getBlogDetail,submitRichHtml,blogsSimpleList} from "@/js/blog.js"
 import {baseURL} from '@/config'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
@@ -85,22 +109,20 @@ import store from '@/store'
 const moduleId = ref()
 const relativeId = ref()
 const componentKey =ref(Date.now())
-
+const blogList = ref([])
 const route = useRoute()
 
 
 onActivated(() => {
   componentKey.value = Date.now()
-  if(isEmpty(relativeId.value)){
-      initialReactive(blogForm)
-  }else{
-      initBlogDetail()
-  }
+  initialReactive(blogForm)
+
+  initBlogSimpleList()
 })
 
-watch(() => route.query.relativeId, (newValue, oldValue) => {
-  relativeId.value = newValue
-});
+// watch(() => route.query.relativeId, (newValue, oldValue) => {
+//   relativeId.value = newValue
+// });
 
 const blogForm = reactive({
     id:null,
@@ -131,8 +153,24 @@ const handleUploadSuccess =(v1,response,v3,)=> {
   }
 }
 
+const initBlogSimpleList = () =>{
+  blogList.value=[];
+  blogsSimpleList().then((resp:any) => {
+    blogList.value = resp.data
+  }).catch((e) => {
+          return
+        })
+}
 
-const initBlogDetail = () =>{
+const blogListChange = () =>{
+  if(isEmpty(relativeId.value)){
+    initialReactive(blogForm)
+    editorInstance.value.setHtml("")
+    return
+  }
+  pageGetBlogDetail()
+}
+const pageGetBlogDetail = () =>{
       getBlogDetail({aritcleInfoId:relativeId.value}).then((resp:any) => {
             if(resp.code == "0"){
               blogForm.id = resp.data.id
