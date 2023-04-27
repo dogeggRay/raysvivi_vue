@@ -23,7 +23,7 @@ const store = createStore({
           touristName: '',
           avatar: '',
           tagMap:null,
-          sideBarShow:true,
+          homeMode:true,
           currentTag:""
         }
     },
@@ -37,8 +37,8 @@ const store = createStore({
       tagMap(state:any){
         return state.tagMap
       },
-      sideBarShow(state:any){
-        return state.sideBarShow
+      homeMode(state:any){
+        return state.homeMode
       },
       currentTag(state:any){
         return state.currentTag
@@ -60,8 +60,8 @@ const store = createStore({
         setTagMap(state:any,tagMap) {
           state.tagMap = tagMap
         },
-        setSideBarShow(state:any,sideBarShow) {
-          state.sideBarShow = sideBarShow
+        setHomeMode(state:any,homeMode) {
+          state.homeMode = homeMode
         },
         setCurrentTag(state:any,currentTag){
           state.currentTag = currentTag

@@ -5,7 +5,7 @@
             <el-row>
                 <el-col :span="4"> 
                     <el-select style="margin-right: 10px;float:left" v-model="currentStructure" @change="structureChange">
-                      <el-option v-for="item in structureList" :key="item" :value="item" :label="item" />
+                      <el-option v-for="item in structureList" :key="item.id" :value="item.id" :label="item.label" />
                     </el-select>
                 </el-col>
                 <el-col :span="7"> 
@@ -131,6 +131,7 @@ const structureList = ref([])
 const currentRelativeId = ref("")
 const currentStructure = ref("")
 const structureBody = reactive({
+  id:-1,
   name:"demo",
   value:{
           id:1,
@@ -174,8 +175,9 @@ const openDrawer=()=>{
   // })  
 }
 const structureChange = () =>{
-  queryOneStruc({"name":currentStructure.value}).then((resp:any) => {
+  queryOneStruc({"id":currentStructure.value}).then((resp:any) => {
         if(resp.code == "0"){
+          structureBody.id = resp.data.id
           structureBody.name = resp.data.name
           structureBody.value = resp.data.value
           collapsable.value = true
@@ -203,7 +205,7 @@ const getStructureNameList =() =>{
 const addData = () =>{
   addStruc(structureBody).then((resp:any) => {
         if(resp.code == "0"){
-          return
+          ElMessage.success("OK!")
         }else{
             ElMessage.error(resp.msg)
         }
@@ -219,7 +221,16 @@ const detailHandleClose = () =>{
   console.log("detailHandleClose")
 }
 const updateData = () =>{
-  return
+  updateStruc(structureBody).then((resp:any) => {
+        if(resp.code == "0"){
+          ElMessage.success("OK!")
+        }else{
+            ElMessage.error(resp.msg)
+        }
+    })
+    .catch((e) => {
+      return
+    })
 }
 
 const onMenus = ({ node, command }) => {

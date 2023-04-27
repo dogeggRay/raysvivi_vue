@@ -1,6 +1,6 @@
 import {isEmpty} from "@/utils/common.js"
 import request from '@/utils/request'
-
+import store from '../store'
 const visitFlag = "visitHistory"
 
 // PV/UV统计
@@ -22,6 +22,11 @@ const visitFlag = "visitHistory"
 // }
 
 export function indicatorRecords(data){
+    if("/view/structure"==data.fullPath){
+        switchHomeMode(false)
+    }else{
+        switchHomeMode(true)
+    }
     if(isEmpty(data.meta.module)){
         return;
     }
@@ -34,6 +39,10 @@ export function indicatorRecords(data){
         method: 'post',
         data:body,
     })
+}
+
+function switchHomeMode(value){
+    store.commit('setHomeMode',value)
 }
 
 export function pageExtendInfo(data){

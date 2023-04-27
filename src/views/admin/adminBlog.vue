@@ -1,7 +1,7 @@
 <template>
   <div class = "inner-container blog-write-div about-card fine-font">
     <el-row>
-          <el-col :span="24">管理员博客模块</el-col>{{store.getters['tagMap']}}
+          <el-col :span="24">管理员博客模块</el-col>
         </el-row>
         <br/>
          <el-row>

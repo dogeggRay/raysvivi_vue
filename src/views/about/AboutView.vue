@@ -61,7 +61,7 @@
         </el-row>
         <el-row>
           <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">写一个好康的个人博客 分享生活和技术 拧拧拖延症</span></el-col>
+          <el-col :span="21"><span class="content">写一个好康的个人博客 记录生活和技术 拧拧拖延症</span></el-col>
         </el-row>  
         <el-row>
           <el-col :span="3"></el-col>

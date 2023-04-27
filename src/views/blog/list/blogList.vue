@@ -50,7 +50,6 @@ import {isEmpty} from "@/utils/common.js"
 import store from '@/store'
 import { useStore } from 'vuex'
 import {useRouter} from 'vue-router'
-import {switchSideBar} from "@/js/common.js"
 const storeInstance = useStore()
 const count = ref(10)
 const blog = reactive({
@@ -70,7 +69,7 @@ onMounted(() => {
 })
 
 onActivated(() => {
-  switchSideBar(true)
+//  switchHomeMode(true)
 })
 
 watch(() => store.getters['currentTag'] ,(newValue, oldValue) => {

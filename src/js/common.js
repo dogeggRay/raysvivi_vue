@@ -1,7 +1,7 @@
 
 import { useStore } from 'vuex'
 
-export function switchSideBar(value){
+export function switchHomeMode(value){
     let storeInstance = useStore()
-    storeInstance.commit('setSideBarShow',value)
+    storeInstance.commit('setHomeMode',value)
   }

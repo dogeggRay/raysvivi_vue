@@ -89,7 +89,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
         storeInstance.dispatch('login',{username:ruleForm.username,password:Md5.hashStr(ruleForm.password)}).then(
             (response) => {
-              router.push('/')
+              router.push('/admin')
             },
             (err) => {
               console.log('ERR', err)

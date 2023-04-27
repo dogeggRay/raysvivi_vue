@@ -16,7 +16,7 @@
               <el-row class="top_header_div_row full_height">
                 <el-col :span="2" class="full_height"></el-col>
                 <el-col :span="9" class="full_height main_header_middle">
-                  <span class="cursor-font declare-font top_header_span" @click="declareClick">小雷童鞋</span>
+                  <span class="cursor-font declare-font top_header_span" @click="declareClick">大雷子子</span>
                 </el-col>
                 <el-col :span="2" class="full_height"></el-col>
                 <el-col :span="9" class="full_height">
@@ -28,10 +28,10 @@
                     router
                   >
                     <el-menu-item index="/view">首页</el-menu-item>
+                    <el-menu-item index="/view/structure">总览</el-menu-item>
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
-                    <el-menu-item index="/view/structure">总览</el-menu-item>
                    </el-menu>
                 </el-col>
                 <el-col :span="2" class="full_height" style="overflow: hidden;">
@@ -73,8 +73,8 @@
             </el-main>
         </el-container>
         <!-- 内容模块-右侧边 -->
-        <el-aside v-if="store.getters['sideBarShow']" width="30%" class="layout_right_aside adapt_show_part"><Statement/></el-aside>
-        <el-aside v-else width="13%"></el-aside>
+        <el-aside v-if="store.getters['homeMode']" width="30%" class="layout_right_aside adapt_show_part"><Statement/></el-aside>
+        <el-aside v-else width="13%" class="adapt_show_part"></el-aside>
       </el-container>
       
     </el-container>
@@ -138,7 +138,7 @@ onMounted(() => {
   window.addEventListener('scroll', sorlly)
 })
 
-// watch(() => store.getters['sideBarShow'], (newValue, oldValue) => {
+// watch(() => store.getters['homeMode'], (newValue, oldValue) => {
 //   alert("watch:"+newValue)
   
 // });
