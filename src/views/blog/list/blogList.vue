@@ -171,20 +171,10 @@ defineExpose({
 .blog-list-aside{
     margin: auto;
     text-align: center;
+    height:100%;
+      overflow: hidden
 }
-.blog-list-header {
-  text-align: left;
-  padding:25px 0px 0px 0px;
-  line-height: 1;
-  font-size: larger;
-  font-weight: 600;
-}
-.blog-list-main{
-  text-align: left;
-  font-size: smaller;
-  padding-top:15px;
-  overflow: hidden;
-}
+
 
 .blog-list-footer{
   text-align: left;
@@ -207,10 +197,6 @@ defineExpose({
       width: 100%;
       height: 100%;
     }
-    .blog-list-aside{
-      height:100%;
-      overflow: hidden
-    }
     .blog-list-container{
       padding-left:1rem;
     }
@@ -221,15 +207,27 @@ defineExpose({
 @media screen
 and (max-device-width : 768px) {
     /deep/ .blog-list-main{
-      display: -webkit-box;
-      overflow: hidden;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 5;
-      text-overflow: ellipsis;
+      display: none
     }
 
     .blog-list-card{
-      height:140px
+      height:100px
+    }
+
+    .blog-list-aside{
+        width:100px;
+    }    
+
+    .blog-list-header {
+      text-align: left;
+      padding:10px 0px 0px 0px;
+      line-height: 1;
+      font-size: smaller;
+      font-weight: 600;
+    }    
+
+    .el-tag{
+      height:15px
     }
 }
 
@@ -237,6 +235,26 @@ and (max-device-width : 768px) {
 and (min-device-width : 768px){
   .blog-list-card{
       height: 190px;
+    }
+
+
+    .blog-list-aside{
+        width:200px;
+    }   
+    
+    .blog-list-header {
+      text-align: left;
+      padding:25px 0px 0px 0px;
+      line-height: 1;
+      font-size: larger;
+      font-weight: 600;
+    }
+
+    .blog-list-main{
+      text-align: left;
+      font-size: smaller;
+      padding-top:15px;
+      overflow: hidden;
     }
 }
 

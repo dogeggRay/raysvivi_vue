@@ -11,70 +11,66 @@
         </el-row>
         
         <el-row class="independent_row">
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="title_level_2">姓名</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="title_level_2">姓名</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">雷迪/Ray</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="content">雷迪/Ray</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
-          <el-col :span="2"></el-col>
-          <el-col :span="22"><span class="title_level_2">性别</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="title_level_2">性别</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">男</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="content">男</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="title_level_2">个人评价</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="title_level_2">个人评价</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">一个脱离了高级趣味的人</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="content">一个脱离了高级趣味的人</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="title_level_2">个人标签</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="title_level_2">个人标签</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">拖延症晚期、大乱斗小王子、DNFer、灵魂画手、减肥宅男</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="content">拖延症晚期、大乱斗小王子、DNFer、灵魂画手、减肥宅男</span></el-col>
         </el-row>
 
         <el-row class="independent_row">
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="title_level_2">技术特长</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="title_level_2">技术特长</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">JAVA互联网(分布式)全家桶开发,VUE 2/3,MYSQL,REDIS,KAFKA,DOCKER,NGINX实战开发</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="content">JAVA互联网(分布式)全家桶开发,VUE 2/3,MYSQL,REDIS,KAFKA,DOCKER,NGINX实战开发</span></el-col>
         </el-row>    
 
         <el-row class="independent_row">
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="title_level_2">建站初衷</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="title_level_2">建站初衷</span></el-col>
         </el-row>
         <el-row>
-          <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">写一个好康的个人博客 记录生活和技术 拧拧拖延症</span></el-col>
-        </el-row>  
-        <el-row>
-          <el-col :span="3"></el-col>
-          <el-col :span="21"><span class="content">never too late</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="content">云环境空着也是空着，干脆塞点东西进去玩</span></el-col>
         </el-row>                   
 
         <el-row class="independent_row">
-          <el-col :span="2"></el-col>
-          <el-col :span="20"><span class="title_level_2">建站历程</span></el-col>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="title_level_2">建站历程</span></el-col>
         </el-row>
         <el-row class="independent_row">
-          <el-col :span="3"></el-col>
-          <el-col :span="21">
+          <el-col :span="1"></el-col>
+          <el-col :span="23">
             <el-timeline>
               <el-timeline-item timestamp="2022-10-25" placement="top">
                 <el-card>

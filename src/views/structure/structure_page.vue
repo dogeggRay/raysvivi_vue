@@ -9,10 +9,10 @@
                           active-text-color="#ffd04b"
                           background-color="#545c64"
                           class="el-menu-vertical-demo"
-                          default-active="2"
                           text-color="#fff"
                           @open="handleOpen"
                           @close="handleClose"
+                          :default-active="0"
                         >
                           <el-menu-item v-for="(item,index) in structureList" :key="index" :index="index" @click="switchStruc(item.id)">
                             <el-icon><location /></el-icon>
@@ -20,7 +20,7 @@
                           </el-menu-item>
                         </el-menu>
                       </el-header>
-                      <el-main>
+                      <el-main style="padding-left:5px">
                               <div class="fine-font breadcrumb">
                                   <el-breadcrumb :separator-icon="ArrowRight">
                                     <el-breadcrumb-item :to="{ path: '/view' }">首页</el-breadcrumb-item>
@@ -185,6 +185,9 @@ const getStructureNameList =() =>{
   getStrucNameList().then((resp:any) => {
         if(resp.code == "0"){
           structureList.value = resp.data
+          if(!isEmpty(structureList.value)){
+            switchStruc(structureList.value[0].id)
+          }
         }else{
             ElMessage.error(resp.msg)
         }
@@ -201,6 +204,8 @@ const getStructureNameList =() =>{
   padding:0px
 }
 
-
+/deep/ .el-card__body{
+  padding:0px
+}
 /deep/ ::-webkit-scrollbar{width:0;}
 </style>
