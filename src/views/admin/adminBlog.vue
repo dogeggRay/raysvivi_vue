@@ -201,7 +201,7 @@ const submitHtml = () => {
     submitRichHtml(blogForm)
         .then((response:any) => {
           if(response.code == "0"){
-            ElMessage.success('上传成功')
+            ElMessage.success('提交成功')
           }else{
             ElMessage.error(response.msg)
           }

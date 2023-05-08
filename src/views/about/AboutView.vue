@@ -61,7 +61,7 @@
         </el-row>
         <el-row>
           <el-col :span="1"></el-col>
-          <el-col :span="23"><span class="content">云环境空着也是空着，干脆塞点东西进去玩</span></el-col>
+          <el-col :span="23"><span class="content">空着也是空着，干脆塞点东西进去玩</span></el-col>
         </el-row>                   
 
         <el-row class="independent_row">
@@ -120,6 +120,11 @@ const componentTime = Date.now()
   margin-right:10px;
 }
 
-
+@media screen
+and (max-device-width : 768px) {
+  .content{
+    font-size:small;
+  }
+}
 
 </style>

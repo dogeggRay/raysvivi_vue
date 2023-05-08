@@ -87,30 +87,10 @@
     </div>
 
     <!-- 辅助栏 -->
-    <el-card class="support_card" style="color: #939393;" shadow="hover">
-            <el-row>
-                  <el-col :span="24">
-                    <el-icon><ArrowUp /></el-icon>
-                  </el-col>
-                </el-row>
-            <el-row>
-                  <el-col :span="24">
-                    <span>——</span>
-                  </el-col>
-                </el-row>                
-            <el-row class="adapt_hidden_part">
+    <el-card class="support_card adapt_hidden_part" style="color: #939393;" shadow="hover">
+            <el-row class="">
               <el-col :span="24">
                   <el-icon @click="statementShow"><Menu /></el-icon>
-              </el-col>
-            </el-row>    
-            <el-row class="adapt_hidden_part">
-                  <el-col :span="24">
-                    <span >——</span>
-                  </el-col>
-                </el-row>                
-            <el-row>
-              <el-col :span="24">
-                  <el-icon><InfoFilled /></el-icon>
               </el-col>
             </el-row>                          
     </el-card>
@@ -376,5 +356,9 @@ const tagClose = () =>{
     height: 2.5rem;
     line-height: 2rem;
     z-index: 3;    
+}
+
+.statementDrawer{
+  padding-left:22px
 }
 </style>

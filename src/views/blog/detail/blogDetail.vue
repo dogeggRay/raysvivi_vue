@@ -40,7 +40,7 @@
         </el-row>
 
         <el-divider content-position="left" ></el-divider>
-   <div style="" class="blogDetailDiv fine-font">
+   <div style="font-weight:300" class="blogDetailDiv">
     <!-- 不知道为什么菜单栏自己消失了  good good-->
               <Editor
                 style="height: 80%; overflow-y: hidden;"
