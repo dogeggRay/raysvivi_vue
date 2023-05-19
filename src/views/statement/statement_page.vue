@@ -92,6 +92,7 @@ import {useRouter} from 'vue-router'
 import { useStore } from 'vuex'
 import {getBloggerParameters} from '@/js/admin'
 import store from '@/store'
+import {isEmpty} from "@/utils/common.js"
 type Item = { type: TagProps['type']; label: string }
 
 const ICP_Filing_record = "皖ICP备2022015508号-1"
@@ -129,6 +130,18 @@ onBeforeUnmount(() => {
 })
 
 const tagChange = (tag) =>{
+  let currentTagNode = store.getters['currentTag']
+  if(!isEmpty(currentTagNode)){
+      storeInstance.commit('setCurrentTag',"")
+
+      if(currentTagNode!=tag[0]){
+          storeInstance.commit('setCurrentTag',tag[0])
+          router.push({path:"/view/blogList"})
+      }
+      return
+  }
+  
+  
     storeInstance.commit('setCurrentTag',tag[0])
     router.push({path:"/view/blogList"})
 }

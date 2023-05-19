@@ -80,10 +80,13 @@
     </el-container>
   </div>
 
-      <div class="declareDialog" v-bind:class="{ 'display-class': maskEffective ,'undisplay-class': !maskEffective }" @click="declareDialogClick">
-        <span>尊敬的游客你好:</span>
-        <br/>
-        <span>我是你爹</span>
+      <div class="declareDialog fine-font" v-bind:class="{ 'display-class': maskEffective ,'undisplay-class': !maskEffective }" @click="declareDialogClick">
+        <div style="position: absolute;    top: 50%;    width: 100%;">
+            <span>尊敬的游客你好:</span>
+            <br/>
+            <span>欢迎光临雷迪的博客</span>
+        </div>
+        
     </div>
 
     <!-- 辅助栏 -->
@@ -230,8 +233,8 @@ const tagClose = () =>{
 
     .declareDialog{
         position: fixed;
-        top: 17rem;
-        height: 10%;
+        top: 0rem;
+        height: 100%;
         width: 80%;
         border-radius: 1rem;
         text-align: center;

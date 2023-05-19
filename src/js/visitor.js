@@ -22,6 +22,7 @@ const visitFlag = "visitHistory"
 // }
 
 export function indicatorRecords(data){
+    //TODO 优化：自定义标签AOP处理
     if("/view/structure"==data.fullPath){
         switchHomeMode(false)
     }else{

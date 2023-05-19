@@ -61,7 +61,7 @@
         </el-row>
         <el-row>
           <el-col :span="1"></el-col>
-          <el-col :span="23"><span class="content">空着也是空着，干脆塞点东西进去玩</span></el-col>
+          <el-col :span="23"><span class="content">反正是空着，干脆塞点东西进去玩</span></el-col>
         </el-row>                   
 
         <el-row class="independent_row">

@@ -253,7 +253,7 @@ and (min-device-width : 768px){
     .blog-list-main{
       text-align: left;
       font-size: smaller;
-      padding-top:15px;
+      padding-top:5px;
       overflow: hidden;
     }
 }
