@@ -4,7 +4,7 @@
           <el-col :span="24">管理员博客模块</el-col>
         </el-row>
         <br/>
-         <el-row>
+         <!-- <el-row>
           <el-col :span="1">
             </el-col>
           <el-col :span="2">
@@ -20,7 +20,29 @@
               />
             </el-select>
           </el-col>
-        </el-row>
+        </el-row> -->
+        <el-form :inline="true">
+            <el-form-item label="标签">
+               <el-select v-model="selectedTag" clearable class="m-2" placeholder="标签" @change="initBlogSimpleList">
+                    <el-option v-for="(tag,index) in store.getters['tagMap']"  :key="index" :label="tag[1]" :value="tag[0]"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="博客列表">
+                  <el-select v-model="relativeId" clearable class="m-2" placeholder="博客列表" @change="blogListChange">
+                    <el-option
+                      v-for="item in blogList"
+                      :key="item.id"
+                      :label="item.title"
+                      :value="item.id"
+                    />
+                </el-select>
+            </el-form-item>
+            <el-button type="primary" icon="Plus" plain @click="submitHtml" style="margin-bottom:16px">提交
+                  </el-button>
+              <el-button type="primary" icon="Search" plain @click="initBlogSimpleList" style="margin-bottom:16px">
+                查询
+              </el-button>
+          </el-form>
          <el-row>
           <el-col :span="24">&nbsp;</el-col>
         </el-row>
@@ -88,7 +110,7 @@
             </el-col>
           </el-row>                    
         </el-form>
-         <el-button type="primary" @click="submitHtml">提交</el-button><el-row>
+         <el-row>
           <el-col :span="24"></el-col>
         </el-row>      
 
@@ -108,6 +130,7 @@ import store from '@/store'
 
 const moduleId = ref()
 const relativeId = ref()
+const selectedTag = ref("")
 const componentKey =ref(Date.now())
 const blogList = ref([])
 const route = useRoute()
@@ -153,9 +176,10 @@ const handleUploadSuccess =(v1,response,v3,)=> {
   }
 }
 
+
 const initBlogSimpleList = () =>{
   blogList.value=[];
-  blogsSimpleList().then((resp:any) => {
+  blogsSimpleList({tag:selectedTag.value}).then((resp:any) => {
     blogList.value = resp.data
   }).catch((e) => {
           return

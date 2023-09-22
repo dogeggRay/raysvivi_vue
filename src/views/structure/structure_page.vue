@@ -93,14 +93,13 @@
     overflow-y: scroll;"
       :before-close="detailHandleClose"
     ><template #header="{}">
-      <div style="background-color:rgba(255,255,255,0.7);position:fixed;z-index:1;">
+      <!-- <div style="background-color:rgba(255,255,255,0.7);position:fixed;z-index:1;">
         <span class="fine-font">{{structureBody.name}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <!-- <span @click="openBlog" style="font-size:larger;cursor:pointer">打开正文>>></span> -->
         <router-link style="float:right" target="_blank" :to="{name:'blogDetail',query:{relativeId:currentRelativeId}}">打开正文&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;</router-link>   
-      </div>
+      </div> -->
       
       </template>
-      <BlogDetail ref="structureBlog" :key="componentTime"/>
+      <BlogDetail ref="structureBlog" :key="componentTime" :fromFlag="fromFlag" :outerRelativeId="currentRelativeId"/>
     </el-dialog>
 
     </div>
@@ -116,6 +115,7 @@ import { getStrucNameList,queryOneStruc,updateStruc,addStruc} from "@/js/structu
 import store from '@/store'
 
 const componentTime = Date.now()
+const fromFlag = ref(1)
 const structureBlog = ref<any>()
 
 const structureList = ref([])
@@ -208,4 +208,9 @@ const getStructureNameList =() =>{
   padding:0px
 }
 /deep/ ::-webkit-scrollbar{width:0;}
+
+/deep/ .blog-detail-card{
+  box-shadow: none;
+  border: none;
+}
 </style>

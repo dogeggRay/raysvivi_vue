@@ -131,7 +131,7 @@ const structureList = ref([])
 const currentRelativeId = ref("")
 const currentStructure = ref("")
 const structureBody = reactive({
-  id:-1,
+  id:"",
   name:"demo",
   value:{
           id:1,

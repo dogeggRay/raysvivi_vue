@@ -91,7 +91,7 @@ const sorlly= () => {
 
     //console.log(scrollTop+"+"+clientHeight+"??"+scrollHeight);
     //如果触底就让index++
-    if (scrollTop + clientHeight >= scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight-250) {
         pageParam.startIndex+=pageParam.pageSize
         getBlogPages(false)
         //count.value++;

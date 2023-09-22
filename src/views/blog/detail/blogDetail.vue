@@ -1,6 +1,6 @@
 <template>
   <div class = "inner-container">
-      <el-card class="about-card " shadow="always">
+      <el-card class="about-card blog-detail-card" shadow="always">
         
         <div v-if="otherShow" class="fine-font breadcrumb">
           <el-breadcrumb :separator-icon="ArrowRight">
@@ -9,18 +9,16 @@
           </el-breadcrumb>
         </div>
 
-        <el-row>
-          <el-col :span="24"></el-col>
-        </el-row>
         <el-row class="independent_row">
-          <el-col :span="24" style="text-align: left;"><span class="title_level_1">{{blog.title}}</span></el-col>
+          <el-col v-if="fromFlag==0" :span="24" style="text-align: left;"><span class="title_level_1">{{blog.title}}</span></el-col>
+          <el-col v-else :span="24" style="text-align: left;"><router-link class="title_level_1" style="text-decoration:underline" target="_blank" :to="{name:'blogDetail',query:{relativeId:outerRelativeId}}">{{blog.title}}</router-link>   </el-col>
         </el-row>
         
-        <el-row class="independent_row">
+        <!-- <el-row class="independent_row">
           <el-col :span="24">
             
           </el-col>
-        </el-row>
+        </el-row> -->
 
         <el-row >
           <el-col :span="24" style="line-height: 33px;">
@@ -69,7 +67,7 @@
 
 <script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick,defineExpose } from 'vue'
+import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick,defineExpose,defineProps } from 'vue'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
 import { pageExtendInfo} from "@/js/visitor.js"
 import store from '@/store'
@@ -80,6 +78,17 @@ import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
 //import {switchSideBar} from "@/js/common.js"
 import { ArrowRight } from '@element-plus/icons-vue'
+
+const props = defineProps({
+  fromFlag:{
+    type: Number,
+    default:0//普通//1大纲
+  },
+  outerRelativeId:{
+    type:String,
+    default:""
+  }
+})
 
 const otherShow = ref(true)
 const storeInstance = useStore()
@@ -103,8 +112,14 @@ function handleChange (item) {
     console.log('change', item)
 }
 onActivated(() => {
+  console.log(props.outerRelativeId,route.query.relativeId)
   //console.log( window.location.pathname+window.location.search)
-  blogId.value = route.query.relativeId
+  if(props.outerRelativeId!=""){
+    blogId.value = props.outerRelativeId
+  }else{
+    blogId.value = route.query.relativeId
+  }
+  
   //switchSideBar(false)
   getBlog()
   initPageExtendInfo()

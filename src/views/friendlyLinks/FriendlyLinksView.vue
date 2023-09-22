@@ -9,10 +9,34 @@
         <el-row class="independent_row">
           <el-col :span="24" style="text-align: center;"><span class="title_level_1">友情链接</span></el-col>
         </el-row>
-        <el-row>
-          <el-col :span="2"></el-col>
-          <el-col :span="22"><span class="content">没有友情链接</span></el-col>
-        </el-row>     
+        
+        <div style="padding-left:5%;">
+          <div class="friendly-module">
+                    <el-card class="infinite-list-item friendly-link-card fine-font gray-font" shadow="hover">
+                        <el-container>
+                          <el-header>Header</el-header>
+                          <el-main>Main</el-main>
+                        </el-container>   
+                    </el-card>                                               
+          </div>
+          <div class="friendly-module">
+                    <el-card class="infinite-list-item friendly-link-card fine-font gray-font" shadow="hover">
+                        <el-container>
+                          <el-header>Header</el-header>
+                          <el-main>Main</el-main>
+                        </el-container>   
+                    </el-card>                                               
+          </div>
+          <div class="friendly-module">
+                    <el-card class="infinite-list-item friendly-link-card fine-font gray-font" shadow="hover">
+                        <el-container>
+                          <el-header>Header</el-header>
+                          <el-main>Main</el-main>
+                        </el-container>   
+                    </el-card>                                               
+          </div>
+        </div>
+ 
       </el-card>
 
     </div>
@@ -36,5 +60,13 @@ function handleChange (item) {
 
 .about-card >.el-card__body> .el-row{
   margin-bottom:15px;
+}
+
+.friendly-module{
+  padding-left:5%;width: 40%; float:left;height:85px;padding-top:5px
+}
+.friendly-link-card{
+  cursor:pointer;
+  height:100%
 }
 </style>
