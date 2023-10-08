@@ -49,8 +49,8 @@
                             <el-icon><MoonNight /></el-icon>
                             <span>测试</span>
                         </template>
-                            <el-menu-item index="4-1">- Write</el-menu-item>
-                            <el-menu-item index="4-2">- Update</el-menu-item>
+                            <el-menu-item index="testPage">- Write</el-menu-item>
+                            <el-menu-item index="richTextView">- Update</el-menu-item>
                             <el-menu-item index="4-3">- Delete</el-menu-item>
                             <el-sub-menu index="1-4">
                                 <template #title>- Test</template>

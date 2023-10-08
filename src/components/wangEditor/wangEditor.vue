@@ -33,36 +33,14 @@ export default {
     // 编辑器实例，必须用 shallowRef
     const editorRef = shallowRef()
 
-    alert("blur");
-    editorRef.value.blur();
       if(document.activeElement instanceof HTMLElement){
         console.log("1111111111 document.activeElement instanceof HTMLElement")
         document.activeElement.blur();
       }
     // 内容 HTML
-    const valueHtml = ref('')
-
-    onActivated(()=>{
-      alert("onActivated");
-      if(document.activeElement instanceof HTMLElement){
-        console.log("onActivated document.activeElement instanceof HTMLElement")
-        document.activeElement.blur();
-      }
-    })
-    onBeforeMount(()=>{
-      alert("onBeforeMount");
-      if(document.activeElement instanceof HTMLElement){
-        console.log("onBeforeMount document.activeElement instanceof HTMLElement")
-        document.activeElement.blur();
-      }
-    })    
+    const valueHtml = ref('')  
     // 模拟 ajax 异步获取内容
     onMounted(() => {
-      alert("onMounted");
-      if(document.activeElement instanceof HTMLElement){
-        console.log("onMounted document.activeElement instanceof HTMLElement")
-        document.activeElement.blur();
-      }
       //document.activeElement.blur();
         setTimeout(() => {
           //查看菜单栏配置
@@ -137,7 +115,6 @@ export default {
     
     // 组件销毁时，也及时销毁编辑器
     onBeforeUnmount(() => {
-      alert("onBeforeUnmount");
         handleDestory()
     })
 
@@ -147,7 +124,6 @@ export default {
         editor.destroy()
     }
     const handleCreated = (editor) => {
-      alert("handleCreated");
       editorRef.value = editor // 记录 editor 实例，重要！
       nextTick(() => {
         editorRef.value = editor // 一定要用 Object.seal() ，否则会报错
@@ -160,7 +136,6 @@ export default {
     }
 
     const setHtml = (htmlVal) => {
-      alert("setHtml")
       valueHtml.value = htmlVal
     }
     return {

@@ -123,6 +123,22 @@ const routes: Array<RouteRecordRaw> = [
             '@/views/admin/adminStructure.vue'
           ),
           meta:{ keepAlive: false} 
+      },{
+        path: '/admin/testPage',
+        name: 'testPage',
+        component: () =>
+          import(
+            '@/views/admin/testPage.vue'
+          ),
+          meta:{ keepAlive: false} 
+      },{
+        path: '/admin/richTextView',
+        name: 'richTextView',
+        component: () =>
+          import(
+            '@/views/component/richTextView.vue'
+          ),
+          meta:{ keepAlive: false} 
       }
     ]
   }

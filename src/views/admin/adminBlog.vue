@@ -42,6 +42,7 @@
               <el-button type="primary" icon="Search" plain @click="initBlogSimpleList" style="margin-bottom:16px">
                 查询
               </el-button>
+
           </el-form>
          <el-row>
           <el-col :span="24">&nbsp;</el-col>
@@ -105,7 +106,8 @@
           <el-row>
             <el-col :span="24">
               <el-form-item label="正文">
-                <wangEditor ref="editorInstance" :key="componentKey" style="height:500px" :outSideHtmlValue="blogForm.content"></wangEditor>
+                <!-- <wangEditor ref="editorInstance" :key="componentKey" style="height:500px" :outSideHtmlValue="blogForm.content"></wangEditor> -->
+                <editor ref="editorInstance" :key="componentKey" :initialValue="blogForm.content" />
               </el-form-item>
             </el-col>
           </el-row>                    
@@ -118,8 +120,8 @@
 </template>
 
 <script lang="ts" setup>
-import wangEditor from "@/components/wangEditor/wangEditor.vue"
-import fileComponent from "@/components/file/fileComponent.vue"
+
+import Editor from "@/components/tinyMCE/index";
 import { getBlogDetail,submitRichHtml,blogsSimpleList} from "@/js/blog.js"
 import {baseURL} from '@/config'
 import { ElMessage } from 'element-plus'
@@ -204,7 +206,7 @@ const pageGetBlogDetail = () =>{
               blogForm.image = resp.data.image
               blogForm.content = resp.data.content
 
-              editorInstance.value.setHtml(resp.data.content)
+              editorInstance.value.setContentHtml(resp.data.content)
             }else{
                 ElMessage.error(resp.msg)
             }
@@ -215,13 +217,14 @@ const pageGetBlogDetail = () =>{
 }
 
 const getHtmlImpl = () => {
-  let htmlval = editorInstance.value.getHtml()
+  let htmlval = editorInstance.value.getContentHtml()
   return htmlval
 }
 
+
 const submitHtml = () => {
   let richHtml = getHtmlImpl()
-  blogForm.content = richHtml.value
+  blogForm.content = richHtml
     submitRichHtml(blogForm)
         .then((response:any) => {
           if(response.code == "0"){
