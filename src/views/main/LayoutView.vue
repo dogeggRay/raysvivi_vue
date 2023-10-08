@@ -28,7 +28,7 @@
                     router
                   >
                     <el-menu-item index="/view">首页</el-menu-item>
-                    <el-menu-item index="/view/structure">总览</el-menu-item>
+                    <el-menu-item index="/view/structure">战术笔记</el-menu-item>
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
@@ -93,7 +93,7 @@
     <el-card class="support_card adapt_hidden_part" style="color: #939393;" shadow="hover">
             <el-row class="">
               <el-col :span="24">
-                  <el-icon @click="statementShow"><Menu /></el-icon>
+                <el-icon @click="statementShow" style="transform: rotate(90deg);"> <DArrowLeft /></el-icon>
               </el-col>
             </el-row>                          
     </el-card>

@@ -40,35 +40,7 @@
             <el-divider content-position="left" style="margin:15px 0px">正文</el-divider>
 
               <div style="height: 600px;">
-                <vue3-tree-org
-                  :default-expand-level="99"
-                  :data="structureBody.value"
-                  :disabled="disaledFlag"
-                  :center="false"
-                  :scalable="false"
-                  :horizontal="horizontal"
-                  :collapsable="collapsable"
-                  :label-style="labelstyle"
-                  :define-menus="menus"
-                  :only-one-node="onlyOneNode"
-                  :clone-node-drag="cloneNodeDrag"
-                  @on-contextmenu="onMenus"
-                  @on-node-click="onNodeClick"
-                >
-                <template v-slot="{node}">
-                    <div class="tree-org-node__text node-label node" @contextmenu.prevent="terFun(node)">
-                      {{ node.label.split("_")[0]}}
-                      <div v-if=" node.open" class="late" id="lateId">
-                        <el-input placeholder="请输入label" style="padding-bottom:5px" v-model="node.label"/>
-                        <div @click="closeEdit(node)" class="onCloseCss">确定</div>
-                      </div>
-                    </div>
-                  </template>
-                  <!-- 自定义展开按钮 -->
-                  <!-- <template v-slot:expand="{node}">
-                    <div>{{ node.children.length }}</div>
-                  </template> -->
-                </vue3-tree-org>
+                
               </div>
       </el-main>
     </el-container>
@@ -91,7 +63,6 @@
 import { ElSwitch, ElColorPicker, ElMessage,ElMessageBox  } from 'element-plus'
 import BlogDetail from '@/views/blog/detail/blogDetail.vue'
 import {isEmpty} from "@/utils/common.js"
-import 'vue3-tree-org/lib/vue3-tree-org.css'
 import { ref,onMounted,reactive ,nextTick ,getCurrentInstance,ComponentInternalInstance} from 'vue'
 import { getStrucNameList,queryOneStruc,updateStruc,addStruc} from "@/js/structure.js"
 import store from '@/store'

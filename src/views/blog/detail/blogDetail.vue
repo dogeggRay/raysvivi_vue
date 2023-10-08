@@ -1,5 +1,7 @@
 <template>
   <div class = "inner-container">
+    
+       <el-icon v-if="fromFlag!=0" class="blogDetailClose" size="30" @click="closeClick"><CircleClose /></el-icon>
       <el-card class="about-card blog-detail-card" shadow="always">
         
         <div v-if="otherShow" class="fine-font breadcrumb">
@@ -11,7 +13,11 @@
 
         <el-row class="independent_row">
           <el-col v-if="fromFlag==0" :span="24" style="text-align: left;"><span class="title_level_1">{{blog.title}}</span></el-col>
-          <el-col v-else :span="24" style="text-align: left;"><router-link class="title_level_1" style="text-decoration:underline" target="_blank" :to="{name:'blogDetail',query:{relativeId:outerRelativeId}}">{{blog.title}}</router-link>   </el-col>
+          <el-col v-else :span="24" style="text-align: left;">
+            <router-link class="title_level_1" style="text-decoration:underline" target="_blank" :to="{name:'blogDetail',query:{relativeId:outerRelativeId}}">
+              <el-icon style="position:relative;top:5px;margin-right:10px" size="30"><Link /></el-icon>{{blog.title}}
+            </router-link>   
+          </el-col>
         </el-row>
         
         <!-- <el-row class="independent_row">
@@ -67,7 +73,7 @@
 
 <script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { ref ,reactive,onActivated,onBeforeUnmount,shallowRef,nextTick,defineExpose,defineProps } from 'vue'
+import { ref ,reactive,onActivated,onBeforeUnmount,onBeforeMount,shallowRef,nextTick,defineExpose,defineProps,defineEmits } from 'vue'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
 import { pageExtendInfo} from "@/js/visitor.js"
 import store from '@/store'
@@ -90,6 +96,8 @@ const props = defineProps({
   }
 })
 
+const outerEmits = defineEmits(['detailClose'])
+
 const otherShow = ref(true)
 const storeInstance = useStore()
 const componentKey = Date.now()
@@ -111,8 +119,17 @@ const blogId = ref()
 function handleChange (item) {
     console.log('change', item)
 }
+onBeforeMount(()=>{
+  if(document.activeElement instanceof HTMLElement){
+    console.log("onBeforeMount1 document.activeElement instanceof HTMLElement")
+    document.activeElement.blur();
+  }
+})
 onActivated(() => {
-  console.log(props.outerRelativeId,route.query.relativeId)
+  if(document.activeElement instanceof HTMLElement){
+    console.log("onActivated1 document.activeElement instanceof HTMLElement")
+    document.activeElement.blur();
+  }
   //console.log( window.location.pathname+window.location.search)
   if(props.outerRelativeId!=""){
     blogId.value = props.outerRelativeId
@@ -160,6 +177,7 @@ const initPageExtendInfo =() =>{
     })
 }
 const initHtmlShow = () =>{
+  let imgNodes = document.getElementsByTagName("img");
     return
 }
 // 组件销毁时，也及时销毁编辑器
@@ -192,6 +210,7 @@ const editorRef = shallowRef()
     const editorConfig = { 
       placeholder: '请输入内容...' ,
       readOnly : true,
+      autoFocus: false
     }
 
     const tagClick = (tag) =>{
@@ -205,6 +224,9 @@ const editorRef = shallowRef()
       getBlog()
     }
 
+    const closeClick = () =>{
+        outerEmits("detailClose")
+    }
 
 defineExpose({
   blogRefresh
@@ -230,5 +252,19 @@ defineExpose({
 
 /deep/ .w-e-text-container .w-e-scroll{
   overflow-y:hidden!important
+}
+
+@media screen
+and (max-device-width : 768px) {
+  .blogDetailClose{
+    position: fixed;right: 11%;z-index: 99;top: 18%;cursor:pointer
+  }
+}
+
+@media screen
+and (min-device-width : 768px) {
+  .blogDetailClose{
+    display:none
+  }
 }
 </style>

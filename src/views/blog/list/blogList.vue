@@ -4,7 +4,7 @@
         class="infinite-list inner-container"
         style="overflow: auto;"
       >
-        <el-card v-for="item in blog.list" :key="item" class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always">
+        <el-card v-for="item in blog.list" :key="item" class="infinite-list-item blog-list-card fine-font gray-font"  shadow="hover">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside class="blog-list-aside">
               <el-image class="card_image" :src="item.image"  @click="blogTouch(item.id)" />
