@@ -12,6 +12,9 @@ import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '.
 import { editorProps, IPropTypes } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, nextTick, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
 import { Editor as TinyMCEEditor, EditorEvent, TinyMCE } from 'tinymce';
+import {baseURL} from '@/config'
+import store from '@/store'
+import { uploadImgFile} from "@/js/file.js"
 
 type EditorOptions = Parameters<TinyMCE['init']>[0];
 
@@ -28,6 +31,26 @@ const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
     ref: elementRef
   });
 
+const imageUploadHandler = (blobInfo, success, failure, progress) => new Promise((resolve, reject) => {
+  const formData = new FormData()
+  formData.append('file', blobInfo.blob())
+  uploadImgFile(formData).then((resp:any) => {
+    console.log(resp)
+      if(resp.code == "0"){
+        resolve(resp.data)
+      }else{
+        reject(resp.msg)
+      }
+  })
+  .catch((e) => {
+    reject(e)
+  });
+
+});
+
+// {
+//   success("https://persional-images.oss-cn-hangzhou.aliyuncs.com/myblog/2023-03-10/2f85dfe362c44b749a028ab3687530d3.png");
+// }
 const defaultInitValues = { 
   selector: undefined, 
   target: undefined ,
@@ -38,11 +61,11 @@ const defaultInitValues = {
   //blockquote subscript superscript rem
   min_height: 800,
   width:'100%',
-  images_upload_url: '/demo/upimg.php',
-  images_upload_base_path: '/demo',
+  // images_upload_url: baseURL+'/api/file/uploadFile',
+  images_upload_handler: imageUploadHandler,
   toolbar_sticky: true,
-   autosave_ask_before_unload: false,
-   content_style: "img {max-width:100%;}"
+  autosave_ask_before_unload: false,
+  content_style: "img {max-width:100%;}"
 };
 
 export const Editor = defineComponent({

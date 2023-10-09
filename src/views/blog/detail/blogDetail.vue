@@ -44,21 +44,14 @@
         </el-row>
 
         <el-divider content-position="left" ></el-divider>
-   <div style="font-weight:300" class="blogDetailDiv">
-    <!-- 不知道为什么菜单栏自己消失了  good good-->
-              <!-- <Editor
-                style="height: 80%; overflow-y: hidden;"
-                v-model="blog.content"
-                :defaultConfig="editorConfig"
-                @onCreated="handleCreated"
-              /> -->
-              <div>
-                <div v-html="blog.content"></div>
-              </div>
-            </div>
         <el-row>
           <el-col :span="24">
             
+          </el-col>
+        </el-row>    
+        <el-row>
+          <el-col :span="24">
+            <div v-html="blog.content" class="fine-font"></div>
           </el-col>
         </el-row>    
 
@@ -271,7 +264,8 @@ and (min-device-width : 768px) {
   }
 }
 
-:deep(img){
-  width:100%;
-}
+// :deep(img, video){
+//   width:100%;
+// }
+
 </style>
