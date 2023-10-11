@@ -37,8 +37,7 @@
                     />
                 </el-select>
             </el-form-item>
-            <el-button type="primary" icon="Plus" plain @click="submitHtml" style="margin-bottom:16px">提交
-                  </el-button>
+            
               <el-button type="primary" icon="Search" plain @click="initBlogSimpleList" style="margin-bottom:16px">
                 查询
               </el-button>
@@ -113,7 +112,8 @@
           </el-row>                    
         </el-form>
          <el-row>
-          <el-col :span="24"></el-col>
+          <el-col :span="24"><el-button type="primary" icon="Plus" plain @click="submitHtml" style="margin-bottom:16px">提交
+                  </el-button></el-col>
         </el-row>      
 
     </div>

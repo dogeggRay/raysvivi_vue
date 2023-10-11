@@ -31,22 +31,20 @@ const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
     ref: elementRef
   });
 
-const imageUploadHandler = (blobInfo, success, failure, progress) => new Promise((resolve, reject) => {
+const imageUploadHandler = (blobInfo, success, failure, progress) => {
   const formData = new FormData()
   formData.append('file', blobInfo.blob())
   uploadImgFile(formData).then((resp:any) => {
-    console.log(resp)
       if(resp.code == "0"){
-        resolve(resp.data)
+        success(resp.data)
       }else{
-        reject(resp.msg)
+        failure(resp.msg)
       }
   })
   .catch((e) => {
-    reject(e)
+    failure(e)
   });
-
-});
+};
 
 // {
 //   success("https://persional-images.oss-cn-hangzhou.aliyuncs.com/myblog/2023-03-10/2f85dfe362c44b749a028ab3687530d3.png");
@@ -54,10 +52,10 @@ const imageUploadHandler = (blobInfo, success, failure, progress) => new Promise
 const defaultInitValues = { 
   selector: undefined, 
   target: undefined ,
-  plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
+  plugins: 'hr preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample code table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons',
   editimage_cors_hosts: ['picsum.photos'],
   menubar: 'file edit view insert format tools table help',
-  toolbar: "accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight formatpainter outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | anchor codesample blockquote",
+  toolbar: "blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight formatpainter outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | anchor codesample blockquote",
   //blockquote subscript superscript rem
   min_height: 800,
   width:'100%',
@@ -131,9 +129,11 @@ export const Editor = defineComponent({
       } else if (element.value && element.value.ownerDocument) {
         const channel = props.cloudChannel ? props.cloudChannel : '6';
         const apiKey = "79k7ux5bv4e7da4y0dlgawnx544ndvdopy5ehxsug9m5699o";
-        const scriptSrc: string = isNullOrUndefined(props.tinymceScriptSrc) ?
-          `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js` :
-          props.tinymceScriptSrc;
+        // const scriptSrc: string = isNullOrUndefined(props.tinymceScriptSrc) ?
+        //   `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js` :
+        //   props.tinymceScriptSrc;
+        // const scriptSrc = "src/components/tinyMCE/js/tinymce.min.js";
+        const scriptSrc = "/tinymce/tinymce.min.js";
         ScriptLoader.load(
           element.value.ownerDocument,
           scriptSrc,

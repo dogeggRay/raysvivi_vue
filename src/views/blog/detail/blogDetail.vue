@@ -51,7 +51,9 @@
         </el-row>    
         <el-row>
           <el-col :span="24">
-            <div v-html="blog.content" class="fine-font"></div>
+            <div v-html="blog.content" class="fine-font" @click="contentClick($event)" style="padding-left:1%"></div>
+            <!-- <div v-html="Prism.highlight(blog.content, Prism.languages.js)" class="fine-font" @click="contentClick($event)" style="padding-left:1%"></div> -->
+            
           </el-col>
         </el-row>    
 
@@ -63,11 +65,24 @@
       </el-card>
 
 
-         
+      <el-drawer
+        v-model="imgVisible"
+        direction="ttb"
+        :with-header="false"
+        size="100%"
+        
+      ><div @click="imgDialogClose" class="imgContainer">
+        <img :src="clickImgUrl" style="max-width: 100%;max-height: 100%;width: auto;border: solid white 2px" >
+      </div>
+        <div @click="imgDialogClose" style="text-align:center;color:white">点击关闭</div>
+        
+      </el-drawer>
     </div>
 </template>
 
 <script lang="ts" setup>
+import Prism from "prismjs";
+import '@/assets/css/prism/prism.min.css'
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { ref ,reactive,onActivated,onBeforeUnmount,onBeforeMount,shallowRef,nextTick,defineExpose,defineProps,defineEmits } from 'vue'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
@@ -80,7 +95,6 @@ import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
 //import {switchSideBar} from "@/js/common.js"
 import { ArrowRight } from '@element-plus/icons-vue'
-
 const props = defineProps({
   fromFlag:{
     type: Number,
@@ -115,17 +129,7 @@ const blogId = ref()
 function handleChange (item) {
     console.log('change', item)
 }
-onBeforeMount(()=>{
-  if(document.activeElement instanceof HTMLElement){
-    console.log("onBeforeMount1 document.activeElement instanceof HTMLElement")
-    document.activeElement.blur();
-  }
-})
 onActivated(() => {
-  if(document.activeElement instanceof HTMLElement){
-    console.log("onActivated1 document.activeElement instanceof HTMLElement")
-    document.activeElement.blur();
-  }
   //console.log( window.location.pathname+window.location.search)
   if(props.outerRelativeId!=""){
     blogId.value = props.outerRelativeId
@@ -173,13 +177,10 @@ const initPageExtendInfo =() =>{
     })
 }
 const initHtmlShow = () =>{
-  let imgNodes = document.getElementsByTagName("img");
-    return
+  setTimeout(() => {
+        Prism.highlightAll()// 全局代码高亮
+    }, 100)
 }
-// 组件销毁时，也及时销毁编辑器
-onBeforeUnmount(() => {
-  return
-})
 
 //==========================================================================================
 const editorRef = shallowRef()
@@ -224,12 +225,25 @@ const editorRef = shallowRef()
         outerEmits("detailClose")
     }
 
+    const imgVisible = ref(false)
+    const clickImgUrl = ref("")
+    const contentClick = (event) =>{
+      if(event.target.localName=="img"){
+        imgVisible.value = true
+          clickImgUrl.value = event.target.currentSrc
+      }
+    }
+
+    const imgDialogClose=() =>{
+      imgVisible.value = false;
+    }
 defineExpose({
   blogRefresh
 })    
 </script>
 
 <style lang="less" scoped>
+ //@import url('@/assets/css/prism/prism.min.css');
 // .el_main_first{
 //   height:auto;
 // }
@@ -250,10 +264,15 @@ defineExpose({
   overflow-y:hidden!important
 }
 
+//小屏
 @media screen
 and (max-device-width : 768px) {
   .blogDetailClose{
     position: fixed;right: 11%;z-index: 99;top: 18%;cursor:pointer
+  }
+  .imgContainer{
+    margin-top: 20%;
+    height: 100%;
   }
 }
 
@@ -262,10 +281,38 @@ and (min-device-width : 768px) {
   .blogDetailClose{
     display:none
   }
+  .imgContainer{
+    margin-top: 5%;
+    height: 70%;
+  }
 }
 
-// :deep(img, video){
-//   width:100%;
+:deep(img, video){
+  width:100%;
+  height:auto;
+}
+
+// :deep(.el-dialog__body){
+//     padding:0px
 // }
 
+// :deep(.el-dialog__header){
+//     display:none
+// }
+
+:deep(.el-drawer){
+  background: transparent;
+}
+
+.imgContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70%;
+}
+
+:deep(.el-drawer__body){
+    padding: 0px;
+}
 </style>

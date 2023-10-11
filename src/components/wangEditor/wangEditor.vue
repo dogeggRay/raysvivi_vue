@@ -33,10 +33,6 @@ export default {
     // 编辑器实例，必须用 shallowRef
     const editorRef = shallowRef()
 
-      if(document.activeElement instanceof HTMLElement){
-        console.log("1111111111 document.activeElement instanceof HTMLElement")
-        document.activeElement.blur();
-      }
     // 内容 HTML
     const valueHtml = ref('')  
     // 模拟 ajax 异步获取内容
