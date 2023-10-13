@@ -48,25 +48,36 @@ const drawOption = reactive({
         symbolSize: 10,
         left:70,
         initialTreeDepth: -1,
+        edgeShape:'polyline',
         label: {
             show: true,
-            position:'top',
+            position: ['0%', '50%'],
+            backgroundColor: '#354A5E',
             
+			borderRadius: 5,
+			width: 110,
+            height:20,
+            verticalAlign: 'middle',
+            color:'white',
+            padding:[10,0,0,0],
             formatter:(param)=>{
                 if(param.value&&param.value.length>0){
-                    return '{link|'+param.name+'}'
+                    return '{link| ≡ '+param.name+'}'
                 }
-                return '{noLink|'+param.name+'}'
+                return '{noLink| '+param.name+'}'
             },
             rich:{
                 link:{
-                    backgroundColor:'#AFB3BA',
-                    borderType:'solid',
                     fontWeight:'bolder',
                     fontSize:15,
                 },
                 noLink:{
                     fontSize:15,
+                },
+                underLine:{
+                    borderWidth:1,
+                    borderType:'solid',
+                    borderColor:'red',
                 }
             }
         },

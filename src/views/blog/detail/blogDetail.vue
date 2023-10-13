@@ -274,6 +274,9 @@ and (max-device-width : 768px) {
     margin-top: 20%;
     height: 100%;
   }
+  :deep(pre){
+    font-size:x-small;
+  }
 }
 
 @media screen
@@ -284,6 +287,9 @@ and (min-device-width : 768px) {
   .imgContainer{
     margin-top: 5%;
     height: 70%;
+  }
+  :deep(pre){
+    font-size:smaller;
   }
 }
 

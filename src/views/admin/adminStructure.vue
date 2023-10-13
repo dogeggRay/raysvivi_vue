@@ -8,29 +8,11 @@
                       <el-option v-for="item in structureList" :key="item.id" :value="item.id" :label="item.label" />
                     </el-select>
                 </el-col>
-                <el-col :span="7"> 
-                    <div style="margin-right: 10px;float:left"><el-button @click="addData">新增</el-button> </div>
-                    <div style="margin-right: 10px;float:left"><el-button @click="updateData">更新</el-button> </div>
-                </el-col>
             </el-row>
         
             
       </el-header>
       <el-main>
-                <!-- <div style="display: flex; padding: 10px;" v-if="store.getters['accessToken']"> -->
-                  <!-- <div style="display: flex; padding: 10px;">
-                    <div style="margin-right: 10px"><el-switch v-model="horizontal"></el-switch> 横向</div>
-                    <div style="margin-right: 10px"><el-switch v-model="collapsable"></el-switch> 可收起</div>
-                    <div style="margin-right: 10px"><el-switch v-model="disaledFlag"></el-switch> 禁止编辑</div>
-                    <div style="margin-right: 10px"><el-switch v-model="onlyOneNode"></el-switch> 仅拖动当前节点</div>
-                    <div style="margin-right: 10px"><el-switch v-model="cloneNodeDrag"></el-switch> 拖动节点副本</div>
-
-                    
-                </div>
-            <div style="padding: 0 10px 10px">
-              背景色：<el-color-picker v-model="labelstyle.background" size="small"></el-color-picker>&nbsp;
-              文字颜色：<el-color-picker v-model="labelstyle.color" size="small"></el-color-picker>&nbsp;
-            </div> -->
             
             <el-row>
                 <el-col :span="10"> 
@@ -40,7 +22,47 @@
             <el-divider content-position="left" style="margin:15px 0px">正文</el-divider>
 
               <div style="height: 600px;">
-                
+                <el-container style="height:100%">
+                  <el-aside width="40%" style="background: lightgray;">
+                          <el-tree 
+                                :data="treeInstance.data" 
+                                :props="defaultProps" 
+                                :highlight-current="true" 
+                                :default-expand-all="true"
+                                :expand-on-click-node="false">
+                                  <template #default="{ node, data }">
+                                    <div class="custom-tree-node">
+                                      <span v-if="data.value" @click="handleNodeClick(data)"><el-icon size="20px" style="position:relative;top:4px"><Document /></el-icon>{{ node.label }}</span>
+                                      <span v-else @click="handleNodeClick(data)">{{ node.label }}</span>
+
+                                      <span class="treeOperate">
+                                        <a @click="append(data)"> 追加 </a>
+                                        <a style="margin-left: 8px" @click="update(node, data)"> 修改 </a>
+                                        <a style="margin-left: 8px" @click="remove(node, data)"> 删除 </a>
+                                      </span>
+                                    </div>
+                                  </template>
+                              </el-tree>
+                  </el-aside>
+                  <el-main>
+                        <el-form :model="treeForm" label-width="120px">
+                          <el-form-item label="node name">
+                            <el-input v-model="treeForm.name" />
+                          </el-form-item>
+                          <el-form-item label="node value">
+                            <el-input v-model="treeForm.value" />
+                          </el-form-item>
+                        </el-form>
+
+                        <el-row>
+                            <el-col :span="24" style="text-align:center"> 
+                                <el-button @click="formReset">reset</el-button>
+                                <el-button @click="formSubmit">submit</el-button>
+                            </el-col>
+                        </el-row>
+                        {{structureBody.id}}
+                  </el-main>
+                </el-container>
               </div>
       </el-main>
     </el-container>
@@ -65,58 +87,83 @@ import BlogDetail from '@/views/blog/detail/blogDetail.vue'
 import {isEmpty} from "@/utils/common.js"
 import { ref,onMounted,reactive ,nextTick ,getCurrentInstance,ComponentInternalInstance} from 'vue'
 import { getStrucNameList,queryOneStruc,updateStruc,addStruc} from "@/js/structure.js"
+import type Node from 'element-plus/es/components/tree/src/model/node'
 import store from '@/store'
+interface Tree {
+  name: string,
+  value: string,
+  children?: Tree[]
+}
+
+const treeForm = reactive({
+  name:"",
+  value:""
+})
+const handleNodeClick = (data: Tree) => {
+  treeForm.name = data.name
+  treeForm.value = data.value
+}
+
+const formReset = () =>{
+  treeForm.name = ""
+  treeForm.value = ""
+}
+
+const append = (data: Tree) => {
+  if(treeForm.name==""){
+    ElMessage.error("node name invalid")
+    return
+  }
+  const newChild = {name: treeForm.name,value:treeForm.value, children: [] }
+  if (!data.children) {
+    data.children = []
+  }
+  data.children.push(newChild)
+  treeInstance.data = [...treeInstance.data]
+}
+
+const update = (node: Node, data: Tree) => {
+  const parent = node.parent
+  const newChild = {name: treeForm.name,value:treeForm.value, children: [] }
+  const children: Tree[] = parent.data.children || parent.data
+  const index = children.findIndex((d) => d.name === data.name)
+  children.splice(index, 1,newChild)
+  treeInstance.data = [...treeInstance.data]
+}
+
+const remove = (node: Node, data: Tree) => {
+  const parent = node.parent
+  const children: Tree[] = parent.data.children || parent.data
+  const index = children.findIndex((d) => d.name === data.name)
+  children.splice(index, 1)
+  treeInstance.data = [...treeInstance.data]
+}
+
+let treeInstance = reactive({data:[{
+  name:"",
+  value:"",
+  children:[]
+}]})
+
+let structureBody =  reactive({
+    id:null,
+    name: "",
+    value:"",
+})
+
+const defaultProps = {
+  children: 'children',
+  label: 'name',
+  value: 'value',
+}
 
 const {proxy} = getCurrentInstance() as ComponentInternalInstance
-let cardOne = reactive({
-  label:"",
-  moduleId:"",
-  relativeId:""
-})
-const cardTwo = reactive({
-  label:"",
-  children:[],
-  id:"",
-  pid:"",
-  expand:"",
-  isLeaf:true,
-  extention:{
-    moduleId:"",
-    relativeId:""
-  }
-})
-
-const menus=[{ name: '复制文本', command: 'copy' }, { name: '新增节点', command: 'add' }, { name: '编辑节点', command: 'newEdit' }, { name: '删除节点', command: 'delete' }]
-
-const cloneNodeDrag = ref(true)
-
-const horizontal= ref(true)
-const collapsable=ref(true)
-const onlyOneNode=ref(false)
-const expandAll=ref(true)
-const disaledFlag=ref(false)
 
 const showDetail = ref(false)
 
 const structureList = ref([])
 const currentRelativeId = ref("")
 const currentStructure = ref("")
-const structureBody = reactive({
-  id:"",
-  name:"demo",
-  value:{
-          id:1,
-          label:"第一个节点",
-          moduleId:"1",
-          relativeId:"2"
-      }
-})
-const labelstyle = reactive({
-    background: "#fff",
-    width: "max-content",
-    color: "#5e6d82",
-    cursor:"pointer"
-})
 const componentTime = Date.now()
 const structureBlog = ref<any>()
 
@@ -150,8 +197,9 @@ const structureChange = () =>{
         if(resp.code == "0"){
           structureBody.id = resp.data.id
           structureBody.name = resp.data.name
-          structureBody.value = resp.data.value
-          collapsable.value = true
+          treeInstance.data = []
+          treeInstance.data.push(resp.data.value)
+          console.log(treeInstance.data)
         }else{
             ElMessage.error(resp.msg)
         }
@@ -173,7 +221,16 @@ const getStructureNameList =() =>{
     })
 }
 
+const formSubmit = () =>{
+  if(structureBody.id == null){
+    addData()
+  }else{
+    updateData()
+  }
+}
+
 const addData = () =>{
+  structureBody.value = treeInstance.data[0];
   addStruc(structureBody).then((resp:any) => {
         if(resp.code == "0"){
           ElMessage.success("OK!")
@@ -192,6 +249,7 @@ const detailHandleClose = () =>{
   console.log("detailHandleClose")
 }
 const updateData = () =>{
+  structureBody.value = treeInstance.data[0];
   updateStruc(structureBody).then((resp:any) => {
         if(resp.code == "0"){
           ElMessage.success("OK!")
@@ -247,5 +305,9 @@ const onMenus = ({ node, command }) => {
 <style lang="less" scoped>
 /deep/ .el-drawer__body{
   padding:0px!important
+}
+
+.treeOperate {
+  margin-left:160px
 }
 </style>
