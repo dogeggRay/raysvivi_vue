@@ -55,6 +55,9 @@ const drawOption = reactive({
             backgroundColor: '#354A5E',
             
 			borderRadius: 5,
+            borderType:'solid',
+            borderColor:'#537494',
+            borderWidth:3,
 			width: 110,
             height:20,
             verticalAlign: 'middle',
