@@ -239,7 +239,7 @@ and (min-device-width : 768px){
 
 
     .blog-list-aside{
-        width:200px;
+        width:300px;
     }   
     
     .blog-list-header {

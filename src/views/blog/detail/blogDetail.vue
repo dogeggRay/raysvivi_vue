@@ -130,7 +130,6 @@ function handleChange (item) {
     console.log('change', item)
 }
 onActivated(() => {
-  //console.log( window.location.pathname+window.location.search)
   if(props.outerRelativeId!=""){
     blogId.value = props.outerRelativeId
   }else{
@@ -140,6 +139,9 @@ onActivated(() => {
   //switchSideBar(false)
   getBlog()
   initPageExtendInfo()
+  
+
+  
 })
 
 const router=useRouter()
@@ -179,6 +181,7 @@ const initPageExtendInfo =() =>{
 const initHtmlShow = () =>{
   setTimeout(() => {
         Prism.highlightAll()// 全局代码高亮
+        scrollToSection(window.location.hash)
     }, 100)
 }
 
@@ -237,6 +240,19 @@ const editorRef = shallowRef()
     const imgDialogClose=() =>{
       imgVisible.value = false;
     }
+
+    const scrollToSection = (anchor) =>{
+      
+      if(anchor==""){
+        return
+      }
+    　　let section = document.getElementById(anchor.substring(1,anchor.length))
+    　　if (section) {
+    　　　　section.scrollIntoView()
+    　　}
+    }
+
+
 defineExpose({
   blogRefresh
 })    
