@@ -1,6 +1,8 @@
 <template>
   <div class = "inner-container">
-    
+    <!-- const scriptSrc = "/tinymce/tinymce.min.js"; -->
+
+
        <el-icon v-if="fromFlag!=0" class="blogDetailClose" size="30" @click="closeClick"><CircleClose /></el-icon>
       <el-card class="about-card blog-detail-card" shadow="always">
         
@@ -130,6 +132,7 @@ function handleChange (item) {
     console.log('change', item)
 }
 onActivated(() => {
+
   if(props.outerRelativeId!=""){
     blogId.value = props.outerRelativeId
   }else{

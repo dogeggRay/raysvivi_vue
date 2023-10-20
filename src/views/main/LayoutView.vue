@@ -28,7 +28,7 @@
                     router
                   >
                     <el-menu-item index="/view">首页</el-menu-item>
-                    <el-menu-item index="/view/structure">战术笔记</el-menu-item>
+                    <el-menu-item index="/view/structure">笔记</el-menu-item>
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
@@ -41,7 +41,7 @@
             
           </div>
         </transition> 
-      <el-header class="main_header" height="170px" style="padding:0px;width:100%">
+      <el-header class="main_header" height="250px" style="padding:0px;width:100%">
         <!-- <div class="commonTips">
           当前标签：{{store.getters['currentTag']}}
         </div> -->
@@ -57,6 +57,24 @@
       </el-header>
       <!-- 内容模块 -->
       <el-container class="full_height main_container" style="z-index:2;">
+        <div style="position: absolute;width: 100%;top: 210px;z-index:0">
+            <section class="evan-big-banner_bottom" id="indexPosition">
+              <svg id="EvanWaves" class="waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" style="
+                /* display: none; */
+            ">
+                <defs>
+                  <path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88
+                                -18 s 58 18 88 18 v 44 h -352 Z" fill-opacity="0.7" stroke-width="3" stroke-opacity="0.3"></path>
+                </defs>
+                <g class="parallax">
+                  <use xlink:href="#gentle-wave" x="48" y="0"></use>
+                  <use xlink:href="#gentle-wave" x="48" y="3"></use>
+                  <use xlink:href="#gentle-wave" x="48" y="5"></use>
+                  <use xlink:href="#gentle-wave" x="48" y="7"></use>
+                </g>
+              </svg>
+            </section>          
+        </div>
         <!-- 内容模块-左侧边 -->
         <el-aside width="13%" class="layout_left_aside adapt_show_part" style=""></el-aside>
         <!-- 内容模块-主体 -->
@@ -110,6 +128,7 @@ import { ref ,onMounted,onBeforeUnmount } from 'vue'
 import {initTags} from '@/js/admin'
 import store from '@/store'
 import { useStore } from 'vuex'
+import "@/style/beauty.min.css"
 
 let storeInstance = useStore()
 
@@ -363,5 +382,11 @@ const tagClose = () =>{
 
 .statementDrawer{
   padding-left:22px
+}
+
+.waves-svg{
+  width: 100%;
+    height: 3rem;
+    fill: whitesmoke;
 }
 </style>

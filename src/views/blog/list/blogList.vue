@@ -1,5 +1,6 @@
 <template>
   <div class = "inner-container">
+
     <div
         class="infinite-list inner-container"
         style="overflow: auto;"
@@ -7,7 +8,7 @@
         <el-card v-for="item in blog.list" :key="item" class="infinite-list-item blog-list-card fine-font gray-font"  shadow="hover">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside class="blog-list-aside">
-              <el-image class="card_image" :src="item.image"  @click="blogTouch(item.id)" />
+              <el-image class="card_image" :src="'/landscape/landscape_'+item.picNo+'.jpg'"  @click="blogTouch(item.id)" />
             </el-aside>
             <el-container class="blog-list-container" >
               <el-header class="blog-list-header title-font"  @click="blogTouch(item.id)"><span>{{ item.title }}</span></el-header>
@@ -50,6 +51,7 @@ import {isEmpty} from "@/utils/common.js"
 import store from '@/store'
 import { useStore } from 'vuex'
 import {useRouter} from 'vue-router'
+import {getRandomBg0} from "@/utils/uuid.js"
 const storeInstance = useStore()
 const count = ref(10)
 const blog = reactive({
@@ -108,6 +110,9 @@ const getBlogPages =(isRefresh) => {
     }
     getArtclePageList(pageParam)
         .then((res) => {
+          res.data.forEach((item )=>{
+            item.picNo = getRandomBg0(40)
+          })
           if(isRefresh){
                 blog.list=res.data
                 endFlag.value = false
@@ -215,7 +220,7 @@ and (max-device-width : 768px) {
     }
 
     .blog-list-aside{
-        width:100px;
+        width:130px;
     }    
 
     .blog-list-header {

@@ -6,3 +6,9 @@ export function buildShortUUID (prefix = '') {
     unique++
     return prefix + '_' + random + unique + String(time)
 }
+
+//[1,upperNum]
+export function getRandomBg0(upperNum){
+    var aNumber = (upperNum) * Math.random()+1;
+    return Math.floor(aNumber);
+}

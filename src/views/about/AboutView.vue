@@ -85,7 +85,40 @@
               <el-timeline-item timestamp="2023-01-12" placement="top">
                 <el-card>
                   <p>VUE前端框架搭建</p>
-                  <p>发布上线</p>
+                  <p>上线</p>
+                </el-card>
+              </el-timeline-item>
+              <el-timeline-item timestamp="2023-02-8" placement="top">
+                <el-card>
+                  <p>调研了一下用阿里云OSS做图床</p>
+                </el-card>
+              </el-timeline-item>
+              <el-timeline-item timestamp="2023-02-12" placement="top">
+                <el-card>
+                  <p>用WangEditor做博客部分</p>
+                  <p>前后端打通，随便写点</p>
+                </el-card>
+              </el-timeline-item>
+              <el-timeline-item timestamp="2023-02-26" placement="top">
+                <el-card>
+                  <p>博客太乱，用vue-org-tree做个书架</p>
+                </el-card>
+              </el-timeline-item>
+              <el-timeline-item timestamp="2023-09-3" placement="top">
+                <el-card>
+                  <p>书架不好用，换echarts，我真蠢</p>
+                </el-card>
+              </el-timeline-item>
+              <el-timeline-item timestamp="2023-09-23" placement="top">
+                <el-card>
+                  <p>WangEditor不好用，一堆问题</p>
+                  <p>换tinyMCE</p>
+                </el-card>
+              </el-timeline-item>
+              <el-timeline-item timestamp="2023-10-17" placement="top">
+                <el-card>
+                  <p>说我域名到期，继续掏钱</p>
+                  <p>我丢雷</p>
                 </el-card>
               </el-timeline-item>
               <el-timeline-item timestamp="...待续" placement="top">
