@@ -223,7 +223,7 @@ const tagClose = () =>{
 }
 .el_main_first{
     position: relative;
-    top: -70px;
+    top: -100px;
     // background-color: #E6E6E6;
     padding-top: 12px;  
     overflow-y:hidden;
@@ -237,7 +237,7 @@ const tagClose = () =>{
     padding: 10px 10px 0px 10px;
     margin-left: 10px;
     position: relative;
-    top: -57px;
+    top: -87px;
     //background-color: #E6E6E6;
     border-radius: 7px 0px 0px 0px;
 }
