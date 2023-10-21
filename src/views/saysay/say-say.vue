@@ -1,6 +1,6 @@
 <template>
   <div class="fine-font">
-    <el-date-picker style="margin-left:50px"
+    <el-date-picker class="saysayPicker"
           v-model="saysayRequest.startDateTime"
           type="year"
           placeholder="Pick a year"
@@ -8,7 +8,7 @@
           @change="refreshSaysay"
           value-format="YYYY-MM-DD hh:mm:ss "
         />
-      <el-timeline style="margin-left:50px;margin-top:20px">
+      <el-timeline class="saysayPicker" style="margin-top:20px">
         <el-timeline-item :id="item.id" v-for="(item,index) in saysayList" :key="index" center :timestamp="item.createTime" placement="top">
           <el-card>
             <h4>
@@ -46,4 +46,13 @@ const refreshSaysay = () =>{
 :deep(.el-timeline-item__timestamp){
     color: royalblue;
 }
+
+
+@media screen
+and (min-device-width : 768px){
+  .saysayPicker{
+    margin-left:50px
+  }
+}
+
 </style>
