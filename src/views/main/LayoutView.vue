@@ -7,7 +7,7 @@
     </el-card> 
 
     <!-- 主体模块 -->
-    <el-container  class="1111111111 full_height"  v-bind:class="{ 'mask': maskEffective }" style="background :url('@/assets/background-02.jpg' repeat;">
+    <el-container  class="full_height"  v-bind:class="{ 'mask': maskEffective }" style="background :url('@/assets/background-02.jpg' repeat;">
         <!-- 头部模块 -->
         <transition
           name="fade"
@@ -16,7 +16,7 @@
               <el-row class="top_header_div_row full_height">
                 <el-col :span="2" class="full_height"></el-col>
                 <el-col :span="9" class="full_height main_header_middle">
-                  <span class="cursor-font declare-font top_header_span" @click="declareClick">大雷子子</span>
+                  <span class="cursor-font declare-font top_header_span" @click="declareClick">雷迪博客</span>
                 </el-col>
                 <el-col :span="2" class="full_height"></el-col>
                 <el-col :span="9" class="full_height">
@@ -219,7 +219,7 @@ const flyToTop = () =>{
 }
 
 .main_header_div {
-  background: url("@/assets/animals_book_3.jpg") no-repeat center;
+  background: url("@/assets/animals_book_4.png") no-repeat center;
   background-size: cover;
     width: 100%;
     height: 118%;  
