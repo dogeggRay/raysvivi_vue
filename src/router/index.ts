@@ -77,6 +77,12 @@ const routes: Array<RouteRecordRaw> = [
         import(
           '@/views/structure/structure_page.vue'
         )
+      },{
+        path: '/view/saysay',
+        name: 'saysay',component: () =>
+        import(
+          '@/views/saysay/say-say.vue'
+        )
       }]
   },  
   {

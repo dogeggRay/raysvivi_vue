@@ -35,6 +35,22 @@ export function blogsSimpleList(params) {
     })
 }
 
+export function getSaysayList(data) {
+    return request({
+        url: '/api/tourist/saysay/getList',
+        method: 'post',
+        data,
+    })
+}
+
+export function getLastSaysay(data) {
+    return request({
+        url: '/api/tourist/saysay/getLastSaysay',
+        method: 'post',
+        data,
+    })
+}
+
 export function demoTest(data) {
     return request({
         url: '/api/admin/demo',

@@ -28,13 +28,19 @@
             <el-card class="card_search"  shadow="hover">
               <el-input
                 v-model="SearchKey"
-                placeholder="输入关键字搜索"
+                placeholder="输了也不好使"
                 class="input-with-select"
               >
                 <template #append>
                   <el-icon><Search /></el-icon>
                 </template>
               </el-input>
+            </el-card>
+
+            <el-card class="card_search fine-font"  shadow="hover" >
+              <span style="font-weight: bolder;">动态</span><br/>
+              <span style="font-size: x-small;cursor:pointer" @click="jump2saysay">{{lastSaysay.content}}</span><img v-if="lastSaysay.meme" :src="lastSaysay.meme" style="width: 40px;"/><br/>
+              <span style="font-size: x-small;float: right;">{{lastSaysay.createTime}}</span>
             </el-card>
           <!-- 标签框 -->
           
@@ -49,7 +55,6 @@
               </el-tag>
 
             </el-card>
-
             <!-- 声明框 -->
             <el-card class="card_search"  shadow="hover">
               <el-row>
@@ -91,6 +96,7 @@ import {useRouter} from 'vue-router'
 
 import { useStore } from 'vuex'
 import {getBloggerParameters} from '@/js/admin'
+import {getLastSaysay} from "@/js/blog.js"
 import store from '@/store'
 import {isEmpty} from "@/utils/common.js"
 type Item = { type: TagProps['type']; label: string }
@@ -121,14 +127,28 @@ const SearchKey = ref("")
 const fix_flag = ref(false)
 onMounted(() => {
   initBloggerParameters()
+  getLastSaysayImpl()
   //查询初始信息
   window.addEventListener('scroll', sorlly)
 })
+
+const lastSaysay = ref("")
+
+const getLastSaysayImpl = () =>{
+  getLastSaysay().then((res)=>{
+    lastSaysay.value = res.data;
+  }).catch((err)=>{
+    console.log(err)
+  })
+}
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', sorlly)
 })
 
+const jump2saysay = () =>{
+   router.push({path:"/view/saysay"})
+}
 const tagChange = (tag) =>{
   let currentTagNode = store.getters['currentTag']
   if(!isEmpty(currentTagNode)){

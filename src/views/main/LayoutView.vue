@@ -1,13 +1,13 @@
 <template>
   <div class="common-layout full_height" >
-
+    <a id="mainTopA"></a>
     <el-card v-if="store.getters['tagMap']&&store.getters['currentTag']" class="blogList_tag_notice fine-font">
       当前标签:
       <el-tag style="position: relative;bottom: 0.1rem;" class="ml-2" type="info" closable @close="tagClose">{{store.getters['tagMap'].get(store.getters['currentTag'])}}</el-tag> 
     </el-card> 
 
     <!-- 主体模块 -->
-    <el-container  class="full_height"  v-bind:class="{ 'mask': maskEffective }" style="background :url('@/assets/background-02.jpg' repeat;">
+    <el-container  class="1111111111 full_height"  v-bind:class="{ 'mask': maskEffective }" style="background :url('@/assets/background-02.jpg' repeat;">
         <!-- 头部模块 -->
         <transition
           name="fade"
@@ -28,6 +28,7 @@
                     router
                   >
                     <el-menu-item index="/view">首页</el-menu-item>
+                    <el-menu-item index="/view/saysay">说说</el-menu-item>
                     <el-menu-item index="/view/structure">笔记</el-menu-item>
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
@@ -95,6 +96,18 @@
         <el-aside v-else width="13%" class="adapt_show_part"></el-aside>
       </el-container>
       
+      
+
+    <!-- 辅助栏 -->
+    <el-affix position="bottom" :offset="10" style="height:0px">
+      <el-card class="operationIcon" shadow="always" @click="flyToTop"> <el-icon><Top /></el-icon> </el-card>
+      <el-card class="operationIcon" shadow="always"> <el-icon ><Promotion /></el-icon> </el-card>
+      <el-card class="operationIcon" shadow="always"> <el-icon ><Promotion /></el-icon> </el-card>
+      <el-card class="operationIcon" shadow="always"> <el-icon ><Promotion /></el-icon> </el-card>
+      <el-card class="operationIcon adapt_hidden_part" shadow="always"><el-icon @click="statementShow" style=""> <DArrowLeft /></el-icon> </el-card>
+      <!-- adapt_hidden_part -->
+    </el-affix>
+
     </el-container>
   </div>
 
@@ -107,18 +120,11 @@
         
     </div>
 
-    <!-- 辅助栏 -->
-    <el-card class="support_card adapt_hidden_part" style="color: #939393;" shadow="hover">
-            <el-row class="">
-              <el-col :span="24">
-                <el-icon @click="statementShow" style="transform: rotate(90deg);"> <DArrowLeft /></el-icon>
-              </el-col>
-            </el-row>                          
-    </el-card>
+
 
     <!--导航抽屉-->
-    <el-drawer custom-class="statementDrawer" direction="btt" size="80%" v-model="navigateDrawer" :with-header="false">
-      <Statement/>
+    <el-drawer custom-class="statementDrawer" direction="rtl" size="90%" v-model="navigateDrawer" :with-header="false">
+      <div @click="statementHide" ><Statement/></div>
     </el-drawer>
 </template>
 
@@ -188,9 +194,21 @@ const statementShow = () => {
   navigateDrawer.value = true;
 }
 
+const statementHide = () => {
+  navigateDrawer.value = false;
+}
+
 const tagClose = () =>{
   storeInstance.commit('setCurrentTag',"")
 }
+
+const flyToTop = () =>{
+  let section = document.getElementById("mainTopA")
+    if (section) {
+        section.scrollIntoView()
+    }
+}
+
 </script>
 
 
@@ -223,7 +241,7 @@ const tagClose = () =>{
 }
 .el_main_first{
     position: relative;
-    top: -100px;
+    top: -130px;
     // background-color: #E6E6E6;
     padding-top: 12px;  
     overflow-y:hidden;
@@ -237,7 +255,7 @@ const tagClose = () =>{
     padding: 10px 10px 0px 10px;
     margin-left: 10px;
     position: relative;
-    top: -87px;
+    top: -117px;
     //background-color: #E6E6E6;
     border-radius: 7px 0px 0px 0px;
 }
@@ -360,14 +378,6 @@ const tagClose = () =>{
     color:#939393;
 }
 
-.support_card{
-    z-index: 2;
-    width:53px;
-    position: fixed;
-    right: 10px;
-    bottom: 20px;  
-    text-align: center;
-}
 
 .blogList_tag_notice{
     position: fixed;
@@ -381,12 +391,39 @@ const tagClose = () =>{
 }
 
 .statementDrawer{
-  padding-left:22px
 }
 
 .waves-svg{
   width: 100%;
     height: 3rem;
     fill: whitesmoke;
+}
+
+//小屏配置
+@media screen
+and (max-device-width : 768px) {
+  .operationIcon{
+    left:85%;
+  }
+}
+
+@media screen
+and (min-device-width : 768px){
+  .operationIcon{
+    left:90%;
+  }
+}
+
+.operationIcon{
+  color:#777AAF;
+  display:block;
+  font-size: x-large;
+  width: 34px;
+  height: 34px;
+  border-radius: 18px;
+  margin-bottom:5px;
+  position: relative;
+  top:-190px;
+  cursor:pointer;
 }
 </style>

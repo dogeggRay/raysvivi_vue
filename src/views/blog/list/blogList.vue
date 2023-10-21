@@ -5,7 +5,7 @@
         class="infinite-list inner-container"
         style="overflow: auto;"
       >
-        <el-card v-for="item in blog.list" :key="item" class="infinite-list-item blog-list-card fine-font gray-font"  shadow="hover">
+        <el-card v-for="item in blog.list" :key="item" class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside class="blog-list-aside">
               <el-image class="card_image" :src="'/landscape/landscape_'+item.picNo+'.jpg'"  @click="blogTouch(item.id)" />
@@ -14,7 +14,7 @@
               <el-header class="blog-list-header title-font"  @click="blogTouch(item.id)"><span>{{ item.title }}</span></el-header>
               <el-main class="blog-list-main"  @click="blogTouch(item.id)">{{ item.abstractInfo }}</el-main>
               <el-footer height="60px" class="blog-list-footer">
-              <el-row>
+              <el-row style="    margin-bottom: 5px;">
                 <el-col :span="24"> 
                   <template v-if="store.getters['tagMap']">
                     <el-tag style="margin-right:5px;cursor:pointer;" v-for="(tag,index) in item.tags" class="ml-2" type="info" :key="index" @click="tagChange(tag)">
@@ -171,6 +171,10 @@ defineExpose({
   padding:0px;
   width:100%;
   height:100%
+}
+
+.blog-list-card:hover{
+  border:1px solid #409EFF
 }
 
 .blog-list-aside{

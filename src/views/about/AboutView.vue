@@ -121,6 +121,11 @@
                   <p>我丢雷</p>
                 </el-card>
               </el-timeline-item>
+              <el-timeline-item timestamp="2023-10-19" placement="top">
+                <el-card>
+                  <p>添加说说模块</p>
+                </el-card>
+              </el-timeline-item>
               <el-timeline-item timestamp="...待续" placement="top">
               </el-timeline-item>              
             </el-timeline>
