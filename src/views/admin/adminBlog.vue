@@ -112,7 +112,7 @@
           </el-row>                    
         </el-form>
          <el-row>
-          <el-col :span="24"><el-button type="primary" icon="Plus" plain @click="submitHtml" style="margin-bottom:16px">提交
+          <el-col :span="24"><el-button type="primary" icon="Plus" plain @click="submitHtml" style="margin-bottom:16px;position:fixed;top: 80%;">提交
                   </el-button></el-col>
         </el-row>      
 

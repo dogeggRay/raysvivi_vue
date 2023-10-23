@@ -10,6 +10,12 @@
           <el-col :span="24" style="text-align: center;"><span class="title_level_1">关于</span></el-col>
         </el-row>
         
+
+        <el-row class="independent_row">
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><img src="https://persional-images.oss-cn-hangzhou.aliyuncs.com/memes/meme_myself_01.jpg" style="width: 40px;"/></el-col>
+        </el-row>
+
         <el-row class="independent_row">
           <el-col :span="1"></el-col>
           <el-col :span="23"><span class="title_level_2">姓名</span></el-col>

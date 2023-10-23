@@ -5,40 +5,43 @@
       <el-col :span="24"></el-col>
     </el-row> 
     <el-row style="margin-bottom:10px">
-      <el-col :span="12"  style="padding-right:10px">
-        <el-input
-            v-model="commentBody.writerName"
-            placeholder="你的昵称"
-        />
-      </el-col>
-      <el-col :span="12"  style="padding-right:10px">
-        <el-input
-            v-model="commentBody.writerUrl"
-            placeholder="你的个人主页URL(选填)"
-        />
-      </el-col>
-      <!-- <el-col :span="8">
-        <el-input
-            v-model="commentBody.writerEmail"
-            placeholder="你的邮箱(选填)"
-        />
-      </el-col> -->
-    </el-row>
-    <el-row>
-      <el-col :span="22" >
-        <el-input
-            v-model="commentBody.content"
-            :rows="2"
-            resize="none"
-            type="textarea"
-            :maxlength="500"
-            placeholder="评论内容为2到500个字符！"
-        />
-      </el-col>
-      <el-col :span="2" >
-        <el-button type="info" style="margin-left:10px;height:100%;width:80%" @click="submitNew">提交</el-button>
-      </el-col>      
-    </el-row>
+         <el-col :span="8"  style="padding-right:10px">
+          <el-input
+              v-model="commentBody.writerName"
+              placeholder="昵称"
+          />
+        </el-col>
+        <el-col :span="8" style="padding-right:10px">
+          <el-input
+              v-model="commentBody.writerEmail"
+              placeholder="邮箱"
+          />
+        </el-col>
+        <el-col :span="8"  style="padding-right:10px">
+          <el-input
+              v-model="commentBody.writerUrl"
+              placeholder="主页URL"
+          />
+        </el-col>
+        </el-row>
+        <el-row style="margin-bottom:10px">
+          <el-col :span="24" style="padding-right:10px">
+            <el-input
+                v-model="replyCommentBody.content"
+                :rows="3"
+                resize="none"
+                type="textarea"
+                :maxlength="500"
+                placeholder="(必填)评论内容为2到500个字符！"
+            />
+          </el-col>
+           
+        </el-row>
+        <el-row>
+          <el-col :span="24" style="padding-right:10px" >
+            <el-button style="height:100%;width:100%" type="primary" @click="submitReply">提交</el-button>
+          </el-col>     
+        </el-row>
     <br/>
     <el-row>
       <el-col :span="24">
@@ -55,7 +58,7 @@
               <el-container>
                 <el-aside width="50px"><el-avatar :size="30"> <el-icon><Avatar /></el-icon> </el-avatar></el-aside>
                 <el-main>
-                  <el-row >
+                  <el-row @click="treeNodeClick(node)">
                     <el-col :span="24">
                       <span class="commentHeader">{{ node.data.writerName }}</span>
                       <!-- <span class="commentExtend">&nbsp;&nbsp;{{ node.data.writerEmail }}</span> -->
@@ -72,7 +75,7 @@
                   <el-row class="commentExtend">
                     <el-col :span="6">{{ node.data.createTime }}</el-col>
                   </el-row>
-                  <div class="commentContent" @click="treeNodeClick(node)">{{ node.label }}</div>
+                  <div class="commentContent" >{{ node.label }}</div>
                 </el-main>
               </el-container>
 
@@ -100,39 +103,42 @@
           <el-col :span="24">评论</el-col>
         </el-row> 
         <el-row style="margin-bottom:10px">
-          <el-col :span="12"  style="padding-right:10px">
-            <el-input
-                v-model="replyCommentBody.writerName"
-                placeholder="你的昵称"
-            />
-          </el-col>
-          <el-col :span="12"  style="padding-right:10px">
-            <el-input
-                v-model="replyCommentBody.writerUrl"
-                placeholder="你的个人主页URL(选填)"
-            />
-          </el-col>
-          <!-- <el-col :span="8">
-            <el-input
-                v-model="replyCommentBody.writerEmail"
-                placeholder="你的邮箱(选填)"
-            />
-          </el-col> -->
+         <el-col :span="8"  style="padding-right:10px">
+          <el-input
+              v-model="commentBody.writerName"
+              placeholder="昵称"
+          />
+        </el-col>
+        <el-col :span="8" style="padding-right:10px">
+          <el-input
+              v-model="commentBody.writerEmail"
+              placeholder="邮箱"
+          />
+        </el-col>
+        <el-col :span="8"  style="padding-right:10px">
+          <el-input
+              v-model="commentBody.writerUrl"
+              placeholder="主页URL"
+          />
+        </el-col>
         </el-row>
-        <el-row>
-          <el-col :span="22" >
+        <el-row style="margin-bottom:10px">
+          <el-col :span="24" style="padding-right:10px">
             <el-input
                 v-model="replyCommentBody.content"
                 :rows="3"
                 resize="none"
                 type="textarea"
                 :maxlength="500"
-                placeholder="评论内容为2到500个字符！"
+                placeholder="(必填)评论内容为2到500个字符！"
             />
           </el-col>
-          <el-col :span="2" >
-            <el-button type="info" style="margin-left:10px;height:100%;width:80%" @click="submitReply">提交</el-button>
-          </el-col>      
+           
+        </el-row>
+        <el-row>
+          <el-col :span="24" style="padding-right:10px" >
+            <el-button type="primary" style="height:100%;width:100%" @click="submitReply">提交</el-button>
+          </el-col>     
         </el-row>
       </el-drawer>
 
@@ -246,9 +252,9 @@ import store from '@/store'
     submit(replyCommentBody)
   }  
   const submit = (body) =>{
-    
-    if(isEmpty(body.writerName)){
-        ElMessage.error("请填写昵称!")
+     
+    if(isEmpty(body.content)){
+        ElMessage.error("评论不能为空")
         return
     }
     setStorageObject(body)
