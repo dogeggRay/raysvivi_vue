@@ -70,6 +70,15 @@
           <el-col :span="23"><span class="content">反正是空着，干脆塞点东西进去玩</span></el-col>
         </el-row>                   
 
+        <!-- <el-row class="independent_row">
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="title_level_2">内容声明</span></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="1"></el-col>
+          <el-col :span="23"><span class="content">本站主要包含读书笔记和日常记录，涉及引用部分将会标注。工作方面的总结将严格遵守信息安全要求，只做技术性总结，对其他信息保持不泄露，不传递的基本职业素质</span></el-col>
+        </el-row> -->
+
         <el-row class="independent_row">
           <el-col :span="1"></el-col>
           <el-col :span="23"><span class="title_level_2">建站历程</span></el-col>

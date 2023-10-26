@@ -53,7 +53,7 @@
         </el-row>    
         <el-row>
           <el-col :span="24">
-            <div v-html="blog.content" class="fine-font" @click="contentClick($event)" style="padding-left:1%"></div>
+            <div v-html="blog.content" @click="contentClick($event)" style="padding-left:1%"></div>
             <!-- <div v-html="Prism.highlight(blog.content, Prism.languages.js)" class="fine-font" @click="contentClick($event)" style="padding-left:1%"></div> -->
             
           </el-col>
@@ -84,7 +84,6 @@
 
 <script lang="ts" setup>
 import Prism from "prismjs";
-import '@/assets/css/prism/prism.min.css'
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { ref ,reactive,onActivated,onBeforeUnmount,onBeforeMount,shallowRef,nextTick,defineExpose,defineProps,defineEmits } from 'vue'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
@@ -262,7 +261,7 @@ defineExpose({
 </script>
 
 <style lang="less" scoped>
- //@import url('@/assets/css/prism/prism.min.css');
+ @import url('@/assets/css/prism/prism-tomorrow.min.css');
 // .el_main_first{
 //   height:auto;
 // }

@@ -84,6 +84,15 @@ const routes: Array<RouteRecordRaw> = [
           '@/views/saysay/say-say.vue'
         )
       }]
+  },{
+    path: '/cyberpunk',
+    name: 'Cyberpunk',
+    component: () =>
+    import(
+      '@/views/cyberpunk/main-page.vue'
+    ),
+    meta:{ keepAlive: true,
+      module:"friendlyLinks"} 
   },  
   {
     path: '/Statement',

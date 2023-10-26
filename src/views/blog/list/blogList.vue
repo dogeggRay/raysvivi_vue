@@ -160,7 +160,7 @@ defineExpose({
   align-items: center;
   justify-content: center;
   background-color:white;
-  margin: 0px 10px 10px 10px;
+  margin: 0px 10px 20px 10px;
 }
 .infinite-list .infinite-list-item + .list-item {
   margin-bottom: 10px;
@@ -174,7 +174,8 @@ defineExpose({
 }
 
 .blog-list-card:hover{
-  border:1px solid #409EFF
+  border:1px solid #409EFF;
+  box-shadow:5px 5px 5px rgba(0,0,0,0.5)
 }
 
 .blog-list-aside{
@@ -243,7 +244,7 @@ and (max-device-width : 768px) {
 @media screen
 and (min-device-width : 768px){
   .blog-list-card{
-      height: 180px;
+      height: 160px;
     }
 
 

@@ -10,8 +10,6 @@
                           background-color="#545c64"
                           class="el-menu-vertical-demo"
                           text-color="#fff"
-                          @open="handleOpen"
-                          @close="handleClose"
                           :default-active="0"
                         >
                           <el-menu-item v-for="(item,index) in structureList" :key="index" :index="index" @click="switchStruc(item.id)">

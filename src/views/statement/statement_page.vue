@@ -104,7 +104,7 @@ type Item = { type: TagProps['type']; label: string }
 const ICP_Filing_record = "皖ICP备2022015508号-1"
 const Public_security_record = "皖公网安备 34070202000554号"
 const copy_right = "Copyright © 2023 · Raysvivi"
-const declare_value = "任何反馈请联系[2105520190@qq.com]";
+const declare_value = "任何反馈请联系[2105520190@qq.com][17714520226微信]";
 const storeInstance = useStore()
 
 const router=useRouter()

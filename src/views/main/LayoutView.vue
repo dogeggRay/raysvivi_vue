@@ -14,12 +14,14 @@
         >
           <div v-if="!headerFlag" class="top_header_div_transparent" >
               <el-row class="top_header_div_row full_height">
-                <el-col :span="2" class="full_height"></el-col>
-                <el-col :span="9" class="full_height main_header_middle">
+                <el-col :span="2" class="full_height">
+                    
+                </el-col>
+                <el-col :span="8" class="full_height main_header_middle">
                   <span class="cursor-font declare-font top_header_span" @click="declareClick">雷迪博客</span>
                 </el-col>
                 <el-col :span="2" class="full_height"></el-col>
-                <el-col :span="9" class="full_height">
+                <el-col :span="10" class="full_height">
                   <el-menu
                     class="top_header_menu full_height declare-font"
                     text-color="white"
@@ -33,13 +35,14 @@
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
+                    
+                    <!-- <el-menu-item ><el-image style="float: right;height: 53.1px;" src="/localmeme/meme_xiran_heart.gif"/></el-menu-item> -->
                    </el-menu>
                 </el-col>
                 <el-col :span="2" class="full_height" style="overflow: hidden;">
                   <router-link class="common-routerlink" to="/login">管理员登陆</router-link>
                 </el-col>
               </el-row>
-            
           </div>
         </transition> 
       <el-header class="main_header" height="250px" style="padding:0px;width:100%">
@@ -80,7 +83,6 @@
         <el-aside width="13%" class="layout_left_aside adapt_show_part" style=""></el-aside>
         <!-- 内容模块-主体 -->
         <el-container class="full_height content_container" style="padding-top:10px;">
-            <!-- <el-header class="adapt_hidden_part" ><Statement/></el-header>   -->
             <el-main class="router_main el_main_first">
             <router-view v-slot="{ Component }">
               <keep-alive>
@@ -99,11 +101,24 @@
       
 
     <!-- 辅助栏 -->
-    <el-affix position="bottom" :offset="10" style="height:0px">
-      <el-card class="operationIcon" shadow="always" @click="flyToTop"> <el-icon><Top /></el-icon> </el-card>
-      <el-card class="operationIcon" shadow="always"> <el-icon ><Promotion /></el-icon> </el-card>
-      <el-card class="operationIcon" shadow="always"> <el-icon ><Promotion /></el-icon> </el-card>
-      <el-card class="operationIcon" shadow="always"> <el-icon ><Promotion /></el-icon> </el-card>
+    <el-affix position="bottom" :offset="20" style="height:0px">
+      <el-card class="operationIcon" shadow="always" @click="flyToTop"> <el-icon ><Top /></el-icon> </el-card>
+      <el-card class="operationIcon" shadow="always"> 
+           
+          <el-popover
+            placement="left"
+            trigger="click"
+            :show-arrow = "false"
+            popper-class="sidebarPopper"
+          >
+            <template #reference>
+              <el-icon style="position: relative;;left: 0.5px;"><Headset /></el-icon>
+            </template>
+            <Musicplayer :key="componentKey" />
+          </el-popover>
+      </el-card>
+      <el-card class="operationIcon" shadow="always"> <el-icon  style="position: relative;top: -2px;left: 0.5px;"><Promotion /></el-icon> </el-card>
+      <el-card class="operationIcon" shadow="always"> <el-icon  style="position: relative;top: -2px;left: 0.5px;"><Promotion /></el-icon> </el-card>
       <el-card class="operationIcon adapt_hidden_part" shadow="always"><el-icon @click="statementShow" style=""> <DArrowLeft /></el-icon> </el-card>
       <!-- adapt_hidden_part -->
     </el-affix>
@@ -115,7 +130,7 @@
         <div style="position: absolute;    top: 50%;    width: 100%;">
             <span>尊敬的游客你好:</span>
             <br/>
-            <span>欢迎光临雷迪的博客</span>
+            <span>技术支持技术支持技术支持技术支持技术支持技术支持技术支持技术支持</span>
         </div>
         
     </div>
@@ -135,6 +150,9 @@ import {initTags} from '@/js/admin'
 import store from '@/store'
 import { useStore } from 'vuex'
 import "@/style/beauty.min.css"
+import Musicplayer from '@/views/cyberpunk/music/music-player.vue'
+
+const componentKey = Date.now()
 
 let storeInstance = useStore()
 
@@ -399,11 +417,22 @@ const flyToTop = () =>{
     fill: whitesmoke;
 }
 
+  .sidebarPopper{
+    padding:0px!important;
+    background-color: transparent!important;
+    border: none!important;
+    box-shadow:none!important;
+  }
+
 //小屏配置
 @media screen
 and (max-device-width : 768px) {
   .operationIcon{
     left:85%;
+  }
+
+  .sidebarPopper{
+    width:78%!important;
   }
 }
 
@@ -412,6 +441,10 @@ and (min-device-width : 768px){
   .operationIcon{
     left:90%;
   }
+
+  .sidebarPopper{
+    width:51%!important
+  }  
 }
 
 .operationIcon{
