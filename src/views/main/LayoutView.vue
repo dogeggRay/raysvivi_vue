@@ -327,9 +327,9 @@ const flyToTop = () =>{
       // background-color:rgba(0, 0, 0, 0.3);
     }
 
-    // .top_header_span{
-    //   line-height:310%;
-    // }
+    .top_header_span{
+      line-height:310%;
+    }
     // .top_header_menu{
     //   background-color:transparent;
     //   border: none;
@@ -348,11 +348,11 @@ const flyToTop = () =>{
     //   background-color:transparent!important;
     // }
 
-    // .el-popper.is-pure{
-    //   background-color:rgba(0, 0, 0, 0.3)!important;
-    //   border: none;
-    //   backdrop-filter: blur(10px);
-    // }
+    .el-popper.is-pure{
+      background-color:rgba(0, 0, 0, 0.0)!important;
+      border: none;
+      backdrop-filter: blur(10px);
+    }
 
     // .el-menu--popup-container{
     //   border: none;
