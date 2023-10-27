@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout full_height" >
+  <div class="common-layout full_height" style="overflow-x:hidden">
     <a id="mainTopA"></a>
     <el-card v-if="store.getters['tagMap']&&store.getters['currentTag']" class="blogList_tag_notice fine-font">
       当前标签:
@@ -24,9 +24,11 @@
                 <el-col :span="10" class="full_height">
                   <el-menu
                     class="top_header_menu full_height declare-font"
-                    text-color="white"
                     mode="horizontal"
                     menu-trigger="click"
+                    background-color="rgba(0,0,0,0)"
+                    text-color="#fff"
+                    active-text-color="#ffd04b"                    
                     router
                   >
                     <el-menu-item index="/view">首页</el-menu-item>
@@ -35,6 +37,7 @@
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
+                    <el-menu-item index="/cyberpunk">cyberpunk</el-menu-item>
                     
                     <!-- <el-menu-item ><el-image style="float: right;height: 53.1px;" src="/localmeme/meme_xiran_heart.gif"/></el-menu-item> -->
                    </el-menu>
@@ -43,14 +46,16 @@
                   <router-link class="common-routerlink" to="/login">管理员登陆</router-link>
                 </el-col>
               </el-row>
+
           </div>
         </transition> 
-      <el-header class="main_header" height="250px" style="padding:0px;width:100%">
+      <el-header class="main_header" height="430px" style="padding:0px;width:100%">
         <!-- <div class="commonTips">
           当前标签：{{store.getters['currentTag']}}
         </div> -->
         <div class="main_header_div">
-          
+          <div class="title_on_main_page"><span>I'd rather make mistakes than make nothing at all</span></div>
+          <BackgroundStars/>
           <!-- <router-link to="/boxOffice">boxofficeview</router-link> -->
           <!-- <router-link to="/MessageBoard">messageboard</router-link> -->
         </div>
@@ -61,7 +66,7 @@
       </el-header>
       <!-- 内容模块 -->
       <el-container class="full_height main_container" style="z-index:2;">
-        <div style="position: absolute;width: 100%;top: 210px;z-index:0">
+        <div style="position: absolute;width: 100%;top: 390px;z-index:0">
             <section class="evan-big-banner_bottom" id="indexPosition">
               <svg id="EvanWaves" class="waves-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" style="
                 /* display: none; */
@@ -151,6 +156,7 @@ import store from '@/store'
 import { useStore } from 'vuex'
 import "@/style/beauty.min.css"
 import Musicplayer from '@/views/cyberpunk/music/music-player.vue'
+import BackgroundStars from '@/views/component/background-stars.vue'
 
 const componentKey = Date.now()
 
@@ -237,7 +243,7 @@ const flyToTop = () =>{
 }
 
 .main_header_div {
-  background: url("@/assets/animals_book_4.png") no-repeat center;
+  background: url("@/assets/background-journey.png") no-repeat center;
   background-size: cover;
     width: 100%;
     height: 118%;  
@@ -317,79 +323,79 @@ const flyToTop = () =>{
       width:100%;
       z-index:4;
       height: 50px;
-      backdrop-filter: blur(10px);
-      background-color:rgba(0, 0, 0, 0.3);
+      // backdrop-filter: blur(10px);
+      // background-color:rgba(0, 0, 0, 0.3);
     }
 
-    .top_header_span{
-      line-height:310%;
-    }
-    .top_header_menu{
-      background-color:transparent;
-      border: none;
-    }
+    // .top_header_span{
+    //   line-height:310%;
+    // }
+    // .top_header_menu{
+    //   background-color:transparent;
+    //   border: none;
+    // }
 
-    .top_header_menu >.el-menu-item:hover,.top_header_menu >.el-menu-item.is-active {
-      background: rgba(255,255,255,0.2)!important;
-      color: #fff !important;
-    }
+    // .top_header_menu >.el-menu-item:hover,.top_header_menu >.el-menu-item.is-active {
+    //   background: rgba(255,255,255,0.2)!important;
+    //   color: #fff !important;
+    // }
 
-    .el-menu--popup > .el-menu-item{
-      color:white!important;
-    }
+    // .el-menu--popup > .el-menu-item{
+    //   color:white!important;
+    // }
 
-    .el-menu--popup-bottom-start > .el-menu-item ,.el-menu--popup-bottom-start{
-      background-color:transparent!important;
-    }
+    // .el-menu--popup-bottom-start > .el-menu-item ,.el-menu--popup-bottom-start{
+    //   background-color:transparent!important;
+    // }
 
-    .el-popper.is-pure{
-      background-color:rgba(0, 0, 0, 0.3)!important;
-      border: none;
-      backdrop-filter: blur(10px);
-    }
+    // .el-popper.is-pure{
+    //   background-color:rgba(0, 0, 0, 0.3)!important;
+    //   border: none;
+    //   backdrop-filter: blur(10px);
+    // }
 
-    .el-menu--popup-container{
-      border: none;
-    }
+    // .el-menu--popup-container{
+    //   border: none;
+    // }
 
-    .el-menu--horizontal>.el-sub-menu:focus, .el-menu--horizontal>.el-sub-menu:hover {
-      background-color:rgba(255,255,255,0.2)
-    }
+    // .el-menu--horizontal>.el-sub-menu:focus, .el-menu--horizontal>.el-sub-menu:hover {
+    //   background-color:rgba(255,255,255,0.2)
+    // }
 
-    .el-tooltip__trigger{
-      background-color: rgba(255,255,255,0.2)
-    }
+    // .el-tooltip__trigger{
+    //   background-color: rgba(255,255,255,0.2)
+    // }
 
-    .el-sub-menu__hide-arrow{
-      background-color:transparent;
-      transition: opacity .5s;
-    }
-    .el-menu--horizontal>.el-sub-menu.is-active{
-      background-color: transparent!important
-    }
+    // .el-sub-menu__hide-arrow{
+    //   background-color:transparent;
+    //   transition: opacity .5s;
+    // }
+    // .el-menu--horizontal>.el-sub-menu.is-active{
+    //   background-color: transparent!important
+    // }
 
-    .el-tooltip__trigger:hover{
-      background-color: rgba(255,255,255,0.2)!important
-    }    
+    // .el-tooltip__trigger:hover{
+    //   background-color: rgba(255,255,255,0.2)!important
+    // }    
 
-    .el-menu--popup-bottom-start > .el-menu-item:hover{
-      background-color: rgba(255,255,255,0.2)!important
-    }
+    // .el-menu--popup-bottom-start > .el-menu-item:hover{
+    //   background-color: rgba(255,255,255,0.2)!important
+    // }
 
-    .el-sub-menu__hide-arrow.is-active>.el-tooltip__trigger{
-      color:white!important;
-    }
-    .el-menu--popup-bottom-start > .el-menu-item.is-active{
-      background-color: rgba(255,255,255,0.2)!important
-    }    
+    // .el-sub-menu__hide-arrow.is-active>.el-tooltip__trigger{
+    //   color:white!important;
+    // }
+    // .el-menu--popup-bottom-start > .el-menu-item.is-active{
+    //   background-color: rgba(255,255,255,0.2)!important
+    // }    
 
-    // 过渡动画样式
-    .fade-enter-active, .fade-leave-active {
-      transition: opacity .5s;
-    }
-    .fade-enter, .fade-leave-to  {
-      opacity: 0;
-    }    
+    // // 过渡动画样式
+    // .fade-enter-active, .fade-leave-active {
+    //   transition: opacity .5s;
+    // }
+    // .fade-enter, .fade-leave-to  {
+    //   opacity: 0;
+    // }    
 //辅助栏===================================================
 .declare_card{
     font-size: xx-small;
@@ -424,6 +430,12 @@ const flyToTop = () =>{
     box-shadow:none!important;
   }
 
+.title_on_main_page{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
 //小屏配置
 @media screen
 and (max-device-width : 768px) {
@@ -434,6 +446,12 @@ and (max-device-width : 768px) {
   .sidebarPopper{
     width:78%!important;
   }
+
+  .title_on_main_page{
+    top: 26%;
+    font-weight: 700;
+    font-size: 14px;    
+}
 }
 
 @media screen
@@ -445,6 +463,12 @@ and (min-device-width : 768px){
   .sidebarPopper{
     width:51%!important
   }  
+
+  .title_on_main_page{
+      top: 24%;
+      font-weight: 700;
+      font-size: 2rem;
+  }
 }
 
 .operationIcon{

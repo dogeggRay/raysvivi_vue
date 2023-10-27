@@ -174,7 +174,7 @@ defineExpose({
 }
 
 .blog-list-card:hover{
-  border:1px solid #409EFF;
+  border:1px solid black;
   box-shadow:5px 5px 5px rgba(0,0,0,0.5)
 }
 
@@ -206,6 +206,7 @@ defineExpose({
     .card_image{
       width: 100%;
       height: 100%;
+    filter: grayscale(60%);      
     }
     .blog-list-container{
       padding-left:1rem;
