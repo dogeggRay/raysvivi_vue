@@ -18,7 +18,7 @@
                     
                 </el-col>
                 <el-col :span="8" class="full_height main_header_middle">
-                  <span class="cursor-font declare-font top_header_span" @click="declareClick">雷迪博客</span>
+                  <span class="cursor-font declare-font top_header_span" @click="declareClick">雷迪JOURNEY</span>
                 </el-col>
                 <el-col :span="2" class="full_height"></el-col>
                 <el-col :span="10" class="full_height">
@@ -28,7 +28,7 @@
                     menu-trigger="click"
                     background-color="rgba(0,0,0,0)"
                     text-color="#fff"
-                    active-text-color="#ffd04b"                    
+                    active-text-color="rgba(227,230,195)"                    
                     router
                   >
                     <el-menu-item index="/view">首页</el-menu-item>
@@ -37,7 +37,7 @@
                     <el-menu-item index="/view/friendlyLinks">友链</el-menu-item>
                     <el-menu-item index="/view/messageBoard">留言</el-menu-item>
                     <el-menu-item index="/view/about">关于</el-menu-item>
-                    <el-menu-item index="/cyberpunk">cyberpunk</el-menu-item>
+                    <el-menu-item >cyberpunk</el-menu-item>
                     
                     <!-- <el-menu-item ><el-image style="float: right;height: 53.1px;" src="/localmeme/meme_xiran_heart.gif"/></el-menu-item> -->
                    </el-menu>
@@ -50,9 +50,6 @@
           </div>
         </transition> 
       <el-header class="main_header" height="430px" style="padding:0px;width:100%">
-        <!-- <div class="commonTips">
-          当前标签：{{store.getters['currentTag']}}
-        </div> -->
         <div class="main_header_div">
           <div class="title_on_main_page"><span>I'd rather make mistakes than make nothing at all</span></div>
           <BackgroundStars/>
@@ -330,23 +327,7 @@ const flyToTop = () =>{
     .top_header_span{
       line-height:310%;
     }
-    // .top_header_menu{
-    //   background-color:transparent;
-    //   border: none;
-    // }
-
-    // .top_header_menu >.el-menu-item:hover,.top_header_menu >.el-menu-item.is-active {
-    //   background: rgba(255,255,255,0.2)!important;
-    //   color: #fff !important;
-    // }
-
-    // .el-menu--popup > .el-menu-item{
-    //   color:white!important;
-    // }
-
-    // .el-menu--popup-bottom-start > .el-menu-item ,.el-menu--popup-bottom-start{
-    //   background-color:transparent!important;
-    // }
+   
 
     .el-popper.is-pure{
       background-color:rgba(0, 0, 0, 0.0)!important;
@@ -354,48 +335,7 @@ const flyToTop = () =>{
       backdrop-filter: blur(10px);
     }
 
-    // .el-menu--popup-container{
-    //   border: none;
-    // }
-
-    // .el-menu--horizontal>.el-sub-menu:focus, .el-menu--horizontal>.el-sub-menu:hover {
-    //   background-color:rgba(255,255,255,0.2)
-    // }
-
-    // .el-tooltip__trigger{
-    //   background-color: rgba(255,255,255,0.2)
-    // }
-
-    // .el-sub-menu__hide-arrow{
-    //   background-color:transparent;
-    //   transition: opacity .5s;
-    // }
-    // .el-menu--horizontal>.el-sub-menu.is-active{
-    //   background-color: transparent!important
-    // }
-
-    // .el-tooltip__trigger:hover{
-    //   background-color: rgba(255,255,255,0.2)!important
-    // }    
-
-    // .el-menu--popup-bottom-start > .el-menu-item:hover{
-    //   background-color: rgba(255,255,255,0.2)!important
-    // }
-
-    // .el-sub-menu__hide-arrow.is-active>.el-tooltip__trigger{
-    //   color:white!important;
-    // }
-    // .el-menu--popup-bottom-start > .el-menu-item.is-active{
-    //   background-color: rgba(255,255,255,0.2)!important
-    // }    
-
-    // // 过渡动画样式
-    // .fade-enter-active, .fade-leave-active {
-    //   transition: opacity .5s;
-    // }
-    // .fade-enter, .fade-leave-to  {
-    //   opacity: 0;
-    // }    
+     
 //辅助栏===================================================
 .declare_card{
     font-size: xx-small;

@@ -169,7 +169,6 @@ const uploadHeader = {
 }
 const uploadUrl = baseURL+"/api/file/uploadFile"
 const handleUploadSuccess =(v1,response,v3,)=> {
-  debugger
   if(response.response.code == "0"){
     ElMessage.success('上传成功')
     blogForm.image = response.response.data

@@ -52,7 +52,6 @@ var canvas = document.getElementById("background-stars-canvas")
         context.value = canvas.getContext("2d")
         width.value = canvas.width = window.innerWidth-0
         height.value = canvas.height = window.innerHeight
-        console.log( window.screen.height+"-"+window.innerHeight)
 
 
     //Create all stars
@@ -112,7 +111,6 @@ var canvas = document.getElementById("background-stars-canvas")
         radius: 0,
 
         create: function(x, y, speed, direction) {
-          debugger;
             var obj = Object.create(this);
             obj.x = x;
             obj.y = y;
@@ -157,7 +155,7 @@ const createShootingStar = () => {
         shootingStar.isSpawning = true;
         shootingStar.isDying = false;
         shootingStars.value.push(shootingStar);
-  console.log("createShootingStar",shootingStars.value);
+  
     }
 
     const killShootingStar = (shootingStar) => {

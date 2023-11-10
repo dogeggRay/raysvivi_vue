@@ -67,25 +67,14 @@
       </el-card>
 
 
-      <el-drawer
-        v-model="imgVisible"
-        direction="ttb"
-        :with-header="false"
-        size="100%"
-        
-      ><div @click="imgDialogClose" class="imgContainer">
-        <img :src="clickImgUrl" style="max-width: 100%;max-height: 100%;width: auto;border: solid white 2px" >
-      </div>
-        <div @click="imgDialogClose" style="text-align:center;color:white">点击关闭</div>
-        
-      </el-drawer>
+      <ImageViewer ref="imageViewerRef" :imageUrls="imageUrls"/>
     </div>
 </template>
 
 <script lang="ts" setup>
 import Prism from "prismjs";
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { ref ,reactive,onActivated,onBeforeUnmount,onBeforeMount,shallowRef,nextTick,defineExpose,defineProps,defineEmits } from 'vue'
+import { ref ,reactive,onActivated,onBeforeUnmount,onBeforeMount,shallowRef,nextTick,defineExpose,defineProps,defineEmits,onDeactivated } from 'vue'
 import { getBlogDetail,getArtclePageList} from "@/js/blog.js"
 import { pageExtendInfo} from "@/js/visitor.js"
 import store from '@/store'
@@ -94,8 +83,10 @@ import {useRouter,useRoute} from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Editor } from '@wangeditor/editor-for-vue'
 import CommentView from '@/views/component/CommentView.vue'
+import ImageViewer from '@/views/component/image-viewer.vue'
 //import {switchSideBar} from "@/js/common.js"
 import { ArrowRight } from '@element-plus/icons-vue'
+
 const props = defineProps({
   fromFlag:{
     type: Number,
@@ -106,6 +97,9 @@ const props = defineProps({
     default:""
   }
 })
+
+const imageViewerRef = ref()
+const imageUrls = ref([""])
 
 const outerEmits = defineEmits(['detailClose'])
 
@@ -141,9 +135,6 @@ onActivated(() => {
   //switchSideBar(false)
   getBlog()
   initPageExtendInfo()
-  
-
-  
 })
 
 const router=useRouter()
@@ -230,18 +221,14 @@ const editorRef = shallowRef()
         outerEmits("detailClose")
     }
 
-    const imgVisible = ref(false)
     const clickImgUrl = ref("")
     const contentClick = (event) =>{
       if(event.target.localName=="img"){
-        imgVisible.value = true
-          clickImgUrl.value = event.target.currentSrc
+        imageUrls.value = [event.target.currentSrc];
+        imageViewerRef.value.imageShow()
       }
     }
 
-    const imgDialogClose=() =>{
-      imgVisible.value = false;
-    }
 
     const scrollToSection = (anchor) =>{
       
@@ -255,9 +242,14 @@ const editorRef = shallowRef()
     }
 
 
+
 defineExpose({
   blogRefresh
-})    
+})
+
+onDeactivated(()=>{
+  imageViewerRef.value.imagesHide()
+})
 </script>
 
 <style lang="less" scoped>
@@ -288,10 +280,6 @@ and (max-device-width : 768px) {
   .blogDetailClose{
     position: fixed;right: 11%;z-index: 99;top: 18%;cursor:pointer
   }
-  .imgContainer{
-    margin-top: 20%;
-    height: 100%;
-  }
   :deep(pre){
     font-size:x-small;
   }
@@ -301,10 +289,6 @@ and (max-device-width : 768px) {
 and (min-device-width : 768px) {
   .blogDetailClose{
     display:none
-  }
-  .imgContainer{
-    margin-top: 5%;
-    height: 70%;
   }
   :deep(pre){
     font-size:smaller;
@@ -326,14 +310,6 @@ and (min-device-width : 768px) {
 
 :deep(.el-drawer){
   background: transparent;
-}
-
-.imgContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 70%;
 }
 
 :deep(.el-drawer__body){

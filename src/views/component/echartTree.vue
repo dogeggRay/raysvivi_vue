@@ -46,7 +46,7 @@ const drawOption = reactive({
         orient: 'LR',
         symbol: 'emptyCircle',
         symbolSize: 10,
-        left:70,
+        left:40,
         initialTreeDepth: -1,
         edgeShape:'polyline',
         label: {

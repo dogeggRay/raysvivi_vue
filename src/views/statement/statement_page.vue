@@ -170,7 +170,7 @@ const sorlly= () => {
 
 
     //console.log(scrollTop+"+"+clientHeight+"??"+scrollHeight);
-    if(scrollTop>=380){
+    if(scrollTop>=580){
         fix_flag.value = true
     }else{
         fix_flag.value = false

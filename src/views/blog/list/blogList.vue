@@ -14,7 +14,7 @@
               <el-header class="blog-list-header title-font"  @click="blogTouch(item.id)"><span>{{ item.title }}</span></el-header>
               <el-main class="blog-list-main"  @click="blogTouch(item.id)">{{ item.abstractInfo }}</el-main>
               <el-footer height="60px" class="blog-list-footer">
-              <el-row style="    margin-bottom: 5px;">
+              <el-row style="">
                 <el-col :span="24"> 
                   <template v-if="store.getters['tagMap']">
                     <el-tag style="margin-right:5px;cursor:pointer;" v-for="(tag,index) in item.tags" class="ml-2" type="info" :key="index" @click="tagChange(tag)">
