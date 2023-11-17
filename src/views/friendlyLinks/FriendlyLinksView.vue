@@ -11,23 +11,17 @@
         </el-row>
 
         <el-row class="independent_row">
-          <el-col :span="2"></el-col>
-          <el-col :span="22">
-            <div>
               <div class="friendly-module">
                         <el-card class="infinite-list-item friendly-link-card fine-font gray-font" shadow="hover">
                             <el-container>
-                              <el-header>Header</el-header>
-                              <el-main>Main</el-main>
+                              <el-header height="20px" style="background-color: rgba(244,244,244,0.9);">this is a demo</el-header>
+                              <el-main></el-main>
                             </el-container>   
                         </el-card>                                               
               </div>
-            </div>
-          </el-col>
-          <el-col :span="2"></el-col>
         </el-row>
-        
  
+ <br/>
         <el-row class="independent_row">
           <el-col :span="2"></el-col>
           <el-col :span="20"><CommentView :key="componentKey" :moduleId="'friendlyLink'" :relativeId="-1"/></el-col>
@@ -61,10 +55,14 @@ function handleChange (item) {
 }
 
 .friendly-module{
-  width: 40%; float:left;height:85px;padding-top:5px
+  width: 350px; float:left;height:125px;padding-top:5px;margin-left: 5%;
+  
 }
 .friendly-link-card{
   cursor:pointer;
-  height:100%
+  height:100%;
+  background-image: url("@/assets/xiaowangzi_01.webp");
+  background-size:cover;
+    background-position-y: center;
 }
 </style>

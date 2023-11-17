@@ -56,7 +56,6 @@
 <script lang="ts" setup>
 import { ref ,reactive ,onMounted} from 'vue'
 import { useStore } from 'vuex'
-import {adminLogin} from "@/js/admin.js"
 import { useRouter } from "vue-router"
 import type { FormInstance, FormRules } from 'element-plus'
 import { Md5 } from 'ts-md5'

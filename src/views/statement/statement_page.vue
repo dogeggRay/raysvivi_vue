@@ -28,11 +28,14 @@
             <el-card class="card_search"  shadow="hover">
               <el-input
                 v-model="SearchKey"
-                placeholder="输了也不好使"
+                placeholder="只能搜标题"
                 class="input-with-select"
+                @keydown.enter="refreshKeyword"
+                clearable
+                @change="refreshKeyword"
               >
                 <template #append>
-                  <el-icon><Search /></el-icon>
+                  <el-icon style="cursor:pointer" @click="refreshKeyword"><Search /></el-icon>
                 </template>
               </el-input>
             </el-card>
@@ -148,6 +151,11 @@ onBeforeUnmount(() => {
 
 const jump2saysay = () =>{
    router.push({path:"/view/saysay"})
+}
+
+
+const refreshKeyword = () =>{
+  storeInstance.commit('setArticleKeyWord',SearchKey.value)
 }
 const tagChange = (tag) =>{
   let currentTagNode = store.getters['currentTag']

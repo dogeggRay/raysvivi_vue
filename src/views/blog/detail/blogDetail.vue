@@ -124,6 +124,7 @@ const blogId = ref()
 function handleChange (item) {
     console.log('change', item)
 }
+
 onActivated(() => {
 
   if(props.outerRelativeId!=""){

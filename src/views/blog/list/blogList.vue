@@ -1,10 +1,10 @@
 <template>
   <div class = "inner-container">
-
     <div
         class="infinite-list inner-container"
         style="overflow: auto;"
       >
+{{store.getters['currentTag']}}+{{store.getters['articleKeyWord']}}
         <el-card v-for="item in blog.list" :key="item" class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside class="blog-list-aside">
@@ -62,6 +62,7 @@ const endFlag = ref(false)
 const pageParam = reactive({
   startIndex:0,
   pageSize:5,
+  keyword:"",
   tag:""
 })
 
@@ -77,6 +78,12 @@ onActivated(() => {
 watch(() => store.getters['currentTag'] ,(newValue, oldValue) => {
   pageParam.startIndex=0
   pageParam.tag = newValue
+  getBlogPages(true)
+});
+
+watch(() => store.getters['articleKeyWord'] ,(newValue, oldValue) => {
+  pageParam.startIndex=0
+  pageParam.keyword = newValue;
   getBlogPages(true)
 });
 
@@ -108,6 +115,7 @@ const getBlogPages =(isRefresh) => {
     if(endFlag.value&&!isRefresh){
       return
     }
+    
     getArtclePageList(pageParam)
         .then((res) => {
           res.data.forEach((item )=>{

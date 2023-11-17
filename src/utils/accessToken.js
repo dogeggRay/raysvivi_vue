@@ -2,11 +2,11 @@ import { storage, tokenTableName } from '@/config'
 import cookie from 'js-cookie'
 
 /**
- * @author chuzhixin 1204505056@qq.com
  * @description 获取accessToken
  * @returns {string|ActiveX.IXMLDOMNode|Promise<any>|any|IDBRequest<any>|MediaKeyStatus|FormDataEntryValue|Function|Promise<Credential | null>}
  */
 export function getAccessToken() {
+  console.log("utils.getAccessToken access")
   if (storage) {
     if ('localStorage' === storage) {
       return localStorage.getItem(tokenTableName)
@@ -23,12 +23,12 @@ export function getAccessToken() {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com
  * @description 存储accessToken
  * @param accessToken
  * @returns {void|*}
  */
 export function setAccessToken(accessToken) {
+  console.log("utils.setAccessToken access")
   if (storage) {
     if ('localStorage' === storage) {
       return localStorage.setItem(tokenTableName, accessToken)
@@ -46,7 +46,6 @@ export function setAccessToken(accessToken) {
 
 
 /**
- * @author chuzhixin 1204505056@qq.com
  * @description 移除accessToken
  * @returns {void|Promise<void>}
  */

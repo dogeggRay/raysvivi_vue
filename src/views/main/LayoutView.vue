@@ -276,7 +276,7 @@ const flyToTop = () =>{
     padding: 10px 10px 0px 10px;
     margin-left: 10px;
     position: relative;
-    top: -117px;
+    top: -97px;
     //background-color: #E6E6E6;
     border-radius: 7px 0px 0px 0px;
 }
@@ -345,7 +345,7 @@ const flyToTop = () =>{
 
 .blogList_tag_notice{
     position: fixed;
-    top: 6rem;
+    top: 18rem;
     left: -1rem;
     padding-left: 1rem;
     width: auto;  

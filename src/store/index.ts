@@ -4,16 +4,6 @@ import {getAccessToken,setAccessToken,removeAccessToken} from '@/utils/accessTok
 import { tokenName } from '@/config'
 import { message } from 'ant-design-vue'
 import { adminLogin ,getTags } from '@/js/admin'
-// import state from "./modules/state";
-// import mutations from "./modules/mutations.js";
-// import actions from "./modules/actions";
-
-// export default createStore({
-//   state,
-//   mutations,
-//   actions,
-//   modules:{}
-// })
 
 const store = createStore({
 
@@ -24,7 +14,8 @@ const store = createStore({
           avatar: '',
           tagMap:null,
           homeMode:true,
-          currentTag:""
+          currentTag:"",
+          articleKeyWord:"",
         }
     },
     getters:{
@@ -42,17 +33,13 @@ const store = createStore({
       },
       currentTag(state:any){
         return state.currentTag
+      },
+      articleKeyWord(state:any){
+        return state.articleKeyWord
       }
     },
     mutations: {
-        /**
-         * @author chuzhixin 1204505056@qq.com
-         * @description 设置accessToken
-         * @param {*} state
-         * @param {*} accessToken
-         */
-          setAccessToken(state:any, accessToken) {
-            console.log("mutations.accessToken",accessToken)
+        setAccessToken(state:any, accessToken) {
             state.accessToken = accessToken
             setAccessToken(accessToken)
         },
@@ -67,32 +54,20 @@ const store = createStore({
           state.currentTag = currentTag
         },
 
-        /**
-         * @author chuzhixin 1204505056@qq.com
-         * @description 设置用户名
-         * @param {*} state
-         * @param {*} touristName
-         */
         setTouristname(state:any, touristName) {
             state.touristName = touristName
         },
-        /**
-         * @author chuzhixin 1204505056@qq.com
-         * @description 设置头像
-         * @param {*} state
-         * @param {*} avatar
-         */
+        
         setAvatar(state:any, avatar) {
             state.avatar = avatar
         },
+        setArticleKeyWord(state:any, articleKeyWord) {
+            state.articleKeyWord = articleKeyWord
+        }
     },
     actions: {
-        /**
-         * @author chuzhixin 1204505056@qq.com
-         * @description 登录拦截放行时，设置虚拟角色
-         * @param {*} { commit, dispatch }
-         */
-            setVirtualRoles({ commit, dispatch }) {
+
+          setVirtualRoles({ commit, dispatch }) {
               dispatch('acl/setFull', true, { root: true })
               commit('setAvatar', 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif')
               commit('setTourist', 'admin(未开启登录拦截)')
@@ -125,11 +100,7 @@ const store = createStore({
               // await logout(state.accessToken)
               await dispatch('resetAll')
           },
-          /**
-           * @author chuzhixin 1204505056@qq.com
-           * @description 重置accessToken、roles、ability、router等
-           * @param {*} { commit, dispatch }
-           */
+          
           async resetAll({ dispatch }) {
               await dispatch('setAccessToken', '')
               await dispatch('acl/setFull', false, { root: true })
@@ -143,26 +114,22 @@ const store = createStore({
            * @description 设置token
            */
           setAccessToken({ commit }, accessToken) {
+              console.log("action.setAccessToken access")
               commit('setAccessToken', accessToken)
           },
 
           
 
           /**
-           * @author chuzhixin 1204505056@qq.com
            * @description 登录
            * @param {*} { commit }
            * @param {*} userInfo
            */
           async login({ commit }, userInfo) {
+            console.log("action.login access")
               const { data } = await adminLogin(userInfo)
-              // localStorage.setItem('USERID', data.user_id)
-              // localStorage.setItem('name_chn', data.name_chn)
-              //localStorage.setItem('logintime', dateFormat(new Date()))
               localStorage.setItem('USERINFO', JSON.stringify(data))
-              console.log("tokenName",tokenName)
               const accessToken = data[tokenName]
-              console.log("accessToken",accessToken)
               const flag = data['flag']
               if (accessToken) {
                   commit('setAccessToken', accessToken)
