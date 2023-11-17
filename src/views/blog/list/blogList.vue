@@ -4,7 +4,6 @@
         class="infinite-list inner-container"
         style="overflow: auto;"
       >
-{{store.getters['currentTag']}}+{{store.getters['articleKeyWord']}}
         <el-card v-for="item in blog.list" :key="item" class="infinite-list-item blog-list-card fine-font gray-font"  shadow="always">
           <el-container style="height:100%;padding-right: 10px;">
             <el-aside class="blog-list-aside">

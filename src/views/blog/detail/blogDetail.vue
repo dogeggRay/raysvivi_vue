@@ -53,7 +53,7 @@
         </el-row>    
         <el-row>
           <el-col :span="24">
-            <div v-html="blog.content" @click="contentClick($event)" style="padding-left:1%"></div>
+            <div class="content-font" v-html="blog.content" @click="contentClick($event)" style="padding-left:1%;"></div>
             <!-- <div v-html="Prism.highlight(blog.content, Prism.languages.js)" class="fine-font" @click="contentClick($event)" style="padding-left:1%"></div> -->
             
           </el-col>
